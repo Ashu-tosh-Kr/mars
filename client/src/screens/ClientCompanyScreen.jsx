@@ -97,6 +97,7 @@ const ClientCompanyScreen = () => {
                     <Th>Name</Th>
                     <Th>Title</Th>
                     <Th>Company</Th>
+                    <Th>Team</Th>
                     <Th>Email</Th>
                     <Th>Phone</Th>
                     <Th>Note</Th>
@@ -109,6 +110,7 @@ const ClientCompanyScreen = () => {
                       <Td>{client.name}</Td>
                       <Td>{client.title}</Td>
                       <Td>{client.company.name}</Td>
+                      <Td>{client.clientTeam}</Td>
                       <Td>{client.email}</Td>
                       <Td>{client.phone}</Td>
                       <Td>{client.note}</Td>

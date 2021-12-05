@@ -28,7 +28,7 @@ const validationSchema = Yup.object({
 });
 
 const NewCompanyModal = ({ isOpen, onClose }) => {
-  const { mutate, isLoading } = useAddNewCompany();
+  const { mutate, isLoading } = useAddNewCompany(onClose);
 
   const onSubmit = (values) => {
     mutate(values);

@@ -17,6 +17,9 @@ const clientSchema = new mongoose.Schema(
       required: true,
       ref: "Company",
     },
+    clientTeam: {
+      type: String,
+    },
     email: {
       type: String,
     },

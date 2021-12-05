@@ -18,6 +18,7 @@ const initialValues = {
   name: "",
   title: "",
   companyId: "",
+  clientTeam: "",
   email: "",
   phone: "",
   note: "",
@@ -28,12 +29,13 @@ const validationSchema = Yup.object({
   title: Yup.string().required("Required"),
   companyId: Yup.string().required("Required"),
   email: Yup.string().email("Invalid Email").required("Required"),
+  clientTeam: Yup.string().required("Required"),
   phone: Yup.string().required("Required"),
   note: Yup.string().required("Required"),
 });
 
 const NewClientModal = ({ isOpen, onClose, companies }) => {
-  const { mutate, isLoading } = useAddNewClient();
+  const { mutate, isLoading } = useAddNewClient(onClose);
 
   const onSubmit = (values) => {
     mutate(values);
@@ -55,6 +57,7 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
               <InputField mb={3} placeholder="Name" name="name" />
               <InputField mb={3} placeholder="Title" name="title" />
               <MenuField mb={3} name="companyId" options={companies} />
+              <InputField mb={3} placeholder="Team" name="clientTeam" />
               <InputField mb={3} placeholder="Email" name="email" />
               <InputField mb={3} placeholder="Phone" name="phone" />
               <InputField mb={3} placeholder="Note" name="note" />
