@@ -1,6 +1,10 @@
 import { Router } from "express";
 import expressAsyncHandler from "express-async-handler";
-import { addCLient, getAllClients } from "../controllers/clientControllers.js";
+import {
+  addCLient,
+  editClient,
+  getAllClients,
+} from "../controllers/clientControllers.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
 const clientRouter = Router();
@@ -21,6 +25,12 @@ clientRouter
    * @router api/client/
    * @access Private
    */
-  .post("/", expressAsyncHandler(verifyToken), expressAsyncHandler(addCLient));
+  .post("/", expressAsyncHandler(verifyToken), expressAsyncHandler(addCLient))
+  /**
+   * @desc update client
+   * @router api/client/
+   * @access Private
+   */
+  .put("/", expressAsyncHandler(verifyToken), expressAsyncHandler(editClient));
 
 export default clientRouter;

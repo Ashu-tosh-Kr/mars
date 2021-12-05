@@ -2,6 +2,7 @@ import { Router } from "express";
 import expressAsyncHandler from "express-async-handler";
 import {
   addCompany,
+  editCompany,
   getAllCompanies,
 } from "../controllers/companyControllers.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
@@ -24,6 +25,12 @@ companyRouter
    * @router api/company/
    * @access Private
    */
-  .post("/", expressAsyncHandler(verifyToken), expressAsyncHandler(addCompany));
+  .post("/", expressAsyncHandler(verifyToken), expressAsyncHandler(addCompany))
+  /**
+   * @desc update company
+   * @router api/company/
+   * @access Private
+   */
+  .put("/", expressAsyncHandler(verifyToken), expressAsyncHandler(editCompany));
 
 export default companyRouter;
