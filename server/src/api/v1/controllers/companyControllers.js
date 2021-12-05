@@ -17,3 +17,28 @@ export const addCompany = async (req, res) => {
   await newCompany.save();
   res.json({ message: "Successful", data: newCompany });
 };
+
+export const editCompany = async (req, res) => {
+  const { companyId, name, postCode, officeAddress, note } = req.body;
+  const company = await Company.findById(companyId);
+
+  //validations
+  if (!company) {
+    res.status(404);
+    throw new Error("Company Doesn't Exist");
+  }
+
+  const newCompany = await Company.findOneAndUpdate(
+    { _id: companyId },
+    {
+      name,
+      postCode,
+      officeAddress,
+      note,
+    },
+    {
+      new: true,
+    }
+  );
+  res.json({ message: "Successful", data: newCompany });
+};
