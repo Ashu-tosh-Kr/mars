@@ -16,6 +16,9 @@ export default class API {
   addNewClient(data) {
     return this.instance.post("/client", data);
   }
+  updateClient(data) {
+    return this.instance.put("/client", data);
+  }
   // getAllClients() {
   //   return this.instance.get("/client", data, {
   //     headers: {
@@ -28,5 +31,8 @@ export default class API {
   }
   addNewCompany(data) {
     return this.instance.post("/company", data);
+  }
+  updateCompany(data) {
+    return this.instance.put("/company", data);
   }
 }

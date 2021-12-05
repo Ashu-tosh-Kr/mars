@@ -8,52 +8,56 @@ import {
   ModalOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useAddNewCompany } from "api/hooks";
+import { useUpdateClient } from "api/hooks";
 import InputField from "components/formComponents/InputField";
+import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-const initialValues = {
-  name: "",
-  postCode: "",
-  officeAddress: "",
-  note: "",
-};
-
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
-  postCode: Yup.string().required("Required"),
-  officeAddress: Yup.string().required("Required"),
+  title: Yup.string().required("Required"),
+  companyId: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid Email").required("Required"),
+  phone: Yup.string().required("Required"),
   note: Yup.string().required("Required"),
 });
 
-const NewCompanyModal = ({ isOpen, onClose }) => {
-  const { mutate, isLoading } = useAddNewCompany();
+const EditClientModal = ({ isOpen, onClose, companies, client }) => {
+  const initialValues = {
+    name: client.name,
+    title: client.title,
+    companyId: client.company._id,
+    email: client.email,
+    phone: client.phone,
+    note: client.note,
+  };
+
+  const { mutate, isLoading } = useUpdateClient();
 
   const onSubmit = (values) => {
-    mutate(values);
+    mutate({ clientId: client._id, ...values });
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Company</ModalHeader>
+        <ModalHeader>Add New Client</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
           validationSchema={validationSchema}
+          enableReinitialize
         >
           <Form>
             <ModalBody pb={6}>
               <InputField mb={3} placeholder="Name" name="name" />
-              <InputField mb={3} placeholder="Postal Code" name="postCode" />
-              <InputField
-                mb={3}
-                placeholder="Office Address"
-                name="officeAddress"
-              />
+              <InputField mb={3} placeholder="Title" name="title" />
+              <MenuField mb={3} name="companyId" options={companies} />
+              <InputField mb={3} placeholder="Email" name="email" />
+              <InputField mb={3} placeholder="Phone" name="phone" />
               <InputField mb={3} placeholder="Note" name="note" />
             </ModalBody>
 
@@ -61,10 +65,10 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                colorScheme="blue"
+                colorScheme="teal"
                 mr={3}
               >
-                Add
+                Update
               </Button>
               <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>
@@ -75,4 +79,4 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default NewCompanyModal;
+export default EditClientModal;

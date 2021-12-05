@@ -4,7 +4,12 @@ const clientSchema = new mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please enter company name"],
+      required: [true, "Please enter name"],
+      trim: true,
+    },
+    title: {
+      type: String,
+      required: [true, "Please enter title"],
       trim: true,
     },
     company: {

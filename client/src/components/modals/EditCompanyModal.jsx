@@ -8,17 +8,10 @@ import {
   ModalOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useAddNewCompany } from "api/hooks";
+import { useUpdateCompany } from "api/hooks";
 import InputField from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-
-const initialValues = {
-  name: "",
-  postCode: "",
-  officeAddress: "",
-  note: "",
-};
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
@@ -27,11 +20,18 @@ const validationSchema = Yup.object({
   note: Yup.string().required("Required"),
 });
 
-const NewCompanyModal = ({ isOpen, onClose }) => {
-  const { mutate, isLoading } = useAddNewCompany();
+const EditCompanyModal = ({ isOpen, onClose, company }) => {
+  const initialValues = {
+    name: company.name,
+    postCode: company.postCode,
+    officeAddress: company.officeAddress,
+    note: company.note,
+  };
+
+  const { mutate, isLoading } = useUpdateCompany();
 
   const onSubmit = (values) => {
-    mutate(values);
+    mutate({ companyId: company._id, ...values });
   };
 
   return (
@@ -64,7 +64,7 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
                 colorScheme="blue"
                 mr={3}
               >
-                Add
+                Update
               </Button>
               <Button onClick={onClose}>Cancel</Button>
             </ModalFooter>
@@ -75,4 +75,4 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default NewCompanyModal;
+export default EditCompanyModal;

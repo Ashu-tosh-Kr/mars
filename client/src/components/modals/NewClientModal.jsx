@@ -16,6 +16,7 @@ import * as Yup from "yup";
 
 const initialValues = {
   name: "",
+  title: "",
   companyId: "",
   email: "",
   phone: "",
@@ -24,6 +25,7 @@ const initialValues = {
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
+  title: Yup.string().required("Required"),
   companyId: Yup.string().required("Required"),
   email: Yup.string().email("Invalid Email").required("Required"),
   phone: Yup.string().required("Required"),
@@ -31,14 +33,14 @@ const validationSchema = Yup.object({
 });
 
 const NewClientModal = ({ isOpen, onClose, companies }) => {
-  const { mutate, isLoading, isSuccess } = useAddNewClient();
+  const { mutate, isLoading } = useAddNewClient();
 
   const onSubmit = (values) => {
     mutate(values);
   };
 
   return (
-    <Modal isOpen={isOpen && !isSuccess} onClose={onClose}>
+    <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
         <ModalHeader>Add New Client</ModalHeader>
@@ -51,6 +53,7 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
           <Form>
             <ModalBody pb={6}>
               <InputField mb={3} placeholder="Name" name="name" />
+              <InputField mb={3} placeholder="Title" name="title" />
               <MenuField mb={3} name="companyId" options={companies} />
               <InputField mb={3} placeholder="Email" name="email" />
               <InputField mb={3} placeholder="Phone" name="phone" />
@@ -61,7 +64,7 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                colorScheme="blue"
+                colorScheme="teal"
                 mr={3}
               >
                 Add

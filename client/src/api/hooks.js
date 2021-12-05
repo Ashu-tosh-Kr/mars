@@ -51,6 +51,30 @@ export const useAddNewClient = () => {
   return { mutate, isLoading, isSuccess, error };
 };
 
+export const useUpdateClient = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.updateClient(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Client Updated", status: "success" });
+        queryClient.invalidateQueries("allClients");
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
 export const useGetAllCompanies = () => {
   const toast = useToast();
   const {
@@ -87,6 +111,30 @@ export const useAddNewCompany = () => {
     {
       onSuccess: () => {
         toast({ title: "Company Added", status: "success" });
+        queryClient.invalidateQueries("allCompanies");
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
+export const useUpdateCompany = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.updateCompany(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Company Updated", status: "success" });
         queryClient.invalidateQueries("allCompanies");
       },
       onError: (error) => {
