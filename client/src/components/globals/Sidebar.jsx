@@ -11,8 +11,11 @@ import {
 import { AiOutlineUserAdd } from "react-icons/ai";
 // import { IoPawOutline } from "react-icons/io5";
 import NavItem from "components/globals/NavItem";
+import { useSelector } from "react-redux";
 
 export default function Sidebar() {
+  const user = useSelector((store) => store.userLogin.userInfo.data.user);
+
   return (
     <Flex
       pos="sticky"
@@ -42,7 +45,13 @@ export default function Sidebar() {
         <NavItem to="clients" icon={FiUser} title="Clients" />
         <NavItem to="new-gig" icon={FiDollarSign} title="New Gig" />
         <NavItem to="all-gigs" icon={FiBriefcase} title="All Gigs" />
-        <NavItem to="manage" icon={AiOutlineUserAdd} title="Manage Users" />
+        {user.role >= 4 && (
+          <NavItem
+            to="admin/manage"
+            icon={AiOutlineUserAdd}
+            title="Manage Users"
+          />
+        )}
         <NavItem to="settings" icon={FiSettings} title="Settings" />
       </Flex>
 
@@ -55,12 +64,22 @@ export default function Sidebar() {
       >
         <Divider display={["none", "flex"]} />
         <Flex mt={4} align="center">
-          <Avatar size="sm" src="avatar-1.jpg" />
+          <Avatar size="sm" src={user.avatar} />
           <Flex flexDir="column" ml={4} display={["none", "flex"]}>
             <Heading as="h3" size="sm">
-              Ken
+              {user.username}
             </Heading>
-            <Text color="gray">Admin</Text>
+            <Text color="gray">
+              {user.role === 0
+                ? "Talent"
+                : user.role === 1
+                ? "Assistant"
+                : user.role === 2
+                ? "SV"
+                : user.role === 3
+                ? "Admin"
+                : "CEO"}
+            </Text>
           </Flex>
         </Flex>
       </Flex>
