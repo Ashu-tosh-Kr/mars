@@ -16,13 +16,13 @@ import { sendEmail } from "../helpers/sendMail.js";
  * @access Public
  */
 export const register = async (req, res) => {
-  const { email, username, password } = req.body;
+  const { email, username, phone, role } = req.body;
 
   //validation
   const validation = Joi.object({
     username: Joi.string(),
     email: Joi.string().email().required(),
-    password: Joi.string().min(8).alphanum().required(),
+    // password: Joi.string().min(8).alphanum().required(),
   }).validate(req.body, { abortEarly: false, allowUnknown: true });
   if (validation.error) {
     res.status(400);
@@ -35,7 +35,7 @@ export const register = async (req, res) => {
     throw new Error("Account with this email already exists");
   }
 
-  const hashedpwd = await bcrypt.hash(password, 10);
+  const hashedpwd = await bcrypt.hash("123456", 10);
 
   //without verifying email
   const newuser = await User.create({
@@ -43,6 +43,9 @@ export const register = async (req, res) => {
     email,
     password: hashedpwd,
     avatar: `https://ui-avatars.com/api/?name=${username}`,
+    phone,
+    role,
+    isActive: true,
   });
   res.status(200).json({ message: "User Created", data: newuser });
 };
@@ -65,6 +68,10 @@ export const login = async (req, res) => {
     res.status(401);
     throw new Error("Wrong Password");
   }
+  if (!user.isActive) {
+    res.status(401);
+    throw new Error("Access revoked, contact admin.");
+  }
   const token = createAccessToken({
     userId: String(user._id),
     iat: new Date().getTime(),
@@ -84,12 +91,10 @@ export const login = async (req, res) => {
     role: user.role,
     isActive: user.isActive,
   };
-  res
-    .status(200)
-    .json({
-      message: "Success",
-      data: { access_token: token, user: trimmedUser },
-    });
+  res.status(200).json({
+    message: "Success",
+    data: { access_token: token, user: trimmedUser },
+  });
 };
 
 /**

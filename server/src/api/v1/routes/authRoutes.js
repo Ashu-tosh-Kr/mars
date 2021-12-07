@@ -7,6 +7,7 @@ import {
   register,
   resetPassword,
 } from "../controllers/authControllers.js";
+import { isAdmin, verifyToken } from "../middlewares/authMiddleware.js";
 
 const authRouter = Router();
 
@@ -16,7 +17,12 @@ authRouter
    * @route api/auth/register
    * @access Public
    */
-  .post("/register", expressAsyncHandler(register))
+  .post(
+    "/register",
+    expressAsyncHandler(verifyToken),
+    expressAsyncHandler(isAdmin),
+    expressAsyncHandler(register)
+  )
   /**
    * @desc login
    * @route api/auth/login

@@ -2,6 +2,81 @@ import { useToast } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import API from "./api";
 
+export const useGetAllUsers = () => {
+  const toast = useToast();
+  const {
+    data: users,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useQuery(
+    "allUsers",
+    async () => {
+      let api = new API();
+      const res = await api.getAllUsers();
+      return res.data.data;
+    },
+    {
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { users, usersLoading, usersError };
+};
+
+export const useAddNewUser = (onClose) => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.addNewUser(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "User Added", status: "success" });
+        queryClient.invalidateQueries("allUsers");
+        onClose();
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
+export const useUpdateUser = (onClose) => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.updateUser(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "User Updated", status: "success" });
+        queryClient.invalidateQueries("allUsers");
+        onClose();
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
 export const useGetAllClients = () => {
   const toast = useToast();
   const {
