@@ -1,13 +1,13 @@
 export const gigStatuses = [
   {
     step: 1,
-    name: "First Draft",
+    name: "Drafting",
     description: "Basic draft when the client calls with minimum details",
     approverRole: 1,
   },
   {
     step: 2,
-    name: "First Review",
+    name: "Initial Review",
     description: "Drafted, waiting for SV review",
     approverRole: 2,
   },
@@ -44,13 +44,13 @@ export const gigStatuses = [
   {
     step: 8,
     name: "Payment Pending",
-    description: "drafted, waiting for SV review",
+    description: "Payment pending from client",
     approverRole: 2,
   },
   {
     step: 9,
     name: "Paid",
-    description: "Paid, waiting to pay talent",
+    description: "Paid, waiting to send reciept to talent",
     approverRole: 2,
   },
   {
@@ -66,7 +66,7 @@ export const gigStatuses = [
     approverRole: 2,
   },
   {
-    step: 11,
+    step: 0,
     name: "Cancelled",
     description: "Gig was cancelled",
     approverRole: 4,
