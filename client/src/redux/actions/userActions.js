@@ -15,7 +15,7 @@ export const login = (email, password) => async (dispatch) => {
       headers: { "Content-Type": "application/json" },
     };
     const { data } = await axios.post(
-      "http://localhost:5000/api/auth/login",
+      `${process.env.REACT_APP_BACKEND_BASE_URL}/api/auth/login`,
       { email, password },
       config
     );

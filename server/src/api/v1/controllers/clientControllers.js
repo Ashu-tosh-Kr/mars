@@ -8,7 +8,7 @@ export const getAllClients = async (req, res) => {
 };
 
 export const addCLient = async (req, res) => {
-  const { name, title, companyId, phone, email, note } = req.body;
+  const { name, title, companyId, clientTeam, phone, email, note } = req.body;
   const company = await Company.findById(companyId);
 
   //validations
@@ -29,6 +29,7 @@ export const addCLient = async (req, res) => {
     name,
     title,
     company: companyId,
+    clientTeam,
     phone,
     email,
     note,
@@ -38,7 +39,8 @@ export const addCLient = async (req, res) => {
 };
 
 export const editClient = async (req, res) => {
-  const { clientId, name, title, companyId, phone, email, note } = req.body;
+  const { clientId, name, title, companyId, clientTeam, phone, email, note } =
+    req.body;
   const client = await Client.findById(clientId);
   const company = await Company.findById(companyId);
 
@@ -66,6 +68,7 @@ export const editClient = async (req, res) => {
       name,
       title,
       company: companyId,
+      clientTeam,
       phone,
       email,
       note,

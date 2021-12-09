@@ -6,6 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "nodemon start src/server.js",
+    "start:prod": "pm2 start src/server.js",
     "server": "nodemon src/server.js",
     "data:import": "node src/data/seeder",
     "data:destroy": "node src/data/seeder -d"

@@ -2,6 +2,81 @@ import { useToast } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
 import API from "./api";
 
+export const useGetAllUsers = () => {
+  const toast = useToast();
+  const {
+    data: users,
+    isLoading: usersLoading,
+    isError: usersError,
+  } = useQuery(
+    "allUsers",
+    async () => {
+      let api = new API();
+      const res = await api.getAllUsers();
+      return res.data.data;
+    },
+    {
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { users, usersLoading, usersError };
+};
+
+export const useAddNewUser = (onClose) => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.addNewUser(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "User Added", status: "success" });
+        queryClient.invalidateQueries("allUsers");
+        onClose();
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
+export const useUpdateUser = (onClose) => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.updateUser(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "User Updated", status: "success" });
+        queryClient.invalidateQueries("allUsers");
+        onClose();
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
 export const useGetAllClients = () => {
   const toast = useToast();
   const {
@@ -27,7 +102,7 @@ export const useGetAllClients = () => {
   return { clients, clientsLoading, clientsError };
 };
 
-export const useAddNewClient = () => {
+export const useAddNewClient = (onClose) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -39,6 +114,7 @@ export const useAddNewClient = () => {
       onSuccess: () => {
         toast({ title: "Client Added", status: "success" });
         queryClient.invalidateQueries("allClients");
+        onClose();
       },
       onError: (error) => {
         toast({
@@ -51,7 +127,7 @@ export const useAddNewClient = () => {
   return { mutate, isLoading, isSuccess, error };
 };
 
-export const useUpdateClient = () => {
+export const useUpdateClient = (onClose) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -63,6 +139,7 @@ export const useUpdateClient = () => {
       onSuccess: () => {
         toast({ title: "Client Updated", status: "success" });
         queryClient.invalidateQueries("allClients");
+        onClose();
       },
       onError: (error) => {
         toast({
@@ -100,7 +177,7 @@ export const useGetAllCompanies = () => {
   return { companies, companiesLoading, companiesError };
 };
 
-export const useAddNewCompany = () => {
+export const useAddNewCompany = (onClose) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -112,6 +189,7 @@ export const useAddNewCompany = () => {
       onSuccess: () => {
         toast({ title: "Company Added", status: "success" });
         queryClient.invalidateQueries("allCompanies");
+        onClose();
       },
       onError: (error) => {
         toast({
@@ -124,7 +202,7 @@ export const useAddNewCompany = () => {
   return { mutate, isLoading, isSuccess, error };
 };
 
-export const useUpdateCompany = () => {
+export const useUpdateCompany = (onClose) => {
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -136,6 +214,7 @@ export const useUpdateCompany = () => {
       onSuccess: () => {
         toast({ title: "Company Updated", status: "success" });
         queryClient.invalidateQueries("allCompanies");
+        onClose();
       },
       onError: (error) => {
         toast({

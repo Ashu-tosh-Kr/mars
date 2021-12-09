@@ -28,7 +28,7 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
     note: company.note,
   };
 
-  const { mutate, isLoading } = useUpdateCompany();
+  const { mutate, isLoading } = useUpdateCompany(onClose);
 
   const onSubmit = (values) => {
     mutate({ companyId: company._id, ...values });

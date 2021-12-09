@@ -30,7 +30,7 @@ export const isCeo = (req, res, next) => {
 };
 
 export const isAdmin = (req, res, next) => {
-  if (req.user.role === 3) {
+  if (req.user.role < 3) {
     res.status(401);
     throw new Error("Admin resources, Access Denied");
   }
@@ -38,7 +38,7 @@ export const isAdmin = (req, res, next) => {
 };
 
 export const isSuperviser = (req, res, next) => {
-  if (req.user.role === 2) {
+  if (req.user.role !== 2) {
     res.status(401);
     throw new Error("Superviser resources, Access Denied");
   }
@@ -46,7 +46,7 @@ export const isSuperviser = (req, res, next) => {
 };
 
 export const isAssistant = (req, res, next) => {
-  if (req.user.role === 1) {
+  if (req.user.role !== 1) {
     res.status(401);
     throw new Error("Assistant resources, Access Denied");
   }

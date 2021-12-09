@@ -10,6 +10,18 @@ export default class API {
     },
   });
 
+  //user apis
+  getAllUsers() {
+    return this.instance.get("/user");
+  }
+  addNewUser(data) {
+    return this.instance.post("/auth/register", data);
+  }
+  updateUser(data) {
+    return this.instance.put("/user", data);
+  }
+
+  //client apis
   getAllClients() {
     return this.instance.get("/client");
   }
@@ -19,13 +31,8 @@ export default class API {
   updateClient(data) {
     return this.instance.put("/client", data);
   }
-  // getAllClients() {
-  //   return this.instance.get("/client", data, {
-  //     headers: {
-  //       "x-project-id": projectid,
-  //     },
-  //   });
-  // }
+
+  //company apis
   getAllCompanies() {
     return this.instance.get("/company");
   }
@@ -35,4 +42,11 @@ export default class API {
   updateCompany(data) {
     return this.instance.put("/company", data);
   }
+
+  // getAllClients() {
+  //   return this.instance.get("/client", data, {
+  //     headers: {
+  //       "x-project-id": projectid,
+  //     },
+  //   });
 }

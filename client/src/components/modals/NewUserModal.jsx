@@ -8,37 +8,45 @@ import {
   ModalOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useAddNewCompany } from "api/hooks";
+import { useAddNewUser } from "api/hooks";
 import InputField from "components/formComponents/InputField";
+import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
 const initialValues = {
-  name: "",
-  postCode: "",
-  officeAddress: "",
-  note: "",
+  username: "",
+  email: "",
+  phone: "",
+  role: "",
 };
 
 const validationSchema = Yup.object({
-  name: Yup.string().required("Required"),
-  postCode: Yup.string().required("Required"),
-  officeAddress: Yup.string().required("Required"),
-  note: Yup.string().required("Required"),
+  username: Yup.string().required("Required"),
+  phone: Yup.string().required("Required"),
+  email: Yup.string().email("Invalid Email").required("Required"),
+  role: Yup.number().required("Required"),
 });
 
-const NewCompanyModal = ({ isOpen, onClose }) => {
-  const { mutate, isLoading } = useAddNewCompany(onClose);
+const NewUserModal = ({ isOpen, onClose }) => {
+  const Roles = [
+    { _id: 0, name: "Talent" },
+    { _id: 1, name: "Assistant" },
+    { _id: 2, name: "Superviser" },
+    { _id: 3, name: "Admin" },
+  ];
+  const { mutate, isLoading } = useAddNewUser(onClose);
 
   const onSubmit = (values) => {
-    mutate(values);
+    //converting isActive from string to boolean since the checkbox doesn't allow boolean values
+    mutate({ ...values, isActive: values.isActive === "true" });
   };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Company</ModalHeader>
+        <ModalHeader>Edit User</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -47,14 +55,10 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder="Name" name="name" />
-              <InputField mb={3} placeholder="Postal Code" name="postCode" />
-              <InputField
-                mb={3}
-                placeholder="Office Address"
-                name="officeAddress"
-              />
-              <InputField mb={3} placeholder="Note" name="note" />
+              <InputField mb={3} placeholder="Username" name="username" />
+              <InputField mb={3} placeholder="E-mail" name="email" />
+              <InputField mb={3} placeholder="Phone" name="phone" />
+              <MenuField mb={3} name="role" options={Roles} />
             </ModalBody>
 
             <ModalFooter>
@@ -75,4 +79,4 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
   );
 };
 
-export default NewCompanyModal;
+export default NewUserModal;
