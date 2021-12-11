@@ -27,7 +27,7 @@ export const RequireAuth = () => {
 export const RequireAdminPriviledge = () => {
   const user = useSelector((store) => store.userLogin.userInfo?.data?.user);
   const toast = useToast();
-  if (user.role < 4) {
+  if (user.role !== 4) {
     toast({ status: "warning", title: "Priviledged Route" });
     return <Navigate to={"/"} replace />;
   }

@@ -29,7 +29,7 @@ export const getUserInfo = async (req, res) => {
  * @access Private
  */
 export const editUser = async (req, res) => {
-  const { email, username, phone, role, isActive } = req.body;
+  const { email, employeeId, username, phone, role, isActive } = req.body;
 
   //validation
   const validation = Joi.object({
@@ -40,14 +40,16 @@ export const editUser = async (req, res) => {
     throw new Error(validation.error);
   }
 
-  const user = await User.findOne({ email: email });
+  const user = await User.findOne({ employeeId: employeeId });
   if (!user) {
     res.status(404);
     throw new Error("Account with this email doesn't exist");
   }
 
   const updatedUser = await User.findOneAndUpdate(
-    { email: email },
+    {
+      employeeId: employeeId,
+    },
     {
       username,
       email,

@@ -10,7 +10,7 @@ const gigStatusSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  approverRole: {
+  personInChargeRole: {
     type: Number,
     required: true,
   },

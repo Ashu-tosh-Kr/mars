@@ -1,5 +1,19 @@
 import mongoose from "mongoose";
 
+const completedStatusSchema = new mongoose.Schema({
+  status: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "GigStatus",
+  },
+  personInCharge: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: "User",
+  },
+  completionDate: Date,
+});
+
 const gigSchema = new mongoose.Schema(
   {
     galId: {
@@ -11,16 +25,20 @@ const gigSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    status: {
-      type: String,
+    currentStatus: {
+      type: mongoose.Schema.Types.ObjectId,
       required: true,
+      ref: "GigStatus",
+    },
+    statusLifecycle: {
+      type: [completedStatusSchema],
     },
     client: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
       ref: "Client",
     },
-    type: String,
+    gigType: String,
     talent: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
@@ -53,7 +71,7 @@ const gigSchema = new mongoose.Schema(
       },
     ],
     promotion: String,
-    arParking: String,
+    carParking: String,
     interviewQuestion: [
       {
         type: String,

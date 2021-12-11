@@ -6,6 +6,11 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://ui-avatars.com/api/?name=John+Doe",
     },
+    employeeId: {
+      type: String,
+      required: [true, "Please enter Employee ID"],
+      trim: true,
+    },
     username: {
       type: String,
       required: [true, "Please enter your name"],

@@ -64,6 +64,7 @@ const ManageUsersScreen = () => {
                 <Thead>
                   <Tr>
                     <Th>Name</Th>
+                    <Th>Employee Id</Th>
                     <Th>Email</Th>
                     <Th>Role</Th>
                     <Th>Phone</Th>
@@ -71,10 +72,11 @@ const ManageUsersScreen = () => {
                 </Thead>
                 <Tbody>
                   {users
-                    .filter((user) => user.isActive)
+                    .filter((user) => user.isActive && user.role !== 4)
                     .map((user, i) => (
                       <Tr key={i}>
                         <Td>{user.username}</Td>
+                        <Td>{user.employeeId}</Td>
                         <Td>{user.email}</Td>
                         <Td>
                           {user.role === 0
@@ -84,8 +86,8 @@ const ManageUsersScreen = () => {
                             : user.role === 2
                             ? "Supervisor"
                             : user.role === 3
-                            ? "Admin"
-                            : "CEO"}
+                            ? "CEO"
+                            : "Admin"}
                         </Td>
                         <Td>{user.phone}</Td>
                         <Td>
@@ -115,13 +117,14 @@ const ManageUsersScreen = () => {
             ) : usersError ? (
               <Alert status="error">
                 <AlertIcon />
-                Oops! Company list cannot be loaded
+                Oops! Users list cannot be loaded
               </Alert>
             ) : (
               <Table variant="striped" colorScheme="teal">
                 <Thead>
                   <Tr>
                     <Th>Name</Th>
+                    <Th>Employee Id</Th>
                     <Th>Email</Th>
                     <Th>Role</Th>
                     <Th>Phone</Th>
@@ -129,10 +132,11 @@ const ManageUsersScreen = () => {
                 </Thead>
                 <Tbody>
                   {users
-                    .filter((user) => !user.isActive)
+                    .filter((user) => !user.isActive && user.role !== 4)
                     .map((user, i) => (
                       <Tr key={i}>
                         <Td>{user.username}</Td>
+                        <Td>{user.employeeId}</Td>
                         <Td>{user.email}</Td>
                         <Td>
                           {user.role === 0
@@ -142,8 +146,8 @@ const ManageUsersScreen = () => {
                             : user.role === 2
                             ? "Supervisor"
                             : user.role === 3
-                            ? "Admin"
-                            : "CEO"}
+                            ? "CEO"
+                            : "Admin"}
                         </Td>
                         <Td>{user.phone}</Td>
                         <Td>

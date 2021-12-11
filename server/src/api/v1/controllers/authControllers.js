@@ -16,7 +16,7 @@ import { sendEmail } from "../helpers/sendMail.js";
  * @access Public
  */
 export const register = async (req, res) => {
-  const { email, username, phone, role } = req.body;
+  const { email, employeeId, username, phone, role } = req.body;
 
   //validation
   const validation = Joi.object({
@@ -40,6 +40,7 @@ export const register = async (req, res) => {
   //without verifying email
   const newuser = await User.create({
     username,
+    employeeId,
     email,
     password: hashedpwd,
     avatar: `https://ui-avatars.com/api/?name=${username}`,
