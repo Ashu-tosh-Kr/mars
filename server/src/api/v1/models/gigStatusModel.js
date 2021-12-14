@@ -1,6 +1,7 @@
 import mongoose from "mongoose";
 
 const gigStatusSchema = new mongoose.Schema({
+  step: Number,
   name: {
     type: String,
     required: true,

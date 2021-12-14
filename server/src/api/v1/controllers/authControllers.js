@@ -8,7 +8,7 @@ import {
   createAccessToken,
   createRefreshToken,
 } from "../helpers/createTokens.js";
-import { sendEmail } from "../helpers/sendMail.js";
+import { sendMail } from "../helpers/sendMail.js";
 
 /**
  * @desc register
@@ -139,7 +139,7 @@ export const forgotPassword = async (req, res) => {
   const access_token = createAccessToken({ id: user._id });
   const url = `${vars.clientUrl}/user/reset/${access_token}`;
 
-  sendEmail(email, url, "Reset your password");
+  sendMail(email, url, "Reset your password");
   res.json({ message: "Password reset link send, please check your email." });
 };
 

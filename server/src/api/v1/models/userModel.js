@@ -35,6 +35,12 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: [true, "Please enter phone number"],
     },
+    todos: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Gig",
+      },
+    ],
     isActive: {
       type: Boolean,
       required: true,
