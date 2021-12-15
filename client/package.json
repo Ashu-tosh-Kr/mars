@@ -10,6 +10,7 @@
     "@testing-library/react": "^10.2.1",
     "@testing-library/user-event": "^12.0.2",
     "axios": "^0.24.0",
+    "env-cmd": "^10.1.0",
     "formik": "^2.2.9",
     "formik-chakra-ui": "^1.4.8",
     "framer-motion": "^4.0.0",
@@ -27,8 +28,12 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
+    "start": "env-cmd -e dev react-scripts start",
+    "start:uat": "env-cmd -e uat react-scripts start",
+    "start:prod": "env-cmd -e prod react-scripts start",
+    "build": "env-cmd -e dev react-scripts build",
+    "build:uat": "env-cmd -e uat react-scripts build",
+    "build:prod": "env-cmd -e prod react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },

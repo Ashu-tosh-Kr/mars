@@ -21,18 +21,18 @@ export const verifyToken = (req, res, next) => {
   }
 };
 
-export const isCeo = (req, res, next) => {
-  if (req.user.role === 4) {
+export const isAdmin = (req, res, next) => {
+  if (req.user.role !== 4) {
     res.status(401);
-    throw new Error("CEO resources, Access Denied");
+    throw new Error("Admin resources, Access Denied");
   }
   next();
 };
 
-export const isAdmin = (req, res, next) => {
-  if (req.user.role < 3) {
+export const isCeo = (req, res, next) => {
+  if (req.user.role !== 3) {
     res.status(401);
-    throw new Error("Admin resources, Access Denied");
+    throw new Error("CEO resources, Access Denied");
   }
   next();
 };

@@ -5,7 +5,7 @@ import Sidebar from "components/globals/Sidebar";
 import { useToast } from "@chakra-ui/react";
 
 export const RequireAuth = () => {
-  const user = useSelector((store) => store.userLogin.userInfo.data.user);
+  const user = useSelector((store) => store.userLogin.userInfo?.data?.user);
   let location = useLocation();
   if (!user) {
     // Redirect them to the /login page, but save the current location they were
@@ -25,9 +25,9 @@ export const RequireAuth = () => {
 };
 
 export const RequireAdminPriviledge = () => {
-  const user = useSelector((store) => store.userLogin.userInfo.data.user);
+  const user = useSelector((store) => store.userLogin.userInfo?.data?.user);
   const toast = useToast();
-  if (user.role < 4) {
+  if (user.role !== 4) {
     toast({ status: "warning", title: "Priviledged Route" });
     return <Navigate to={"/"} replace />;
   }

@@ -1,24 +1,27 @@
 import bcrypt from "bcryptjs";
 const users = [
   {
-    avatar: "https://ui-avatars.com/api/?name=ceo",
-    username: "CEO",
-    email: "ceo@gmail.com",
-    password: bcrypt.hashSync("123456", 10),
-    role: 4,
-    phone: "7686456789",
-    active: true,
-  },
-  {
+    employeeId: "emp1",
     avatar: "https://ui-avatars.com/api/?name=admin",
     username: "Admin",
     email: "john@gmail.com",
     password: bcrypt.hashSync("123456", 10),
-    role: 3,
+    role: 4,
     phone: "7686456780",
     active: true,
   },
   {
+    employeeId: "emp2",
+    avatar: "https://ui-avatars.com/api/?name=ceo",
+    username: "CEO",
+    email: "ceo@gmail.com",
+    password: bcrypt.hashSync("123456", 10),
+    role: 3,
+    phone: "7686456789",
+    active: true,
+  },
+  {
+    employeeId: "emp3",
     avatar: "https://ui-avatars.com/api/?name=superviser",
     username: "Superviser",
     email: "sv@gmail.com",
@@ -28,6 +31,7 @@ const users = [
     active: true,
   },
   {
+    employeeId: "emp4",
     avatar: "https://ui-avatars.com/api/?name=assistant",
     username: "Assistant",
     email: "assistant@gmail.com",
@@ -37,6 +41,7 @@ const users = [
     active: true,
   },
   {
+    employeeId: "emp5",
     avatar: "https://ui-avatars.com/api/?name=talent",
     username: "Talent",
     email: "talent@gmail.com",

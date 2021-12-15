@@ -36,5 +36,16 @@ const clientSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+clientSchema.post("find", async function (clients) {
+  // for (let client of clients) {
+  // await client.populate("company");
+  // }
+});
+
+clientSchema.post("save", async function (client, next) {
+  // await client.populate("company");
+
+  next();
+});
 const Client = mongoose.model("Client", clientSchema);
 export default Client;

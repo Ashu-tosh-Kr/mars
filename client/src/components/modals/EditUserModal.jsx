@@ -17,6 +17,7 @@ import * as Yup from "yup";
 
 const validationSchema = Yup.object({
   username: Yup.string().required("Required"),
+  employeeId: Yup.string().required("Required"),
   phone: Yup.string().required("Required"),
   email: Yup.string().email("Invalid Email").required("Required"),
   role: Yup.number().required("Required"),
@@ -26,6 +27,7 @@ const validationSchema = Yup.object({
 const EditUserModal = ({ isOpen, onClose, user }) => {
   const initialValues = {
     username: user.username,
+    employeeId: user.employeeId,
     email: user.email,
     phone: user.phone,
     role: user.role,
@@ -35,7 +37,7 @@ const EditUserModal = ({ isOpen, onClose, user }) => {
     { _id: 0, name: "Talent" },
     { _id: 1, name: "Assistant" },
     { _id: 2, name: "Superviser" },
-    { _id: 3, name: "Admin" },
+    { _id: 3, name: "CEO" },
   ];
   const { mutate, isLoading } = useUpdateUser(onClose);
 
@@ -57,8 +59,14 @@ const EditUserModal = ({ isOpen, onClose, user }) => {
         >
           <Form>
             <ModalBody pb={6}>
+              <InputField
+                mb={3}
+                disabled
+                placeholder="Employee ID"
+                name="employeeId"
+              />
               <InputField mb={3} placeholder="Username" name="username" />
-              <InputField mb={3} disabled placeholder="E-mail" name="email" />
+              <InputField mb={3} placeholder="E-mail" name="email" />
               <InputField mb={3} placeholder="Phone" name="phone" />
               <MenuField mb={3} name="role" options={Roles} />
               <RadioField

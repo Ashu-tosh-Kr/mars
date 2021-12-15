@@ -8,6 +8,7 @@ import Client from "../api/v1/models/clientModel.js";
 import users from "./users.js";
 import companies from "./companies.js";
 import clients from "./clients.js";
+import gigStatuses from "./gigStatuses.js";
 import GigStatus from "../api/v1/models/gigStatusModel.js";
 
 dotenv.config();
@@ -24,7 +25,7 @@ const importData = async () => {
     const comp = sampleCompanies[0]._id;
 
     await GigStatus.deleteMany();
-    await GigStatus.insertMany();
+    await GigStatus.insertMany(gigStatuses);
 
     await Client.deleteMany();
     const sampleClients = clients.map((client) => {
