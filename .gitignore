@@ -3,8 +3,7 @@
 # dependencies
 node_modules
 node_modules/
-Dockerfile
-.dockerignore
+
 /.pnp
 .pnp.js
 
