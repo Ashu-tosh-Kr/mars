@@ -253,3 +253,95 @@ export const completeStepOne = async (req, res) => {
     data: gig,
   });
 };
+
+export const completeStepTwo = async (req, res) => {
+  const { newAssigneeId, isApproved } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("Employee to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  let nextGigStatus;
+  if (isApproved) {
+    nextGigStatus = await GigStatus.findOne({ step: 3 });
+  } else {
+    nextGigStatus = await GigStatus.findOne({ step: 1 });
+  }
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
+  currUser.save();
+
+  newAssignee.todos.push(gig);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepThree = async (req, res) => {
+  const { newAssigneeId } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("SV to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+
+  const nextGigStatus = await GigStatus.findOne({ step: 4 });
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
+  currUser.save();
+
+  newAssignee.todos.push(gig);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
