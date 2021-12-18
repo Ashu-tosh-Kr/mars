@@ -5,6 +5,8 @@ import {
   editGig,
   getAllGigs,
   completeStepOne,
+  completeStepTwo,
+  completeStepThree,
 } from "../controllers/gigControllers.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -42,6 +44,21 @@ gigRouter
     "/:gigId/step-one",
     expressAsyncHandler(verifyToken),
     expressAsyncHandler(completeStepOne)
+  )
+  /**
+   * @desc complete step two
+   * @route api/gig/gigId/step-two
+   * @access Private
+   */
+  .post(
+    "/:gigId/step-two",
+    expressAsyncHandler(verifyToken),
+    expressAsyncHandler(completeStepTwo)
+  )
+  .post(
+    "/:gigId/step-three",
+    expressAsyncHandler(verifyToken),
+    expressAsyncHandler(completeStepThree)
   );
 
 export default gigRouter;

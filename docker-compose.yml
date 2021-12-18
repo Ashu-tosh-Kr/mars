@@ -1,0 +1,17 @@
+version: '3'
+services:
+  nginx: 
+    build: ./nginx
+    ports: 
+      - "80:80"
+    depends_on:
+      - api
+      - client
+    restart: always
+  client: 
+    build: ./client
+    # volumes: 
+    #   - /usr/app/node_modules
+    #   - ./client:/usr/app
+  api:
+    build: ./server
