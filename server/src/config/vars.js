@@ -27,6 +27,13 @@ export default {
   refreshToken: process.env.REFRESH_TOKEN_SECRET,
 
   /**
+   * Google
+   */
+  googleOAuthClientId: process.env.GOOGLE_OAUTH_CLIENT_ID,
+  googleOAuthClientSecret: process.env.GOOGLE_OAUTH_CLIENT_SECRET,
+  googleOAuthRefreshToken:process.env.GOOGLE_OAUTH_REFRESH_TOKEN,
+
+  /**
    * API configs
    */
   api: {

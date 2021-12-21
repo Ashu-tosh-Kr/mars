@@ -4,6 +4,17 @@ import Client from "../models/clientModel.js";
 import GigStatus from "../models/gigStatusModel.js";
 import User from "../models/userModel.js";
 import { sendMail } from "../helpers/sendMail.js";
+import vars from "../../../config/vars.js";
+
+//google calendar config
+import { google } from "googleapis";
+const { OAuth2 } = google.auth;
+const oAuth2Client = new OAuth2(
+  vars.googleOAuthClientId,
+  vars.googleOAuthClientSecret
+);
+oAuth2Client.setCredentials({ refresh_token: vars.googleOAuthRefreshToken });
+const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 
 export const getAllGigs = async (req, res) => {
   const gigs = await Gig.find().populate("Client");
@@ -261,6 +272,10 @@ export const completeStepTwo = async (req, res) => {
   const newAssignee = await User.findById(newAssigneeId);
 
   //validations
+  if (req.user._id !== gig.currentAssignee._id) {
+    res.status(401);
+    throw new Error("Access denied, Gig not assigned to the current user");
+  }
   if (!gig) {
     res.status(404);
     throw new Error("Gig doesn't Exist");
@@ -323,6 +338,136 @@ export const completeStepThree = async (req, res) => {
   }
 
   const nextGigStatus = await GigStatus.findOne({ step: 4 });
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
+  currUser.save();
+
+  newAssignee.todos.push(gig);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepFour = async (req, res) => {
+  const { newAssigneeId, isApproved } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  if (req.user._id !== gig.currentAssignee._id) {
+    res.status(401);
+    throw new Error("Access denied, Gig not assigned to the current user");
+  }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("CEO to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  let nextGigStatus;
+  if (isApproved) {
+    nextGigStatus = await GigStatus.findOne({ step: 5 });
+  } else {
+    nextGigStatus = await GigStatus.findOne({ step: 3 });
+  }
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
+  currUser.save();
+
+  newAssignee.todos.push(gig);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepFive = async (req, res) => {
+  const { newAssigneeId, isApproved } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  // if (req.user._id !== gig.currentAssignee._id) {
+  //   res.status(401);
+  //   throw new Error("Access denied, Gig not assigned to the current user");
+  // }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("CEO to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  let nextGigStatus;
+  if (isApproved) {
+    nextGigStatus = await GigStatus.findOne({ step: 6 });
+    const gigStart = new Date(gig.gigStart);
+    const gigEnd = new Date(gig.gigEnd);
+
+    const event = {
+      summary: gig.gigTitle,
+      location: gig.gigLocation,
+      description: gig.gigDetails,
+      colorId: 1,
+      start: {
+        dateTime: gigStart,
+        timeZone: "Asia/Kolkata",
+      },
+      end: {
+        dateTime: gigEnd,
+        timeZone: "Asia/Kolkata",
+      },
+    };
+    calendar.events.insert(
+      { calendarId: "primary", resource: event },
+      (err) => {
+        // Check for errors and log them if they exist.
+        if (err) return console.error("Error Creating Calender Event:", err);
+        // Else log that the event was created.
+        return console.log("Calendar event successfully created.");
+      }
+    );
+  } else {
+    nextGigStatus = await GigStatus.findOne({ step: 4 });
+  }
   gig.statusLifecycle.push({
     status: gig.currentStatus,
     personInCharge: req.user._id,

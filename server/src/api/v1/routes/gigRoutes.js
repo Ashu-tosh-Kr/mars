@@ -7,6 +7,8 @@ import {
   completeStepOne,
   completeStepTwo,
   completeStepThree,
+  completeStepFour,
+  completeStepFive,
 } from "../controllers/gigControllers.js";
 import { verifyToken } from "../middlewares/authMiddleware.js";
 
@@ -55,10 +57,35 @@ gigRouter
     expressAsyncHandler(verifyToken),
     expressAsyncHandler(completeStepTwo)
   )
+  /**
+   * @desc complete step three
+   * @route api/gig/gigId/step-three
+   * @access Private
+   */
   .post(
     "/:gigId/step-three",
     expressAsyncHandler(verifyToken),
     expressAsyncHandler(completeStepThree)
+  )
+  /**
+   * @desc complete step four
+   * @route api/gig/gigId/step-four
+   * @access Private
+   */
+  .post(
+    "/:gigId/step-four",
+    expressAsyncHandler(verifyToken),
+    expressAsyncHandler(completeStepFour)
+  )
+  /**
+   * @desc complete step five
+   * @route api/gig/gigId/step-five
+   * @access Private
+   */
+  .post(
+    "/:gigId/step-five",
+    expressAsyncHandler(verifyToken),
+    expressAsyncHandler(completeStepFive)
   );
 
 export default gigRouter;
