@@ -56,7 +56,12 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
             <ModalBody pb={6}>
               <InputField mb={3} placeholder="Name" name="name" />
               <InputField mb={3} placeholder="Title" name="title" />
-              <MenuField mb={3} name="companyId" options={companies} />
+              <MenuField
+                mb={3}
+                placeholder="Select Company"
+                name="companyId"
+                options={companies}
+              />
               <InputField mb={3} placeholder="Team" name="clientTeam" />
               <InputField mb={3} placeholder="Email" name="email" />
               <InputField mb={3} placeholder="Phone" name="phone" />

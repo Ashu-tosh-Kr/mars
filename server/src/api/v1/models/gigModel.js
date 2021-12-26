@@ -63,7 +63,7 @@ const gigSchema = new mongoose.Schema(
     ],
     promotion: String,
     carParking: String,
-    interviewQuestion: [
+    interviewQuestions: [
       {
         type: String,
       },

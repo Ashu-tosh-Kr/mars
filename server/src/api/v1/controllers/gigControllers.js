@@ -36,7 +36,7 @@ export const addGig = async (req, res) => {
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant,
+    gigAssistantId,
     gigDetails,
     gigHost,
     caution,
@@ -98,13 +98,13 @@ export const addGig = async (req, res) => {
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant,
+    gigAssistant: gigAssistantId,
     gigDetails,
     gigHost,
     caution,
     dressCode,
     whatToBring,
-    gigPeopleCount,
+    gigPeopleCount: +gigPeopleCount,
     gigPeopleName,
     promotion,
     carParking,
@@ -142,7 +142,7 @@ export const editGig = async (req, res) => {
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant,
+    gigAssistantId,
     gigDetails,
     gigHost,
     caution,
@@ -199,13 +199,13 @@ export const editGig = async (req, res) => {
   gig.gigArrive = gigArrive || gig.gigArrive;
   gig.gigGoHome = gigGoHome || gig.gigGoHome;
   gig.gigScheduleDetail = gigScheduleDetail || gig.gigScheduleDetail;
-  gig.gigAssistant = gigAssistant || gig.gigAssistant;
+  gig.gigAssistant = gigAssistantId || gig.gigAssistant;
   gig.gigDetails = gigDetails || gig.gigDetails;
   gig.gigHost = gigHost || gig.gigHost;
   gig.caution = caution || gig.caution;
   gig.dressCode = dressCode || gig.dressCode;
   gig.whatToBring = whatToBring || gig.whatToBring;
-  gig.gigPeopleCount = gigPeopleCount || gig.gigPeopleCount;
+  gig.gigPeopleCount = +gigPeopleCount || gig.gigPeopleCount;
   gig.gigPeopleName = gigPeopleName || gig.gigPeopleName;
   gig.promotion = promotion || gig.promotion;
   gig.carParking = carParking || gig.carParking;

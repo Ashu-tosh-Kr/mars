@@ -13,9 +13,9 @@ const MenuField = ({ name, mb, options, ...rest }) => {
     <>
       <FormControl isInvalid={meta.error && meta.touched} mb={mb}>
         <Select
+          placeholder="Select Option"
           {...configTextField}
           isInvalid={meta.touched && !!meta.error}
-          placeholder="Select option"
         >
           {options.map((opt, i) => (
             <option key={i} value={opt._id}>

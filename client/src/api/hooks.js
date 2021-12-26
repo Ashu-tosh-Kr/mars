@@ -226,3 +226,27 @@ export const useUpdateCompany = (onClose) => {
   );
   return { mutate, isLoading, isSuccess, error };
 };
+
+export const useAddNewGig = () => {
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.addNewGig(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Gig Added", status: "success" });
+        queryClient.invalidateQueries("allGigs");
+      },
+      onError: (error) => {
+        toast({
+          title: error?.response?.data?.message || error.message,
+          status: "error",
+        });
+      },
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};

@@ -43,6 +43,10 @@ export default class API {
     return this.instance.put("/company", data);
   }
 
+  addNewGig(data) {
+    return this.instance.post("/gig", data);
+  }
+
   // getAllClients() {
   //   return this.instance.get("/client", data, {
   //     headers: {

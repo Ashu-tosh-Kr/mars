@@ -17,7 +17,26 @@ export const RequireAuth = () => {
   return (
     <Flex justify="space-around">
       <Sidebar />
-      <Flex w="85%" m="2rem" p="2rem">
+      <Flex
+        //adding custom scollbar using the css prop
+        css={{
+          "&::-webkit-scrollbar": {
+            width: "4px",
+          },
+          "&::-webkit-scrollbar-track": {
+            width: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "teal",
+            borderRadius: "24px",
+          },
+        }}
+        overflow={"scroll"}
+        w="85%"
+        m="2rem"
+        p="2rem"
+        h="90vh"
+      >
         <Outlet />
       </Flex>
     </Flex>
