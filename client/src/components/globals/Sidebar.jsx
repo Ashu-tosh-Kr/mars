@@ -116,7 +116,7 @@ export default function Sidebar() {
             {/* <PopoverHeader fontWeight='semibold'>Popover placement</PopoverHeader> */}
             <PopoverArrow bg="teal.50" />
             <PopoverCloseButton />
-            <PopoverBody colorScheme="teal">
+            <PopoverBody color="teal">
               <VStack>
                 <Button colorScheme="teal" variant="link">
                   Profile
