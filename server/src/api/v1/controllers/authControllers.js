@@ -76,9 +76,13 @@ export const login = async (req, res) => {
   const token = createAccessToken({
     userId: String(user._id),
     iat: new Date().getTime(),
+    exp: new Date().getTime() + 15 * 60 * 1000, //15min
   });
 
-  const refresh_token = createRefreshToken({ id: user._id });
+  const refresh_token = createRefreshToken({
+    id: user._id,
+    exp: new Date().getTime() + 7 * 24 * 60 * 60 * 1000,
+  });
   res.cookie("refreshtoken", refresh_token, {
     httpOnly: true,
     path: "/api/auth/refresh_token",
