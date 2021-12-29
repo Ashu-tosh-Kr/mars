@@ -83,7 +83,7 @@ const EditUserModal = ({ isOpen, onClose, user }) => {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                colorScheme="blue"
+                colorScheme="teal"
                 mr={3}
               >
                 Update

@@ -48,7 +48,7 @@ const NewUserModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Edit User</ModalHeader>
+        <ModalHeader>Add User</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -68,7 +68,7 @@ const NewUserModal = ({ isOpen, onClose }) => {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                colorScheme="blue"
+                colorScheme="teal"
                 mr={3}
               >
                 Add

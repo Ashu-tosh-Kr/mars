@@ -45,7 +45,7 @@ const EditClientModal = ({ isOpen, onClose, companies, client }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Client</ModalHeader>
+        <ModalHeader>Update Client</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}

@@ -38,7 +38,7 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Company</ModalHeader>
+        <ModalHeader>Update Company</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -61,7 +61,7 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
               <Button
                 type="submit"
                 isLoading={isLoading}
-                colorScheme="blue"
+                colorScheme="teal"
                 mr={3}
               >
                 Update
