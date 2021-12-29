@@ -1,9 +1,10 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import useErrorHandler from "utils/errorHandler";
 import API from "./api";
 
 export const useGetAllUsers = () => {
-  const toast = useToast();
+  const errorHandler = useErrorHandler();
   const {
     data: users,
     isLoading: usersLoading,
@@ -16,18 +17,14 @@ export const useGetAllUsers = () => {
       return res.data.data;
     },
     {
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error),
     }
   );
   return { users, usersLoading, usersError };
 };
 
 export const useAddNewUser = (onClose) => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -41,18 +38,14 @@ export const useAddNewUser = (onClose) => {
         queryClient.invalidateQueries("allUsers");
         onClose();
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "post"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
 };
 
 export const useUpdateUser = (onClose) => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -66,19 +59,14 @@ export const useUpdateUser = (onClose) => {
         queryClient.invalidateQueries("allUsers");
         onClose();
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "put"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
 };
 
 export const useGetAllClients = () => {
-  const toast = useToast();
+  const errorHandler = useErrorHandler();
   const {
     data: clients,
     isLoading: clientsLoading,
@@ -91,18 +79,14 @@ export const useGetAllClients = () => {
       return res.data.data;
     },
     {
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error),
     }
   );
   return { clients, clientsLoading, clientsError };
 };
 
 export const useAddNewClient = (onClose) => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -116,18 +100,14 @@ export const useAddNewClient = (onClose) => {
         queryClient.invalidateQueries("allClients");
         onClose();
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "post"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
 };
 
 export const useUpdateClient = (onClose) => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -141,19 +121,14 @@ export const useUpdateClient = (onClose) => {
         queryClient.invalidateQueries("allClients");
         onClose();
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "put"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
 };
 
 export const useGetAllCompanies = () => {
-  const toast = useToast();
+  const errorHandler = useErrorHandler();
   const {
     data: companies,
     isLoading: companiesLoading,
@@ -166,18 +141,14 @@ export const useGetAllCompanies = () => {
       return res.data.data;
     },
     {
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error),
     }
   );
   return { companies, companiesLoading, companiesError };
 };
 
 export const useAddNewCompany = (onClose) => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -191,18 +162,14 @@ export const useAddNewCompany = (onClose) => {
         queryClient.invalidateQueries("allCompanies");
         onClose();
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "post"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
 };
 
 export const useUpdateCompany = (onClose) => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -216,18 +183,14 @@ export const useUpdateCompany = (onClose) => {
         queryClient.invalidateQueries("allCompanies");
         onClose();
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "put"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
 };
 
 export const useAddNewGig = () => {
+  const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
@@ -240,12 +203,7 @@ export const useAddNewGig = () => {
         toast({ title: "Gig Added", status: "success" });
         queryClient.invalidateQueries("allGigs");
       },
-      onError: (error) => {
-        toast({
-          title: error?.response?.data?.message || error.message,
-          status: "error",
-        });
-      },
+      onError: (error) => errorHandler(error, "post"),
     }
   );
   return { mutate, isLoading, isSuccess, error };

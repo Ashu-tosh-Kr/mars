@@ -83,11 +83,7 @@ export const login = async (req, res) => {
     id: user._id,
     exp: new Date().getTime() + 7 * 24 * 60 * 60 * 1000,
   });
-  res.cookie("refreshtoken", refresh_token, {
-    httpOnly: true,
-    path: "/api/auth/refresh_token",
-    maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-  });
+
   const trimmedUser = {
     _id: user._id,
     avatar: user.avatar,
@@ -98,7 +94,7 @@ export const login = async (req, res) => {
   };
   res.status(200).json({
     message: "Success",
-    data: { access_token: token, user: trimmedUser },
+    data: { access_token: token, refresh_token, user: trimmedUser },
   });
 };
 
@@ -108,23 +104,30 @@ export const login = async (req, res) => {
  * @access Public
  */
 export const getAccessToken = async (req, res) => {
-  const { refreshtoken } = req.cookies;
-  if (!refreshtoken) {
+  const { refresh_token } = req.body;
+  if (!refresh_token) {
     res.status(401);
     throw new Error("Please Login!");
   }
-  jwt.verify(refreshtoken, vars.refreshToken, async (err, decodedToken) => {
+  jwt.verify(refresh_token, vars.refreshToken, async (err, decodedToken) => {
     if (err) {
       res.status(401).json({ message: "please Login" });
+      return;
+    } else if (decodedToken.exp < new Date().getTime()) {
+      res.status(401).json({ message: "Token Expired" });
+      return;
+    } else {
+      const user = await User.findById(decodedToken.id).select("-password");
+      const token = createAccessToken({
+        userId: String(user._id),
+        iat: new Date().getTime(),
+        exp: new Date().getTime() + 15 * 60 * 1000, //15min
+      });
+      res.status(200).json({
+        message: "Success",
+        data: { access_token: token, refresh_token, user: user },
+      });
     }
-    const user = await User.findById(decodedToken.id);
-    const token = createAccessToken({
-      userId: String(user._id),
-      iat: new Date().getTime(),
-    });
-    res
-      .status(200)
-      .json({ message: "Success", data: { access_token: token, user: user } });
   });
 };
 

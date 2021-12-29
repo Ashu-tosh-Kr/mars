@@ -1,5 +1,29 @@
+import { Button, Center, Image, VStack } from "@chakra-ui/react";
+import pageNotFoundsvg from "assets/404/404.svg";
+import { FiArrowLeft } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
+
 const PageNotFound = () => {
-  return <div>OOps! Page not found 404</div>;
+  const navigate = useNavigate();
+  return (
+    <Center w="100%">
+      <VStack>
+        <Image
+          src={pageNotFoundsvg}
+          alt="404"
+          boxSize="600px"
+          objectFit="cover"
+        />
+        <Button
+          leftIcon={<FiArrowLeft />}
+          colorScheme="teal"
+          onClick={() => navigate(-1)}
+        >
+          Go Back
+        </Button>
+      </VStack>
+    </Center>
+  );
 };
 
 export default PageNotFound;

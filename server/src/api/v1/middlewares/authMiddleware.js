@@ -9,8 +9,10 @@ export const verifyToken = (req, res, next) => {
     jwt.verify(token, vars.accessToken, async (err, decodedToken) => {
       if (err) {
         res.status(401).json({ message: "Invalid Token" });
+        return;
       } else if (decodedToken.exp < new Date().getTime()) {
         res.status(401).json({ message: "Token Expired" });
+        return;
       } else {
         const user = await User.findById(decodedToken.userId);
         req.user = user;

@@ -34,7 +34,7 @@ authRouter
    * @route api/auth/refresh_token
    * @access Public
    */
-  .get("/refresh_token", expressAsyncHandler(getAccessToken))
+  .post("/refresh_token", expressAsyncHandler(getAccessToken))
   /**
    * @desc forgot password
    * @router api/auth/forgot

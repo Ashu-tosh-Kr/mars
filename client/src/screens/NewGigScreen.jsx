@@ -73,7 +73,6 @@ const NewGigScreen = () => {
   const { mutate, isLoading } = useAddNewGig();
 
   const onSubmit = (values) => {
-    console.log(values);
     mutate(values);
   };
 
@@ -86,7 +85,7 @@ const NewGigScreen = () => {
         <Alert status="error">
           <AlertIcon />
           <AlertTitle mr={2}>
-            There was an error in fetching client or talendt details
+            There was an error in fetching client or talent details
           </AlertTitle>
           <AlertDescription>Check your internet connection</AlertDescription>
         </Alert>
@@ -171,7 +170,7 @@ const NewGigScreen = () => {
                       startDate={formik.values.gigStart}
                       endDate={formik.values.gigEnd}
                       customInput={
-                        <Input placeHolder="Start Date" variant="filled" />
+                        <Input placeholder="Start Date" variant="filled" />
                       }
                     />
                   </GridItem>
@@ -184,7 +183,7 @@ const NewGigScreen = () => {
                       endDate={formik.values.gigEnd}
                       minDate={formik.values.gigStart}
                       customInput={
-                        <Input placeHolder="End Date" variant="filled" />
+                        <Input placeholder="End Date" variant="filled" />
                       }
                     />
                   </GridItem>
@@ -200,7 +199,7 @@ const NewGigScreen = () => {
                       timeCaption="Time"
                       dateFormat="h:mm aa"
                       customInput={
-                        <Input placeHolder="Arrival Time" variant="filled" />
+                        <Input placeholder="Arrival Time" variant="filled" />
                       }
                     />
                   </GridItem>
@@ -216,7 +215,7 @@ const NewGigScreen = () => {
                       timeCaption="Time"
                       dateFormat="h:mm aa"
                       customInput={
-                        <Input placeHolder="Departure Time" variant="filled" />
+                        <Input placeholder="Departure Time" variant="filled" />
                       }
                     />
                   </GridItem>
@@ -230,7 +229,7 @@ const NewGigScreen = () => {
                       dateFormat="Pp"
                       timeFormat="p"
                       customInput={
-                        <Input placeHolder="Embargo" variant="filled" />
+                        <Input placeholder="Embargo" variant="filled" />
                       }
                     />
                   </GridItem>
@@ -270,7 +269,7 @@ const NewGigScreen = () => {
                             <GridItem colSpan={[12, 12, 12, 12]} key={index}>
                               <InputArray
                                 key={index}
-                                placeHolder="Gig People Name"
+                                placeholder="Gig People Name"
                                 name={`gigPeopleName.${index}`}
                                 rightAddOn={<AiOutlinePlusCircle />}
                                 leftAddOn={<AiOutlineMinusCircle />}
@@ -325,7 +324,7 @@ const NewGigScreen = () => {
                               <GridItem colSpan={[12, 12, 12]} key={index}>
                                 <InputArray
                                   key={index}
-                                  placeHolder="Interview Questions"
+                                  placeholder="Interview Questions"
                                   name={`interviewQuestions.${index}`}
                                   rightAddOn={<AiOutlinePlusCircle />}
                                   leftAddOn={<AiOutlineMinusCircle />}
@@ -351,7 +350,7 @@ const NewGigScreen = () => {
                 <Button
                   type="submit"
                   isLoading={isLoading}
-                  colorScheme="blue"
+                  colorScheme="teal"
                   mr={3}
                   mt={3}
                 >
