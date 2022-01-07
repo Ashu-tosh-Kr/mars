@@ -169,9 +169,13 @@ const NewGigScreen = () => {
                       selectsStart
                       startDate={formik.values.gigStart}
                       endDate={formik.values.gigEnd}
-                      customInput={
-                        <Input placeholder="Start Date" variant="filled" />
-                      }
+                      showTimeSelect
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="Pp"
+                      timeFormat="p"
+                      placeholderText="Start Date"
+                      customInput={<Input variant="filled" />}
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
@@ -182,9 +186,13 @@ const NewGigScreen = () => {
                       startDate={formik.values.gigStart}
                       endDate={formik.values.gigEnd}
                       minDate={formik.values.gigStart}
-                      customInput={
-                        <Input placeholder="End Date" variant="filled" />
-                      }
+                      showTimeSelect
+                      timeIntervals={15}
+                      timeCaption="Time"
+                      dateFormat="Pp"
+                      timeFormat="p"
+                      placeholderText="End Date"
+                      customInput={<Input variant="filled" />}
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
@@ -194,13 +202,12 @@ const NewGigScreen = () => {
                         formik.setFieldValue("gigArrive", time)
                       }
                       showTimeSelect
-                      showTimeSelectOnly
                       timeIntervals={15}
                       timeCaption="Time"
-                      dateFormat="h:mm aa"
-                      customInput={
-                        <Input placeholder="Arrival Time" variant="filled" />
-                      }
+                      dateFormat="Pp"
+                      timeFormat="p"
+                      placeholderText="Arrival Time"
+                      customInput={<Input variant="filled" />}
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
@@ -210,13 +217,12 @@ const NewGigScreen = () => {
                         formik.setFieldValue("gigGoHome", time)
                       }
                       showTimeSelect
-                      showTimeSelectOnly
                       timeIntervals={15}
                       timeCaption="Time"
-                      dateFormat="h:mm aa"
-                      customInput={
-                        <Input placeholder="Departure Time" variant="filled" />
-                      }
+                      dateFormat="Pp"
+                      timeFormat="p"
+                      placeholderText="Departure Time"
+                      customInput={<Input variant="filled" />}
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
@@ -228,9 +234,8 @@ const NewGigScreen = () => {
                       timeCaption="Time"
                       dateFormat="Pp"
                       timeFormat="p"
-                      customInput={
-                        <Input placeholder="Embargo" variant="filled" />
-                      }
+                      placeholderText="Embargo"
+                      customInput={<Input variant="filled" />}
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
