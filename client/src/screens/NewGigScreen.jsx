@@ -6,6 +6,7 @@ import {
   Button,
   Center,
   Flex,
+  FormLabel,
   Grid,
   GridItem,
   Input,
@@ -112,13 +113,18 @@ const NewGigScreen = () => {
               <Form>
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                   <GridItem colSpan={[12, 12, 12, 3]}>
-                    <InputField placeholder="Id" name="galId" />
+                    <InputField label="Id" placeholder="Id" name="galId" />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 9]}>
-                    <InputField placeholder="Title" name="gigTitle" />
+                    <InputField
+                      label="Title"
+                      placeholder="Title"
+                      name="gigTitle"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <MenuField
+                      label="Client"
                       placeholder="Select Client"
                       name="clientId"
                       options={clients}
@@ -126,6 +132,7 @@ const NewGigScreen = () => {
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <MenuField
+                      label="Talent"
                       placeholder="Select Talent"
                       name="talentId"
                       //filtering the list of all users to find only talents and then adding a key "name" for the sake of Menufield
@@ -137,11 +144,16 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Gig Type" name="gigType" />
+                    <InputField
+                      label="Id"
+                      placeholder="Gig Type"
+                      name="gigType"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <MenuField
                       name="gigAssistantId"
+                      label="Assistant"
                       placeholder="Select Assistant"
                       //filtering the list of all users to find only assistants and then adding a key "name" for the sake of Menufield
                       options={users
@@ -152,15 +164,28 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 3]}>
-                    <InputField placeholder="Location" name="gigLocation" />
+                    <InputField
+                      label="Location"
+                      placeholder="Location"
+                      name="gigLocation"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 9]}>
-                    <InputField placeholder="Address" name="gigAddress" />
+                    <InputField
+                      label="Address"
+                      placeholder="Address"
+                      name="gigAddress"
+                    />
                   </GridItem>
                   <GridItem colSpan={12}>
-                    <TextAreaField placeholder="Details" name="gigDetails" />
+                    <TextAreaField
+                      label="Details"
+                      placeholder="Details"
+                      name="gigDetails"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
+                    <FormLabel htmlFor={"gigStart"}>{"Gig Start"}</FormLabel>
                     <DatePicker
                       selected={formik.values.gigStart}
                       onChange={(date) =>
@@ -179,6 +204,7 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
+                    <FormLabel htmlFor="gigEnd">End Date</FormLabel>
                     <DatePicker
                       selected={formik.values.gigEnd}
                       onChange={(date) => formik.setFieldValue("gigEnd", date)}
@@ -196,6 +222,7 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
+                    <FormLabel htmlFor="gigArrive">Arrival Time</FormLabel>
                     <DatePicker
                       selected={formik.values.gigArrive}
                       onChange={(time) =>
@@ -211,6 +238,7 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
+                    <FormLabel htmlFor="gigGoHome">Departure Time</FormLabel>
                     <DatePicker
                       selected={formik.values.gigGoHome}
                       onChange={(time) =>
@@ -226,6 +254,7 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
+                    <FormLabel htmlFor="embargo">Embargo</FormLabel>
                     <DatePicker
                       selected={formik.values.embargo}
                       onChange={(time) => formik.setFieldValue("embargo", time)}
@@ -239,33 +268,51 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Host" name="gigHosts" />
+                    <InputField
+                      label="Host"
+                      placeholder="Host"
+                      name="gigHosts"
+                    />
                   </GridItem>
                   <GridItem colSpan={12}>
                     <TextAreaField
+                      label="Schedule Details"
                       placeholder="Schedule Details"
                       name="gigScheduleDetails"
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Caution" name="caution" />
-                  </GridItem>
-                  <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Dress Code" name="dressCode" />
+                    <InputField
+                      label="Caution"
+                      placeholder="Caution"
+                      name="caution"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <InputField
+                      label="Dress Code"
+                      placeholder="Dress Code"
+                      name="dressCode"
+                    />
+                  </GridItem>
+                  <GridItem colSpan={[12, 12, 12, 6]}>
+                    <InputField
+                      label="What To Bring"
                       placeholder="What To Bring"
                       name="whatToBring"
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <InputField
+                      label="People Count"
                       placeholder="People Count"
                       name="gigPeopleCount"
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12]}>
+                    <FormLabel htmlFor="gigPeopleName">
+                      Gig People Name
+                    </FormLabel>
                     <FieldArray
                       name="gigPeopleName"
                       render={(arrayHelpers) => (
@@ -274,6 +321,7 @@ const NewGigScreen = () => {
                             <GridItem colSpan={[12, 12, 12, 12]} key={index}>
                               <InputArray
                                 key={index}
+                                label="Gig People Name"
                                 placeholder="Gig People Name"
                                 name={`gigPeopleName.${index}`}
                                 rightAddOn={<AiOutlinePlusCircle />}
@@ -293,23 +341,40 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Promotion" name="promotion" />
+                    <InputField
+                      label="Promotion"
+                      placeholder="Promotion"
+                      name="promotion"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Car Parking" name="carParking" />
+                    <InputField
+                      label="Car Parking"
+                      placeholder="Car Parking"
+                      name="carParking"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Photo Shoot" name="photoShoot" />
+                    <InputField
+                      label="Photo Shoot"
+                      placeholder="Photo Shoot"
+                      name="photoShoot"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Autograph" name="autograph" />
+                    <InputField
+                      label="Autograph"
+                      placeholder="Autograph"
+                      name="autograph"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Food" name="food" />
+                    <InputField label="Food" placeholder="Food" name="food" />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <RadioField
                       name="dvd"
+                      label="DVD"
                       options={[
                         { key: "Bring DVD", value: "true" },
                         { key: "Don't Bring DVD", value: "false" },
@@ -317,9 +382,16 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <InputField placeholder="Other" name="other" />
+                    <InputField
+                      label="Other"
+                      placeholder="Other"
+                      name="other"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12]}>
+                    <FormLabel htmlFor="interviewQuestions">
+                      Interview Questions
+                    </FormLabel>
                     <FieldArray
                       name="interviewQuestions"
                       render={(arrayHelpers) => (

@@ -1,7 +1,12 @@
 import { useField } from "formik";
-import { FormErrorMessage, FormControl, Textarea } from "@chakra-ui/react";
+import {
+  FormErrorMessage,
+  FormControl,
+  Textarea,
+  FormLabel,
+} from "@chakra-ui/react";
 
-const TextAreaField = ({ name, mb, ...rest }) => {
+const TextAreaField = ({ name, mb, label, required, ...rest }) => {
   const [field, meta] = useField(name);
   const configTextField = {
     name,
@@ -11,7 +16,12 @@ const TextAreaField = ({ name, mb, ...rest }) => {
   };
   return (
     <>
-      <FormControl isInvalid={meta.error && meta.touched} mb={mb}>
+      <FormControl
+        isRequired={required}
+        isInvalid={meta.error && meta.touched}
+        mb={mb}
+      >
+        <FormLabel htmlFor={name}>{label}</FormLabel>
         <Textarea
           {...configTextField}
           isInvalid={meta.touched && !!meta.error}
