@@ -17,7 +17,7 @@ const MenuField = ({ name, mb, options, label, required, ...rest }) => {
   return (
     <>
       <FormControl
-        isRequirdd={required}
+        isRequired={required}
         isInvalid={meta.error && meta.touched}
         mb={mb}
       >

@@ -11,7 +11,7 @@ const PageNotFound = () => {
         <Image
           src={pageNotFoundsvg}
           alt="404"
-          boxSize="600px"
+          boxSize="500px"
           objectFit="cover"
         />
         <Button

@@ -3,6 +3,24 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import useErrorHandler from "utils/errorHandler";
 import API from "./api";
 
+export const useChangePass = () => {
+  const errorHandler = useErrorHandler();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.changePass(values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Password Changed", status: "success" });
+      },
+      onError: (error) => errorHandler(error, "post"),
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
 export const useGetAllUsers = () => {
   const errorHandler = useErrorHandler();
   const {
@@ -63,6 +81,40 @@ export const useUpdateUser = (onClose) => {
     }
   );
   return { mutate, isLoading, isSuccess, error };
+};
+
+export const useGetCurrUserInfo = () => {
+  const errorHandler = useErrorHandler();
+  const {
+    data: userInfo,
+    isLoading: userInfoLoading,
+    isError: userInfoError,
+  } = useQuery(
+    "userInfo",
+    async () => {
+      let api = new API();
+      const res = await api.getCurrUserInfo();
+      const todos = res.data.data.todos.map((todo) => {
+        return {
+          ...todo,
+          gigStart: todo.gigStart ? new Date(todo.gigStart) : new Date(),
+          gigEnd: todo.gigEnd ? new Date(todo.gigEnd) : new Date(),
+          gigArrive: todo.gigArrive ? new Date(todo.gigArrive) : new Date(),
+          gigGoHome: todo.gigGoHome ? new Date(todo.gigGoHome) : new Date(),
+          embargo: todo.embargo ? new Date(todo.embargo) : new Date(),
+        };
+      });
+
+      return {
+        ...res.data.data,
+        todos: todos,
+      };
+    },
+    {
+      onError: (error) => errorHandler(error),
+    }
+  );
+  return { userInfo, userInfoLoading, userInfoError };
 };
 
 export const useGetAllClients = () => {
@@ -201,10 +253,78 @@ export const useAddNewGig = () => {
     {
       onSuccess: () => {
         toast({ title: "Gig Added", status: "success" });
+        queryClient.invalidateQueries("userInfo");
         queryClient.invalidateQueries("allGigs");
       },
       onError: (error) => errorHandler(error, "post"),
     }
   );
   return { mutate, isLoading, isSuccess, error };
+};
+
+export const useEditGig = (gigId) => {
+  const errorHandler = useErrorHandler();
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.editGig(gigId, values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Gig Edited", status: "success" });
+        queryClient.invalidateQueries("userInfo");
+        queryClient.invalidateQueries("allGigs");
+      },
+      onError: (error) => errorHandler(error, "put"),
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
+export const useUpdateGigStatus = (gigId) => {
+  const errorHandler = useErrorHandler();
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const {
+    mutate: mutateStatusUpdate,
+    isLoading: isLoadingStatusUpdate,
+    isSuccess,
+    error,
+  } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.updateGigStatus(gigId, values.step, values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Gig Status Updated", status: "success" });
+        queryClient.invalidateQueries("userInfo");
+        queryClient.invalidateQueries("allGigs");
+      },
+      onError: (error) => errorHandler(error, "put"),
+    }
+  );
+  return { mutateStatusUpdate, isLoadingStatusUpdate, isSuccess, error };
+};
+
+export const useGetAllGigs = () => {
+  const errorHandler = useErrorHandler();
+  const {
+    data: gigs,
+    isLoading: gigsLoading,
+    isError: gigsError,
+  } = useQuery(
+    "allGigs",
+    async () => {
+      let api = new API();
+      const res = await api.getAllGigs();
+      return res.data.data;
+    },
+    {
+      onError: (error) => errorHandler(error),
+    }
+  );
+  return { gigs, gigsLoading, gigsError };
 };

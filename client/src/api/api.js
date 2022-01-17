@@ -52,6 +52,9 @@ export default class API {
         .refresh_token,
     });
   }
+  changePass(data) {
+    return this.instance.post("/auth/change_pass", data);
+  }
 
   //user apis
   getAllUsers() {
@@ -62,6 +65,9 @@ export default class API {
   }
   updateUser(data) {
     return this.instance.put("/user", data);
+  }
+  getCurrUserInfo() {
+    return this.instance.get("/user/info");
   }
 
   //client apis
@@ -86,8 +92,20 @@ export default class API {
     return this.instance.put("/company", data);
   }
 
+  //gig apis
   addNewGig(data) {
     return this.instance.post("/gig", data);
+  }
+
+  editGig(gigId, data) {
+    return this.instance.put(`/gig/${gigId}`, data);
+  }
+
+  updateGigStatus(gigId, step, data) {
+    return this.instance.post(`/gig/${gigId}/${step}`, data);
+  }
+  getAllGigs() {
+    return this.instance.get(`/gig`);
   }
 
   // getAllClients() {

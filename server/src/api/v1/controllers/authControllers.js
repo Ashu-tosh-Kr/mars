@@ -132,6 +132,34 @@ export const getAccessToken = async (req, res) => {
 };
 
 /**
+ * @desc change password
+ * @route api/auth/change_pass
+ * @access Private
+ */
+export const changePass = async (req, res) => {
+  const { oldPass, newPass } = req.body;
+  const user = await User.findById(req.user._id);
+
+  if (!user) {
+    res.status(401);
+    throw new Error("User doesn't exist");
+  }
+  const isPassValid = await bcrypt.compare(oldPass, user.password);
+  if (!isPassValid) {
+    res.status(401);
+    throw new Error("Wrong Password");
+  }
+
+  const hashedpwd = await bcrypt.hash(newPass, 10);
+  user.password = hashedpwd;
+  await user.save();
+
+  res.status(200).json({
+    message: "Password changed successfully",
+  });
+};
+
+/**
  * @desc forgot password
  * @router api/auth/forgot
  * @access Public
