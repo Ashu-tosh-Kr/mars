@@ -17,7 +17,7 @@ oAuth2Client.setCredentials({ refresh_token: vars.googleOAuthRefreshToken });
 const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 
 export const getAllGigs = async (req, res) => {
-  const gigs = await Gig.find().populate("Client");
+  const gigs = await Gig.find().populate("client");
   res.json({ message: "Successful", data: gigs });
 };
 
@@ -251,8 +251,10 @@ export const completeStepOne = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   newAssignee.todos.push(gig);
   await newAssignee.save();
@@ -272,7 +274,7 @@ export const completeStepTwo = async (req, res) => {
   const newAssignee = await User.findById(newAssigneeId);
 
   //validations
-  if (req.user._id !== gig.currentAssignee._id) {
+  if (req.user._id.toString() !== gig.currentAssignee._id.toString()) {
     res.status(401);
     throw new Error("Access denied, Gig not assigned to the current user");
   }
@@ -303,8 +305,10 @@ export const completeStepTwo = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   newAssignee.todos.push(gig);
   await newAssignee.save();
@@ -347,8 +351,10 @@ export const completeStepThree = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   newAssignee.todos.push(gig);
   await newAssignee.save();
@@ -368,7 +374,7 @@ export const completeStepFour = async (req, res) => {
   const newAssignee = await User.findById(newAssigneeId);
 
   //validations
-  if (req.user._id !== gig.currentAssignee._id) {
+  if (req.user._id.toString() !== gig.currentAssignee._id.toString()) {
     res.status(401);
     throw new Error("Access denied, Gig not assigned to the current user");
   }
@@ -399,8 +405,10 @@ export const completeStepFour = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   newAssignee.todos.push(gig);
   await newAssignee.save();
@@ -477,8 +485,10 @@ export const completeStepFive = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   newAssignee.todos.push(gig);
   await newAssignee.save();

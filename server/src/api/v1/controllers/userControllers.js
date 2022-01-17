@@ -18,7 +18,9 @@ export const getAllUsers = async (req, res) => {
  * @access Private
  */
 export const getUserInfo = async (req, res) => {
-  const user = await User.findById(req.user.id).select("-password");
+  const user = await User.findById(req.user.id)
+    .select("-password")
+    .populate("todos");
 
   res.json({ message: "Successful", data: user });
 };
