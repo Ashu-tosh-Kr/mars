@@ -54,6 +54,7 @@ const TodoScreen = () => {
                   <Th>Client</Th>
                   <Th>Talent</Th>
                   <Th>Status</Th>
+                  <Th>Memo</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -63,6 +64,7 @@ const TodoScreen = () => {
                     <Td>{todo.client.name}</Td>
                     <Td>{todo.talent.username}</Td>
                     <Td>{todo.currentStatus.name}</Td>
+                    <Td>{todo.memo}</Td>
 
                     <Td>
                       <IconButton

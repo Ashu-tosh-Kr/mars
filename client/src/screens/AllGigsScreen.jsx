@@ -44,6 +44,7 @@ const AllGigsScreen = () => {
                   <Th>Client</Th>
                   <Th>Talent</Th>
                   <Th>Status</Th>
+                  <Th>Memo</Th>
                 </Tr>
               </Thead>
               <Tbody>
@@ -53,6 +54,7 @@ const AllGigsScreen = () => {
                     <Td>{gig.client.name}</Td>
                     <Td>{gig.talent.username}</Td>
                     <Td>{gig.currentStatus.name}</Td>
+                    <Td>{gig.memo}</Td>
 
                     {/* <Td>
                     <IconButton

@@ -33,6 +33,7 @@ export const addGig = async (req, res) => {
     embargo,
     gigLocation,
     gigAddress,
+    gigPostalCode,
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
@@ -52,6 +53,7 @@ export const addGig = async (req, res) => {
     autograph,
     food,
     other,
+    memo,
   } = req.body;
   const client = await Client.findById(clientId);
   const talent = await User.findOne({ _id: talentId, role: 0 });
@@ -95,6 +97,7 @@ export const addGig = async (req, res) => {
     embargo,
     gigLocation,
     gigAddress,
+    gigPostalCode,
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
@@ -113,6 +116,7 @@ export const addGig = async (req, res) => {
     autograph,
     food,
     other,
+    memo,
   });
   if (gigAssistantId) {
     newGig.gigAssistant = gigAssistantId;
@@ -141,6 +145,7 @@ export const editGig = async (req, res) => {
     embargo,
     gigLocation,
     gigAddress,
+    gigPostalCode,
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
@@ -160,6 +165,7 @@ export const editGig = async (req, res) => {
     autograph,
     food,
     other,
+    memo,
   } = req.body;
   const gig = await Gig.findById(req.params.gigId);
   const client = await Client.findById(clientId);
@@ -196,6 +202,7 @@ export const editGig = async (req, res) => {
   gig.embargo = embargo || gig.embargo;
   gig.gigLocation = gigLocation || gig.gigLocation;
   gig.gigAddress = gigAddress || gig.gigAddress;
+  gig.gigPostalCode = gigPostalCode || gigPostalCode;
   gig.gigArrive = gigArrive || gig.gigArrive;
   gig.gigGoHome = gigGoHome || gig.gigGoHome;
   gig.gigScheduleDetail = gigScheduleDetail || gig.gigScheduleDetail;
@@ -215,6 +222,7 @@ export const editGig = async (req, res) => {
   gig.autograph = autograph || gig.autograph;
   gig.food = food || gig.food;
   gig.other = other || gig.other;
+  gig.memo = memo || gig.memo;
 
   await gig.save();
 

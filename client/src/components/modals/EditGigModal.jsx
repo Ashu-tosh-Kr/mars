@@ -76,6 +76,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     gigEnd: gig?.gigEnd,
     embargo: gig?.embargo,
     gigLocation: gig?.gigLocation,
+    gigPostalCode: gig?.gigPostalCode,
     gigAddress: gig?.gigAddress,
     gigArrive: gig?.gigArrive,
     gigGoHome: gig?.gigGoHome,
@@ -96,6 +97,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     autograph: gig?.autograph,
     food: gig?.food,
     other: gig?.other,
+    memo: gig?.memo,
     assignee: "",
   };
 
@@ -246,7 +248,14 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           name="gigLocation"
                         />
                       </GridItem>
-                      <GridItem colSpan={[12, 12, 12, 9]}>
+                      <GridItem colSpan={[12, 12, 12, 2]}>
+                        <InputField
+                          label="Postal Code"
+                          placeholder="Postal Code"
+                          name="gigPostalCode"
+                        />
+                      </GridItem>
+                      <GridItem colSpan={[12, 12, 12, 7]}>
                         <InputField
                           disabled={user.role === 0}
                           label="Address"
@@ -497,12 +506,19 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           ]}
                         />
                       </GridItem>
-                      <GridItem colSpan={[12, 12, 12, 6]}>
+                      <GridItem colSpan={[12, 12, 12, 12]}>
                         <InputField
                           disabled={user.role === 0}
                           label="Other"
                           placeholder="Other"
                           name="other"
+                        />
+                      </GridItem>
+                      <GridItem colSpan={[12, 12, 12, 12]}>
+                        <InputField
+                          label="Memo"
+                          placeholder="Memo"
+                          name="memo"
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12]}>

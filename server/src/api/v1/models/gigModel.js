@@ -41,6 +41,7 @@ const gigSchema = new mongoose.Schema(
     embargo: Date,
     gigLocation: String,
     gigAddress: String,
+    gigPostalCode: String,
     gigArrive: Date,
     gigGoHome: Date,
     gigScheduleDetail: {
@@ -73,6 +74,8 @@ const gigSchema = new mongoose.Schema(
     autograph: String,
     food: String,
     other: String,
+    //meta data
+    memo: String,
     currentAssignee: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
@@ -93,9 +96,15 @@ const gigSchema = new mongoose.Schema(
 );
 gigSchema.post("find", async function (gigs) {
   for (let gig of gigs) {
-    await gig.populate("client");
-    await gig.populate("talent", "-password");
-    await gig.populate("currentStatus");
+    Promise.all([
+      gig.populate("client"),
+      gig.populate("talent", "-password"),
+      gig.populate("currentStatus"),
+    ]);
+    // await gig.populate("client");
+    // await gig.populate("talent", "-password");
+    // await gig.populate("currentStatus");
+    // gig.populate("currentAssignee", "-password"),
     // await gig.populate("currentAssignee", "-password");
     // await gig.populate({
     //   path: "statusLifecycle",

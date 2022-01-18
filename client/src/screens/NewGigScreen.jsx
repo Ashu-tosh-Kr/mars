@@ -36,6 +36,7 @@ const initialValues = {
   embargo: "",
   gigLocation: "",
   gigAddress: "",
+  gigPostalCode: "",
   gigArrive: "",
   gigGoHome: "",
   gigScheduleDetail: "",
@@ -55,6 +56,7 @@ const initialValues = {
   autograph: "",
   food: "",
   other: "",
+  memo: "",
 };
 
 //helpers
@@ -181,7 +183,14 @@ const NewGigScreen = () => {
                       name="gigLocation"
                     />
                   </GridItem>
-                  <GridItem colSpan={[12, 12, 12, 9]}>
+                  <GridItem colSpan={[12, 12, 12, 2]}>
+                    <InputField
+                      label="Postal Code"
+                      placeholder="Postal Code"
+                      name="gigPostalCode"
+                    />
+                  </GridItem>
+                  <GridItem colSpan={[12, 12, 12, 7]}>
                     <InputField
                       label="Address"
                       placeholder="Address"
@@ -392,12 +401,15 @@ const NewGigScreen = () => {
                       ]}
                     />
                   </GridItem>
-                  <GridItem colSpan={[12, 12, 12, 6]}>
+                  <GridItem colSpan={[12, 12, 12, 12]}>
                     <InputField
                       label="Other"
                       placeholder="Other"
                       name="other"
                     />
+                  </GridItem>
+                  <GridItem colSpan={[12, 12, 12, 12]}>
+                    <InputField label="Memo" placeholder="Memo" name="memo" />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12]}>
                     <FormLabel htmlFor="interviewQuestions">
