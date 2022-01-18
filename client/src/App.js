@@ -20,7 +20,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<LoginScreen />} />
         <Route path="/*" element={<RequireAuth />}>
-          <Route path="home" element={<Dashboard />} />
+          <Route path="" element={<Dashboard />} />
           <Route path="clients" element={<ClientCompanyScreen />} />
           <Route path="new-gig" element={<NewGigScreen />} />
           <Route path="todo" element={<TodoScreen />} />

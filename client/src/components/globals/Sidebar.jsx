@@ -13,6 +13,7 @@ import {
   VStack,
   PopoverArrow,
   PopoverCloseButton,
+  Badge,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -30,6 +31,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { logout } from "redux/actions/userActions";
+import { useGetCurrUserInfo } from "api/hooks";
 
 export default function Sidebar() {
   const user = useSelector((store) => store.userLogin.userInfo.data.user);
@@ -42,6 +44,8 @@ export default function Sidebar() {
     dispatch(logout());
     navigate("/login", { replace: true });
   };
+
+  const { userInfo } = useGetCurrUserInfo();
 
   return (
     <Flex
@@ -63,12 +67,21 @@ export default function Sidebar() {
         as="nav"
       >
         <NavItem
-          to="/home"
+          to="/"
           icon={FiHome}
           title="Dashboard"
           description="This is the description for the dashboard."
         />
-        <NavItem to="todo" icon={FiCalendar} title="ToDo" active />
+        <Flex pos="relative" align={"center"} w="full">
+          <NavItem to="todo" icon={FiCalendar} title="ToDo" active />
+          <Badge
+            pos="relative"
+            left={["-10%", "-20%", "-30%", "-40%"]}
+            colorScheme="purple"
+          >
+            {userInfo?.todos?.length}
+          </Badge>
+        </Flex>
         <NavItem to="clients" icon={FiUser} title="Clients" />
         <NavItem to="new-gig" icon={FiDollarSign} title="New Gig" />
         <NavItem to="all-gigs" icon={FiBriefcase} title="All Gigs" />
