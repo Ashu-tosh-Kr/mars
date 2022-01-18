@@ -98,7 +98,6 @@ export const addGig = async (req, res) => {
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant: gigAssistantId,
     gigDetails,
     gigHost,
     caution,
@@ -115,6 +114,9 @@ export const addGig = async (req, res) => {
     food,
     other,
   });
+  if (gigAssistantId) {
+    newGig.gigAssistant = gigAssistantId;
+  }
   await newGig.save();
 
   const currUser = await User.findById(req.user._id);
