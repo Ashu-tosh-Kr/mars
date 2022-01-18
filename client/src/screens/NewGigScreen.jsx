@@ -11,6 +11,12 @@ import {
   GridItem,
   Input,
 } from "@chakra-ui/react";
+import { FieldArray, Form, Formik } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import * as Yup from "yup";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+//non library imports
 import { useAddNewGig, useGetAllClients, useGetAllUsers } from "api/hooks";
 import InputField from "components/formComponents/InputField";
 import InputArray from "components/formComponents/InputArray";
@@ -18,11 +24,6 @@ import MenuField from "components/formComponents/MenuField";
 import RadioField from "components/formComponents/RadioField";
 import TextAreaField from "components/formComponents/TextAreaField";
 import Loader from "components/globals/Loader";
-import { FieldArray, Form, Formik } from "formik";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import * as Yup from "yup";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 
 const initialValues = {
   galId: "",
@@ -56,6 +57,7 @@ const initialValues = {
   other: "",
 };
 
+//helpers
 const validationSchema = Yup.object({
   galId: Yup.string()
     .required("Required")
@@ -66,14 +68,18 @@ const validationSchema = Yup.object({
 });
 
 const NewGigScreen = () => {
+  //queries
   const { clients, clientsLoading, clientsError } = useGetAllClients();
   const { users, usersLoading, usersError } = useGetAllUsers();
+  //mutations
   const { mutate, isLoading } = useAddNewGig();
 
+  //handlers
   const onSubmit = (values) => {
     mutate(values);
   };
 
+  //jsx
   if (clientsLoading || usersLoading) {
     return <Loader />;
   }
@@ -110,10 +116,16 @@ const NewGigScreen = () => {
               <Form>
                 <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                   <GridItem colSpan={[12, 12, 12, 3]}>
-                    <InputField label="Id" placeholder="Id" name="galId" />
+                    <InputField
+                      required={true}
+                      label="Id"
+                      placeholder="Id"
+                      name="galId"
+                    />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 9]}>
                     <InputField
+                      required={true}
                       label="Title"
                       placeholder="Title"
                       name="gigTitle"
@@ -122,6 +134,7 @@ const NewGigScreen = () => {
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <MenuField
                       label="Client"
+                      required={true}
                       placeholder="Select Client"
                       name="clientId"
                       options={clients}
@@ -130,6 +143,7 @@ const NewGigScreen = () => {
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <MenuField
                       label="Talent"
+                      required={true}
                       placeholder="Select Talent"
                       name="talentId"
                       //filtering the list of all users to find only talents and then adding a key "name" for the sake of Menufield

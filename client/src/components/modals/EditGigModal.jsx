@@ -175,6 +175,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                     <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                       <GridItem colSpan={[12, 12, 12, 3]}>
                         <InputField
+                          required={true}
                           disabled={user.role === 0}
                           label="Id"
                           placeholder="Id"
@@ -183,6 +184,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 9]}>
                         <InputField
+                          required={true}
                           disabled={user.role === 0}
                           label="Title"
                           placeholder="Title"
@@ -191,6 +193,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <MenuField
+                          required={true}
                           disabled={user.role === 0}
                           label="Client"
                           placeholder="Select Client"
@@ -200,6 +203,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <MenuField
+                          required={true}
                           disabled={user.role === 0}
                           label="Talent"
                           placeholder="Select Talent"
