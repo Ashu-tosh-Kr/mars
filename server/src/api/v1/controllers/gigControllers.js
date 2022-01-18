@@ -73,7 +73,7 @@ export const addGig = async (req, res) => {
   const validation = Joi.object({
     galId: Joi.string()
       .required()
-      .regex(/(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(\d{2}[1-9]))/),
+      .regex(/(\d{2}(0[1-9]|1[0-2])(\d{2}[1-9]))/),
   }).validate(req.body, { abortEarly: false, allowUnknown: true });
   if (validation.error) {
     res.status(400);
@@ -177,9 +177,7 @@ export const editGig = async (req, res) => {
     throw new Error("Talent Doesn't Exist");
   }
   const validation = Joi.object({
-    galId: Joi.string().regex(
-      /(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(\d{2}[1-9]))/
-    ),
+    galId: Joi.string().regex(/(\d{2}(0[1-9]|1[0-2])(\d{2}[1-9]))/),
   }).validate(req.body, { abortEarly: false, allowUnknown: true });
   if (validation.error) {
     res.status(400);
@@ -426,7 +424,7 @@ export const completeStepFive = async (req, res) => {
   const gig = await Gig.findById(req.params.gigId);
   const currUser = await User.findById(req.user._id);
   const newAssignee = await User.findById(newAssigneeId);
-
+  const talent = await User.findOne({ _id: gig.talent._id, role: 0 });
   //validations
   // if (req.user._id !== gig.currentAssignee._id) {
   //   res.status(401);
@@ -493,7 +491,11 @@ export const completeStepFive = async (req, res) => {
   newAssignee.todos.push(gig);
   await newAssignee.save();
 
+  talent.todos.push(gig);
+  await talent.save();
+
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+  sendMail(talent.email, "https://mars.com/todos", "New Todo");
 
   res.json({
     message: "Success",

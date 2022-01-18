@@ -59,10 +59,7 @@ const initialValues = {
 const validationSchema = Yup.object({
   galId: Yup.string()
     .required("Required")
-    .matches(
-      /(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(\d{2}[1-9]))/,
-      "Invalid ID"
-    ),
+    .matches(/(\d{2}(0[1-9]|1[0-2])(\d{2}[1-9]))/, "Invalid ID"),
   gigTitle: Yup.string().required("Required"),
   clientId: Yup.string().required("Required"),
   talentId: Yup.string().required("Required"),
@@ -145,7 +142,7 @@ const NewGigScreen = () => {
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
                     <InputField
-                      label="Id"
+                      label="Gig Type"
                       placeholder="Gig Type"
                       name="gigType"
                     />

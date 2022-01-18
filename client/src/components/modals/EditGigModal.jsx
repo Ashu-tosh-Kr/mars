@@ -19,6 +19,14 @@ import {
   Input,
   HStack,
 } from "@chakra-ui/react";
+import { FieldArray, Form, Formik } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import * as Yup from "yup";
+import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { useSelector } from "react-redux";
+
+//non library imports
 import {
   useEditGig,
   useGetAllClients,
@@ -30,20 +38,13 @@ import InputArray from "components/formComponents/InputArray";
 import MenuField from "components/formComponents/MenuField";
 import RadioField from "components/formComponents/RadioField";
 import TextAreaField from "components/formComponents/TextAreaField";
-import { FieldArray, Form, Formik } from "formik";
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import * as Yup from "yup";
-import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import Loader from "components/globals/Loader";
 
+//helpers
 const validationSchema = Yup.object({
   galId: Yup.string()
     .required("Required")
-    .matches(
-      /(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(\d{2}[1-9]))/,
-      "Invalid ID"
-    ),
+    .matches(/(\d{2}(0[1-9]|1[0-2])(\d{2}[1-9]))/, "Invalid ID"),
   gigTitle: Yup.string().required("Required"),
   clientId: Yup.string().required("Required"),
   talentId: Yup.string().required("Required"),
@@ -98,17 +99,22 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     assignee: "",
   };
 
+  //fetched data
   const { clients, clientsLoading, clientsError } = useGetAllClients();
   const { users, usersLoading, usersError } = useGetAllUsers();
+  const user = useSelector((state) => state.userLogin.userInfo.data.user);
+  //mutation
   const { mutate: mutateEditGig, isLoading } = useEditGig(gig._id);
   const { mutateStatusUpdate, isLoadingStatusUpdate } = useUpdateGigStatus(
     gig._id
   );
 
+  //handlers
   const onSubmit = (values) => {
     mutateEditGig(values);
   };
 
+  //jsx
   if (clientsLoading || usersLoading) {
     return (
       <Modal size="4xl" isOpen={isOpen} onClose={onClose}>
@@ -168,10 +174,16 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                   <ModalBody pb={6}>
                     <Grid templateColumns="repeat(12, 1fr)" gap={4}>
                       <GridItem colSpan={[12, 12, 12, 3]}>
-                        <InputField label="Id" placeholder="Id" name="galId" />
+                        <InputField
+                          disabled={user.role === 0}
+                          label="Id"
+                          placeholder="Id"
+                          name="galId"
+                        />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 9]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Title"
                           placeholder="Title"
                           name="gigTitle"
@@ -179,6 +191,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <MenuField
+                          disabled={user.role === 0}
                           label="Client"
                           placeholder="Select Client"
                           name="clientId"
@@ -187,6 +200,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <MenuField
+                          disabled={user.role === 0}
                           label="Talent"
                           placeholder="Select Talent"
                           name="talentId"
@@ -200,13 +214,15 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
-                          label="Id"
+                          disabled={user.role === 0}
+                          label="Gig type"
                           placeholder="Gig Type"
                           name="gigType"
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <MenuField
+                          disabled={user.role === 0}
                           name="gigAssistantId"
                           label="Assistant"
                           placeholder="Select Assistant"
@@ -220,6 +236,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 3]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Location"
                           placeholder="Location"
                           name="gigLocation"
@@ -227,6 +244,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 9]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Address"
                           placeholder="Address"
                           name="gigAddress"
@@ -234,6 +252,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={12}>
                         <TextAreaField
+                          disabled={user.role === 0}
                           label="Details"
                           placeholder="Details"
                           name="gigDetails"
@@ -244,6 +263,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           {"Gig Start"}
                         </FormLabel>
                         <DatePicker
+                          disabled={user.role === 0}
                           selected={formik.values.gigStart}
                           onChange={(date) =>
                             formik.setFieldValue("gigStart", date)
@@ -263,6 +283,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <FormLabel htmlFor="gigEnd">End Date</FormLabel>
                         <DatePicker
+                          disabled={user.role === 0}
                           selected={formik.values.gigEnd}
                           onChange={(date) =>
                             formik.setFieldValue("gigEnd", date)
@@ -283,6 +304,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <FormLabel htmlFor="gigArrive">Arrival Time</FormLabel>
                         <DatePicker
+                          disabled={user.role === 0}
                           selected={formik.values.gigArrive}
                           onChange={(time) =>
                             formik.setFieldValue("gigArrive", time)
@@ -301,6 +323,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           Departure Time
                         </FormLabel>
                         <DatePicker
+                          disabled={user.role === 0}
                           selected={formik.values.gigGoHome}
                           onChange={(time) =>
                             formik.setFieldValue("gigGoHome", time)
@@ -317,6 +340,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <FormLabel htmlFor="embargo">Embargo</FormLabel>
                         <DatePicker
+                          disabled={user.role === 0}
                           selected={formik.values.embargo}
                           onChange={(time) =>
                             formik.setFieldValue("embargo", time)
@@ -332,6 +356,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Host"
                           placeholder="Host"
                           name="gigHosts"
@@ -339,6 +364,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={12}>
                         <TextAreaField
+                          disabled={user.role === 0}
                           label="Schedule Details"
                           placeholder="Schedule Details"
                           name="gigScheduleDetails"
@@ -346,6 +372,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Caution"
                           placeholder="Caution"
                           name="caution"
@@ -353,6 +380,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Dress Code"
                           placeholder="Dress Code"
                           name="dressCode"
@@ -360,6 +388,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="What To Bring"
                           placeholder="What To Bring"
                           name="whatToBring"
@@ -367,6 +396,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="People Count"
                           placeholder="People Count"
                           name="gigPeopleCount"
@@ -377,6 +407,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           Gig People Name
                         </FormLabel>
                         <FieldArray
+                          disabled={user.role === 0}
                           name="gigPeopleName"
                           render={(arrayHelpers) => (
                             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
@@ -413,6 +444,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Promotion"
                           placeholder="Promotion"
                           name="promotion"
@@ -420,6 +452,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Car Parking"
                           placeholder="Car Parking"
                           name="carParking"
@@ -427,6 +460,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Photo Shoot"
                           placeholder="Photo Shoot"
                           name="photoShoot"
@@ -434,6 +468,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Autograph"
                           placeholder="Autograph"
                           name="autograph"
@@ -441,6 +476,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Food"
                           placeholder="Food"
                           name="food"
@@ -448,6 +484,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <RadioField
+                          disabled={user.role === 0}
                           name="dvd"
                           label="DVD"
                           options={[
@@ -458,6 +495,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <InputField
+                          disabled={user.role === 0}
                           label="Other"
                           placeholder="Other"
                           name="other"
@@ -468,6 +506,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           Interview Questions
                         </FormLabel>
                         <FieldArray
+                          disabled={user.role === 0}
                           name="interviewQuestions"
                           render={(arrayHelpers) => (
                             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
@@ -500,6 +539,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
                         <MenuField
+                          disabled={user.role === 0}
                           name="assignee"
                           label="Assignee"
                           placeholder="Select New Assignee"
@@ -511,7 +551,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                     </Grid>
                   </ModalBody>
                   <ModalFooter>
-                    <HStack>
+                    <HStack d={user?.role === 0 && "none"}>
                       <Button
                         type="submit"
                         isLoading={isLoading}
@@ -530,7 +570,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         }
                         mt={3}
                       >
-                        {gig.currentStatus.step === 1 &&
+                        {gig.currentStatus.step === 1 ||
                         gig.currentStatus.step === 3
                           ? "Send For Review"
                           : "Approve"}

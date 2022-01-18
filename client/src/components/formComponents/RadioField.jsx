@@ -8,7 +8,15 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 
-const RadioField = ({ name, mb, options, label, required, ...rest }) => {
+const RadioField = ({
+  name,
+  mb,
+  options,
+  label,
+  required,
+  disabled,
+  ...rest
+}) => {
   const [field, meta] = useField(name);
   const configTextField = {
     name,
@@ -36,7 +44,7 @@ const RadioField = ({ name, mb, options, label, required, ...rest }) => {
               >
                 <Stack direction="row">
                   {options.map((opt, i) => (
-                    <Radio key={i} value={opt.value}>
+                    <Radio isDisabled={disabled} key={i} value={opt.value}>
                       {opt.key}
                     </Radio>
                   ))}

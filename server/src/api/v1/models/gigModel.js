@@ -96,7 +96,7 @@ gigSchema.post("find", async function (gigs) {
     await gig.populate("client");
     await gig.populate("talent", "-password");
     await gig.populate("currentStatus");
-    await gig.populate("currentAssignee", "-password");
+    // await gig.populate("currentAssignee", "-password");
     // await gig.populate({
     //   path: "statusLifecycle",
     //   populate: "personInCharge",
@@ -109,10 +109,10 @@ gigSchema.post("find", async function (gigs) {
 });
 
 gigSchema.post("save", async function (gig, next) {
-  await gig.populate("client");
-  await gig.populate("talent", "-password");
-  await gig.populate("currentStatus");
-  await gig.populate("currentAssignee", "-password");
+  // await gig.populate("client");
+  // await gig.populate("talent", "-password");
+  // await gig.populate("currentStatus");
+  // await gig.populate("currentAssignee", "-password");
   // await gig.populate({
   //   path: "statusLifecycle",
   //   populate: "personInCharge",
