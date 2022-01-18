@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useNavigate } from "react-router-dom";
 import useErrorHandler from "utils/errorHandler";
 import API from "./api";
 
@@ -244,6 +245,7 @@ export const useUpdateCompany = (onClose) => {
 export const useAddNewGig = () => {
   const errorHandler = useErrorHandler();
   const queryClient = useQueryClient();
+  const navigate = useNavigate();
   const toast = useToast();
   const { mutate, isLoading, isSuccess, error } = useMutation(
     async (values) => {
@@ -255,6 +257,7 @@ export const useAddNewGig = () => {
         toast({ title: "Gig Added", status: "success" });
         queryClient.invalidateQueries("userInfo");
         queryClient.invalidateQueries("allGigs");
+        navigate("/all-gigs", { replace: true });
       },
       onError: (error) => errorHandler(error, "post"),
     }
