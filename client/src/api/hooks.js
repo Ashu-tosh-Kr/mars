@@ -98,11 +98,11 @@ export const useGetCurrUserInfo = () => {
       const todos = res.data.data.todos.map((todo) => {
         return {
           ...todo,
-          gigStart: todo.gigStart ? new Date(todo.gigStart) : new Date(),
-          gigEnd: todo.gigEnd ? new Date(todo.gigEnd) : new Date(),
-          gigArrive: todo.gigArrive ? new Date(todo.gigArrive) : new Date(),
-          gigGoHome: todo.gigGoHome ? new Date(todo.gigGoHome) : new Date(),
-          embargo: todo.embargo ? new Date(todo.embargo) : new Date(),
+          gigStart: todo.gigStart ? new Date(todo.gigStart) : null,
+          gigEnd: todo.gigEnd ? new Date(todo.gigEnd) : null,
+          gigArrive: todo.gigArrive ? new Date(todo.gigArrive) : null,
+          gigGoHome: todo.gigGoHome ? new Date(todo.gigGoHome) : null,
+          embargo: todo.embargo ? new Date(todo.embargo) : null,
         };
       });
 
