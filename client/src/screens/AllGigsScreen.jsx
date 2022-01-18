@@ -2,6 +2,7 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Image,
   // IconButton,
   Skeleton,
   Stack,
@@ -12,11 +13,14 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+//non lib imports
+import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetAllGigs } from "api/hooks";
-// import { RiEditBoxLine } from "react-icons/ri";
 
 const AllGigsScreen = () => {
+  //queries
   const { gigs, gigsLoading, gigsError } = useGetAllGigs();
+  //jsx
   return (
     <>
       {gigsLoading ? (
@@ -32,24 +36,25 @@ const AllGigsScreen = () => {
         </Alert>
       ) : (
         <Box w="full">
-          <Table variant="striped" colorScheme="teal">
-            <Thead>
-              <Tr>
-                <Th>Name</Th>
-                <Th>Client</Th>
-                <Th>Talent</Th>
-                <Th>Status</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {gigs.map((gig, i) => (
-                <Tr key={i}>
-                  <Td>{gig.gigTitle}</Td>
-                  <Td>{gig.client.name}</Td>
-                  <Td>{gig.talent.username}</Td>
-                  <Td>{gig.currentStatus.name}</Td>
+          {gigs.length > 0 ? (
+            <Table variant="striped" colorScheme="teal">
+              <Thead>
+                <Tr>
+                  <Th>Name</Th>
+                  <Th>Client</Th>
+                  <Th>Talent</Th>
+                  <Th>Status</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {gigs.map((gig, i) => (
+                  <Tr key={i}>
+                    <Td>{gig.gigTitle}</Td>
+                    <Td>{gig.client.name}</Td>
+                    <Td>{gig.talent.username}</Td>
+                    <Td>{gig.currentStatus.name}</Td>
 
-                  {/* <Td>
+                    {/* <Td>
                     <IconButton
                       onClick={() => {
                         setToBeEditedGig(gig);
@@ -60,10 +65,13 @@ const AllGigsScreen = () => {
                       icon={<RiEditBoxLine />}
                     />
                   </Td> */}
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          ) : (
+            <Image boxSize={"100%"} src={inboxEmpty} alt="emty inbox" />
+          )}
         </Box>
       )}
     </>

@@ -2,22 +2,22 @@ import { Alert, AlertIcon } from "@chakra-ui/alert";
 import { Button, IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Stack } from "@chakra-ui/layout";
+import { Image, Center } from "@chakra-ui/react";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { RiEditBoxLine } from "react-icons/ri";
-
+import { useState } from "react";
+//non lib imports
+import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetAllClients, useGetAllCompanies } from "api/hooks";
 import NewClientModal from "components/modals/NewClientModal";
 import NewCompanyModal from "components/modals/NewCompanyModal";
 import EditClientModal from "components/modals/EditClientModal";
-import { useState } from "react";
 import EditCompanyModal from "components/modals/EditCompanyModal";
 
 const ClientCompanyScreen = () => {
-  const { clients, clientsLoading, clientsError } = useGetAllClients();
-  const { companies, companiesLoading, companiesError } = useGetAllCompanies();
-
+  //state
   const [toBeEditedClient, setToBeEditedClient] = useState({ company: "" });
   const [toBeEditedCompany, setToBeEditedCompany] = useState({});
 
@@ -45,6 +45,11 @@ const ClientCompanyScreen = () => {
     onClose: onCloseEditCompany,
   } = useDisclosure();
 
+  //queries
+  const { clients, clientsLoading, clientsError } = useGetAllClients();
+  const { companies, companiesLoading, companiesError } = useGetAllCompanies();
+
+  //jsx
   return (
     <>
       {!companiesLoading && (
@@ -91,44 +96,52 @@ const ClientCompanyScreen = () => {
                 Oops! Client list cannot be loaded
               </Alert>
             ) : (
-              <Table variant="striped" colorScheme="teal">
-                <Thead>
-                  <Tr>
-                    <Th>Name</Th>
-                    <Th>Title</Th>
-                    <Th>Company</Th>
-                    <Th>Team</Th>
-                    <Th>Email</Th>
-                    <Th>Phone</Th>
-                    <Th>Note</Th>
-                    <Th>Edit</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {clients.map((client, i) => (
-                    <Tr key={i}>
-                      <Td>{client.name}</Td>
-                      <Td>{client.title}</Td>
-                      <Td>{client.company.name}</Td>
-                      <Td>{client.clientTeam}</Td>
-                      <Td>{client.email}</Td>
-                      <Td>{client.phone}</Td>
-                      <Td>{client.note}</Td>
-                      <Td>
-                        <IconButton
-                          onClick={() => {
-                            setToBeEditedClient(client);
-                            onOpenEditClient();
-                          }}
-                          // onClick={onOpenEditClient}
-                          size="sm"
-                          icon={<RiEditBoxLine />}
-                        />
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
+              <>
+                {clients.length > 0 ? (
+                  <Table variant="striped" colorScheme="teal">
+                    <Thead>
+                      <Tr>
+                        <Th>Name</Th>
+                        <Th>Title</Th>
+                        <Th>Company</Th>
+                        <Th>Team</Th>
+                        <Th>Email</Th>
+                        <Th>Phone</Th>
+                        <Th>Note</Th>
+                        <Th>Edit</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {clients.map((client, i) => (
+                        <Tr key={i}>
+                          <Td>{client.name}</Td>
+                          <Td>{client.title}</Td>
+                          <Td>{client.company.name}</Td>
+                          <Td>{client.clientTeam}</Td>
+                          <Td>{client.email}</Td>
+                          <Td>{client.phone}</Td>
+                          <Td>{client.note}</Td>
+                          <Td>
+                            <IconButton
+                              onClick={() => {
+                                setToBeEditedClient(client);
+                                onOpenEditClient();
+                              }}
+                              // onClick={onOpenEditClient}
+                              size="sm"
+                              icon={<RiEditBoxLine />}
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                ) : (
+                  <Center>
+                    <Image boxSize={"25%"} src={inboxEmpty} alt="emty inbox" />
+                  </Center>
+                )}
+              </>
             )}
           </TabPanel>
           <TabPanel>
@@ -147,37 +160,45 @@ const ClientCompanyScreen = () => {
                 Oops! Company list cannot be loaded
               </Alert>
             ) : (
-              <Table variant="striped" colorScheme="teal">
-                <Thead>
-                  <Tr>
-                    <Th>Name</Th>
-                    <Th>Postal Code</Th>
-                    <Th>Office Address</Th>
-                    <Th>Note</Th>
-                  </Tr>
-                </Thead>
-                <Tbody>
-                  {companies.map((company, i) => (
-                    <Tr key={i}>
-                      <Td>{company.name}</Td>
-                      <Td>{company.postCode}</Td>
-                      <Td>{company.officeAddress}</Td>
-                      <Td>{company.note}</Td>
-                      <Td>
-                        <IconButton
-                          onClick={() => {
-                            setToBeEditedCompany(company);
-                            onOpenEditCompany();
-                          }}
-                          // onClick={onOpenEditClient}
-                          size="sm"
-                          icon={<RiEditBoxLine />}
-                        />
-                      </Td>
-                    </Tr>
-                  ))}
-                </Tbody>
-              </Table>
+              <>
+                {companies.length > 0 ? (
+                  <Table variant="striped" colorScheme="teal">
+                    <Thead>
+                      <Tr>
+                        <Th>Name</Th>
+                        <Th>Postal Code</Th>
+                        <Th>Office Address</Th>
+                        <Th>Note</Th>
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {companies.map((company, i) => (
+                        <Tr key={i}>
+                          <Td>{company.name}</Td>
+                          <Td>{company.postCode}</Td>
+                          <Td>{company.officeAddress}</Td>
+                          <Td>{company.note}</Td>
+                          <Td>
+                            <IconButton
+                              onClick={() => {
+                                setToBeEditedCompany(company);
+                                onOpenEditCompany();
+                              }}
+                              // onClick={onOpenEditClient}
+                              size="sm"
+                              icon={<RiEditBoxLine />}
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
+                ) : (
+                  <Center>
+                    <Image boxSize={"25%"} src={inboxEmpty} alt="emty inbox" />
+                  </Center>
+                )}
+              </>
             )}
           </TabPanel>
         </TabPanels>

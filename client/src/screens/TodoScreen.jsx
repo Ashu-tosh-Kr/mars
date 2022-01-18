@@ -3,6 +3,7 @@ import {
   AlertIcon,
   Box,
   IconButton,
+  Image,
   Skeleton,
   Stack,
   Table,
@@ -13,16 +14,22 @@ import {
   Tr,
   useDisclosure,
 } from "@chakra-ui/react";
-import { useGetCurrUserInfo } from "api/hooks";
-import EditGigModal from "components/modals/EditGigModal";
 import { useState } from "react";
 import { RiEditBoxLine } from "react-icons/ri";
+//non lib imports
+import inboxEmpty from "assets/globals/inboxEmpty.svg";
+import { useGetCurrUserInfo } from "api/hooks";
+import EditGigModal from "components/modals/EditGigModal";
 
 const TodoScreen = () => {
-  const { userInfo, userInfoLoading, userInfoError } = useGetCurrUserInfo();
+  //states
   const [toBeEditedGig, setToBeEditedGig] = useState({});
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  //queries
+  const { userInfo, userInfoLoading, userInfoError } = useGetCurrUserInfo();
+
+  //jsx
   return (
     <>
       <EditGigModal isOpen={isOpen} onClose={onClose} gig={toBeEditedGig} />
@@ -39,38 +46,42 @@ const TodoScreen = () => {
         </Alert>
       ) : (
         <Box w="full">
-          <Table variant="striped" colorScheme="teal">
-            <Thead>
-              <Tr>
-                <Th>Name</Th>
-                <Th>Client</Th>
-                <Th>Talent</Th>
-                <Th>Status</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {userInfo.todos.map((todo, i) => (
-                <Tr key={i}>
-                  <Td>{todo.gigTitle}</Td>
-                  <Td>{todo.client.name}</Td>
-                  <Td>{todo.talent.username}</Td>
-                  <Td>{todo.currentStatus.name}</Td>
-
-                  <Td>
-                    <IconButton
-                      onClick={() => {
-                        setToBeEditedGig(todo);
-                        onOpen();
-                      }}
-                      // onClick={onOpenEditClient}
-                      size="sm"
-                      icon={<RiEditBoxLine />}
-                    />
-                  </Td>
+          {userInfo.todos.length > 0 ? (
+            <Table variant="striped" colorScheme="teal">
+              <Thead>
+                <Tr>
+                  <Th>Name</Th>
+                  <Th>Client</Th>
+                  <Th>Talent</Th>
+                  <Th>Status</Th>
                 </Tr>
-              ))}
-            </Tbody>
-          </Table>
+              </Thead>
+              <Tbody>
+                {userInfo.todos.map((todo, i) => (
+                  <Tr key={i}>
+                    <Td>{todo.gigTitle}</Td>
+                    <Td>{todo.client.name}</Td>
+                    <Td>{todo.talent.username}</Td>
+                    <Td>{todo.currentStatus.name}</Td>
+
+                    <Td>
+                      <IconButton
+                        onClick={() => {
+                          setToBeEditedGig(todo);
+                          onOpen();
+                        }}
+                        // onClick={onOpenEditClient}
+                        size="sm"
+                        icon={<RiEditBoxLine />}
+                      />
+                    </Td>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          ) : (
+            <Image boxSize={"100%"} src={inboxEmpty} alt="emty inbox" />
+          )}
         </Box>
       )}
     </>
