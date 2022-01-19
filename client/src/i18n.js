@@ -16,6 +16,15 @@ i18n
       en: {
         translation: {
           now_in_english: 'Now in English',
+          Sidebar: {
+            All_Gigs: 'All_Gigs',
+            Clients: 'Clients',
+            Dashboard: 'Dashboard',
+            Manage_Users: 'Manage_Users',
+            New_Gig: 'New_Gig',
+            Settings: 'Settings',
+            ToDo: 'ToDo',
+          },
           NewGigScreen: {
             Add: 'Add',
             Address: 'Address',
@@ -65,6 +74,15 @@ i18n
       ja: {
         translation: {
           now_in_english: '日本語で表示中',
+          Sidebar: {
+            All_Gigs: '案件の一覧',
+            Clients: '依頼元の一覧',
+            Dashboard: 'ホームページ',
+            Manage_Users: 'ユーザーの管理',
+            New_Gig: '新しい案件',
+            Settings: '設定',
+            ToDo: 'やること',
+          },
           NewGigScreen: {
             Add: '追加',
             Address: '住所',
