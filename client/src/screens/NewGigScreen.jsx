@@ -72,7 +72,7 @@ const validationSchema = Yup.object({
 
 const NewGigScreen = () => {
   // translator hook
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   //queries
   const { clients, clientsLoading, clientsError } = useGetAllClients();

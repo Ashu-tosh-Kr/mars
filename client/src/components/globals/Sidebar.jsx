@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Flex,
   Text,
@@ -14,7 +14,7 @@ import {
   PopoverArrow,
   PopoverCloseButton,
   Badge,
-} from '@chakra-ui/react';
+} from "@chakra-ui/react";
 import {
   FiHome,
   FiCalendar,
@@ -23,16 +23,16 @@ import {
   FiBriefcase,
   FiSettings,
   FiLogOut,
-} from 'react-icons/fi';
-import { AiOutlineUserAdd } from 'react-icons/ai';
+} from "react-icons/fi";
+import { AiOutlineUserAdd } from "react-icons/ai";
 // import { IoPawOutline } from "react-icons/io5";
-import NavItem from 'components/globals/NavItem';
-import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useQueryClient } from 'react-query';
-import { logout } from 'redux/actions/userActions';
-import { useGetCurrUserInfo } from 'api/hooks';
-import { useTranslation } from 'react-i18next';
+import NavItem from "components/globals/NavItem";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "react-query";
+import { logout } from "redux/actions/userActions";
+import { useGetCurrUserInfo } from "api/hooks";
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar() {
   const user = useSelector((store) => store.userLogin.userInfo.data.user);
@@ -43,13 +43,13 @@ export default function Sidebar() {
     localStorage.clear();
     queryClient.invalidateQueries();
     dispatch(logout());
-    navigate('/login', { replace: true });
+    navigate("/login", { replace: true });
   };
 
   const { userInfo } = useGetCurrUserInfo();
 
   // translator hook
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
 
   return (
     <Flex
@@ -58,53 +58,90 @@ export default function Sidebar() {
       h="95vh"
       marginTop="2.5vh"
       boxShadow="0 4px 12px 0 rgba(0, 0, 0, 0.05)"
-      borderRadius={['15px', '30px']}
-      w={['75px', '200px']}
+      borderRadius={["15px", "30px"]}
+      w={["75px", "200px"]}
       flexDir="column"
       justifyContent="space-between"
     >
-      <Flex p="5%" flexDir="column" w="100%" alignItems={['center', 'flex-start']} as="nav">
+      <Flex
+        p="5%"
+        flexDir="column"
+        w="100%"
+        alignItems={["center", "flex-start"]}
+        as="nav"
+      >
         <NavItem
           to="/"
           icon={FiHome}
-          title={t('Sidebar.Dashboard')}
+          title={t("Sidebar.Dashboard")}
           description="This is the description for the dashboard."
         />
-        <Flex pos="relative" align={'center'} w="full">
-          <NavItem to="todo" icon={FiCalendar} title={t('Sidebar.ToDo')} active />
-          <Badge pos="relative" left={['-10%', '-20%', '-30%', '-40%']} colorScheme="purple">
+        <Flex pos="relative" align={"center"} w="full">
+          <NavItem
+            to="todo"
+            icon={FiCalendar}
+            title={t("Sidebar.ToDo")}
+            active
+          />
+          <Badge
+            pos="relative"
+            left={["-10%", "-20%", "-30%", "-40%"]}
+            colorScheme="purple"
+          >
             {userInfo?.todos?.length}
           </Badge>
         </Flex>
-        <NavItem to="clients" icon={FiUser} title={t('Sidebar.Clients')} />
-        <NavItem to="new-gig" icon={FiDollarSign} title={t('Sidebar.New_Gig')} />
-        <NavItem to="all-gigs" icon={FiBriefcase} title={t('Sidebar.All_Gigs')} />
+        <NavItem to="clients" icon={FiUser} title={t("Sidebar.Clients")} />
+        <NavItem
+          to="new-gig"
+          icon={FiDollarSign}
+          title={t("Sidebar.New_Gig")}
+        />
+        <NavItem
+          to="all-gigs"
+          icon={FiBriefcase}
+          title={t("Sidebar.All_Gigs")}
+        />
         {user.role === 4 && (
-          <NavItem to="admin/manage" icon={AiOutlineUserAdd} title={t('Sidebar.Manage_Users')} />
+          <NavItem
+            to="admin/manage"
+            icon={AiOutlineUserAdd}
+            title={t("Sidebar.Manage_Users")}
+          />
         )}
-        <NavItem to="settings" icon={FiSettings} title={t('Sidebar.Settings')} />
+        <NavItem
+          to="settings"
+          icon={FiSettings}
+          title={t("Sidebar.Settings")}
+        />
       </Flex>
 
-      <Flex p="5%" flexDir="column" w="100%" alignItems={['center', 'flex-start']} mb={4}>
-        <Divider display={['none', 'flex']} />
+      <Flex
+        p="5%"
+        flexDir="column"
+        w="100%"
+        alignItems={["center", "flex-start"]}
+        mb={4}
+      >
+        <Divider display={["none", "flex"]} />
         <Popover placement="top-start">
           <PopoverTrigger>
-            <Flex mt={4} align="center" cursor={'pointer'}>
+            <Flex mt={4} align="center" cursor={"pointer"}>
               <Avatar size="sm" src={user.avatar} />
-              <Flex flexDir="column" ml={4} display={['none', 'flex']}>
+              <Flex flexDir="column" ml={4} display={["none", "flex"]}>
                 <Heading as="h3" size="sm">
                   {user.username}
                 </Heading>
                 <Text color="gray">
                   {user.role === 0
-                    ? 'Talent'
+                    ? "Talent"
                     : user.role === 1
-                    ? 'Assistant'
+                    ? "Assistant"
                     : user.role === 2
-                    ? 'SV'
+                    ? "SV"
                     : user.role === 3
-                    ? 'CEO'
-                    : 'Admin'}
+                    ? "CEO"
+                    : "Admin"}
                 </Text>
               </Flex>
             </Flex>

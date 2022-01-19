@@ -1,21 +1,19 @@
-import { useTranslation } from 'react-i18next';
+import { Routes, Route } from "react-router-dom";
+import React from "react";
 
-import { Routes, Route } from 'react-router-dom';
-import React from 'react';
+import LoginScreen from "screens/LoginScreen";
 
-import LoginScreen from 'screens/LoginScreen';
-
-import Dashboard from 'screens/Dashboard';
-import ClientCompanyScreen from 'screens/ClientCompanyScreen';
-import PageNotFound from 'screens/errorPages/PageNotFound';
-import { RequireAuth } from 'components/HOCs/ProtectedRoutes';
-import { RequireAdminPriviledge } from 'components/HOCs/ProtectedRoutes';
-import ManageUsersScreen from 'screens/ManageUsersScreen';
-import NewGigScreen from 'screens/NewGigScreen';
-import TodoScreen from 'screens/TodoScreen';
-import AllGigsScreen from 'screens/AllGigsScreen';
-import SettingsScreen from 'screens/SettingsScreen';
-import Translator from './components/Translator';
+import Dashboard from "screens/Dashboard";
+import ClientCompanyScreen from "screens/ClientCompanyScreen";
+import PageNotFound from "screens/errorPages/PageNotFound";
+import { RequireAuth } from "components/HOCs/ProtectedRoutes";
+import { RequireAdminPriviledge } from "components/HOCs/ProtectedRoutes";
+import ManageUsersScreen from "screens/ManageUsersScreen";
+import NewGigScreen from "screens/NewGigScreen";
+import TodoScreen from "screens/TodoScreen";
+import AllGigsScreen from "screens/AllGigsScreen";
+import SettingsScreen from "screens/SettingsScreen";
+import Translator from "./components/Translator";
 
 function App() {
   return (
