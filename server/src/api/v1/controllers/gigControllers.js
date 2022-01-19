@@ -4,17 +4,7 @@ import Client from "../models/clientModel.js";
 import GigStatus from "../models/gigStatusModel.js";
 import User from "../models/userModel.js";
 import { sendMail } from "../helpers/sendMail.js";
-import vars from "../../../config/vars.js";
-
-//google calendar config
-import { google } from "googleapis";
-const { OAuth2 } = google.auth;
-const oAuth2Client = new OAuth2(
-  vars.googleOAuthClientId,
-  vars.googleOAuthClientSecret
-);
-oAuth2Client.setCredentials({ refresh_token: vars.googleOAuthRefreshToken });
-const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
+import { addCalEvent, updateCalEvent } from "../helpers/gCal.js";
 
 export const getAllGigs = async (req, res) => {
   const gigs = await Gig.find().populate(["client", "talent", "currentStatus"]);
@@ -167,7 +157,7 @@ export const editGig = async (req, res) => {
     other,
     memo,
   } = req.body;
-  const gig = await Gig.findById(req.params.gigId);
+  const gig = await Gig.findById(req.params.gigId).populate("currentStatus");
   const client = await Client.findById(clientId);
   const talent = await User.findOne({ _id: talentId, role: 0 });
 
@@ -225,6 +215,10 @@ export const editGig = async (req, res) => {
   gig.memo = memo || gig.memo;
 
   await gig.save();
+
+  if (gig.gCalEventId) {
+    updateCalEvent(gig);
+  }
 
   res.json({ message: "Successful", data: gig });
 };
@@ -455,32 +449,7 @@ export const completeStepFive = async (req, res) => {
   let nextGigStatus;
   if (isApproved) {
     nextGigStatus = await GigStatus.findOne({ step: 6 });
-    const gigStart = new Date(gig.gigStart);
-    const gigEnd = new Date(gig.gigEnd);
-
-    const event = {
-      summary: gig.gigTitle,
-      location: gig.gigLocation,
-      description: gig.gigDetails,
-      colorId: 1,
-      start: {
-        dateTime: gigStart,
-        timeZone: "Asia/Kolkata",
-      },
-      end: {
-        dateTime: gigEnd,
-        timeZone: "Asia/Kolkata",
-      },
-    };
-    calendar.events.insert(
-      { calendarId: "primary", resource: event },
-      (err) => {
-        // Check for errors and log them if they exist.
-        if (err) return console.error("Error Creating Calender Event:", err);
-        // Else log that the event was created.
-        return console.log("Calendar event successfully created.");
-      }
-    );
+    addCalEvent(gig, talent);
   } else {
     nextGigStatus = await GigStatus.findOne({ step: 4 });
   }

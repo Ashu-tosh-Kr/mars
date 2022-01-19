@@ -89,6 +89,7 @@ const gigSchema = new mongoose.Schema(
     statusLifecycle: {
       type: [completedStatusSchema],
     },
+    gCalEventId: String,
   },
   {
     timestamps: true,
