@@ -94,43 +94,43 @@ const gigSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
-gigSchema.post("find", async function (gigs) {
-  for (let gig of gigs) {
-    Promise.all([
-      gig.populate("client"),
-      gig.populate("talent", "-password"),
-      gig.populate("currentStatus"),
-    ]);
-    // await gig.populate("client");
-    // await gig.populate("talent", "-password");
-    // await gig.populate("currentStatus");
-    // gig.populate("currentAssignee", "-password"),
-    // await gig.populate("currentAssignee", "-password");
-    // await gig.populate({
-    //   path: "statusLifecycle",
-    //   populate: "personInCharge",
-    // });
-    // await gig.populate({
-    //   path: "statusLifecycle",
-    //   populate: "status",
-    // });
-  }
-});
+// gigSchema.post("find", async function (gigs) {
+// const arr = [];
+// for (let gig of gigs) {
+//   arr.push(gig.populate(["client", "talent", "currentStatus"]));
+// }
+// await Promise.all(arr);
+// for (let gig of gigs) {
+// await gig.populate("client");
+// await gig.populate("talent", "-password");
+// await gig.populate("currentStatus");
+// gig.populate("currentAssignee", "-password"),
+// await gig.populate("currentAssignee", "-password");
+// await gig.populate({
+//   path: "statusLifecycle",
+//   populate: "personInCharge",
+// });
+// await gig.populate({
+//   path: "statusLifecycle",
+//   populate: "status",
+// });
+// }
+// });
 
-gigSchema.post("save", async function (gig, next) {
-  // await gig.populate("client");
-  // await gig.populate("talent", "-password");
-  // await gig.populate("currentStatus");
-  // await gig.populate("currentAssignee", "-password");
-  // await gig.populate({
-  //   path: "statusLifecycle",
-  //   populate: "personInCharge",
-  // });
-  // await gig.populate({
-  //   path: "statusLifecycle",
-  //   populate: "status",
-  // });
-  next();
-});
+// gigSchema.post("save", async function (gig, next) {
+// await gig.populate("client");
+// await gig.populate("talent", "-password");
+// await gig.populate("currentStatus");
+// await gig.populate("currentAssignee", "-password");
+// await gig.populate({
+//   path: "statusLifecycle",
+//   populate: "personInCharge",
+// });
+// await gig.populate({
+//   path: "statusLifecycle",
+//   populate: "status",
+// });
+// next();
+// });
 const Gig = mongoose.model("Gig", gigSchema);
 export default Gig;

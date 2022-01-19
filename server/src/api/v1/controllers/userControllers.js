@@ -20,7 +20,24 @@ export const getAllUsers = async (req, res) => {
 export const getUserInfo = async (req, res) => {
   const user = await User.findById(req.user.id)
     .select("-password")
-    .populate("todos");
+    .populate({
+      path: "todos",
+      populate: {
+        path: "client",
+      },
+    })
+    .populate({
+      path: "todos",
+      populate: {
+        path: "talent",
+      },
+    })
+    .populate({
+      path: "todos",
+      populate: {
+        path: "currentStatus",
+      },
+    });
 
   res.json({ message: "Successful", data: user });
 };

@@ -17,7 +17,7 @@ oAuth2Client.setCredentials({ refresh_token: vars.googleOAuthRefreshToken });
 const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 
 export const getAllGigs = async (req, res) => {
-  const gigs = await Gig.find().populate("client");
+  const gigs = await Gig.find().populate(["client", "talent", "currentStatus"]);
   res.json({ message: "Successful", data: gigs });
 };
 
