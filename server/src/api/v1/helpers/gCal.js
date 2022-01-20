@@ -9,6 +9,9 @@ const oAuth2Client = new OAuth2(
 oAuth2Client.setCredentials({ refresh_token: vars.googleOAuthRefreshToken });
 const calendar = google.calendar({ version: "v3", auth: oAuth2Client });
 
+/**
+ * @docs https://developers.google.com/calendar/api/v3/reference/events/insert
+ */
 export const addCalEvent = async (gig, talent) => {
   const gigStart = new Date(gig.gigStart);
   const gigEnd = new Date(gig.gigEnd);
@@ -41,6 +44,9 @@ export const addCalEvent = async (gig, talent) => {
   );
 };
 
+/**
+ * @docs https://developers.google.com/calendar/api/v3/reference/events/patch
+ */
 export const updateCalEvent = async (gig) => {
   const gigStart = new Date(gig.gigStart);
   const gigEnd = new Date(gig.gigEnd);
