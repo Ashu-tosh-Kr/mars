@@ -63,6 +63,16 @@ const calcStep = (step) => {
       return "step-four";
     case 5:
       return "step-five";
+    case 6:
+      return "step-six";
+    case 7:
+      return "step-seven";
+    case 8:
+      return "step-eight";
+    case 9:
+      return "step-nine";
+    case 10:
+      return "step-ten";
   }
 };
 
@@ -603,10 +613,13 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         {gig.currentStatus.step === 1 ||
                         gig.currentStatus.step === 3
                           ? "Send For Review"
-                          : "Approve"}
+                          : gig.currentStatus.step <= 5
+                          ? "Approve"
+                          : "Mark As Done"}
                       </Button>
                       {gig.currentStatus.step !== 1 &&
-                        gig.currentStatus.step !== 3 && (
+                        gig.currentStatus.step !== 3 &&
+                        gig.currentStatus.step <= 5 && (
                           <Button
                             isLoading={isLoadingStatusUpdate}
                             onClick={() =>

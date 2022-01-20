@@ -223,6 +223,9 @@ export const editGig = async (req, res) => {
   res.json({ message: "Successful", data: gig });
 };
 
+/**
+ * GIG Lifecycle controllers: Step 0 through Step 11
+ */
 export const completeStepOne = async (req, res) => {
   const { newAssigneeId } = req.body;
   const gig = await Gig.findById(req.params.gigId);
@@ -475,6 +478,95 @@ export const completeStepFive = async (req, res) => {
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
   sendMail(talent.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepSixThroughNine = async (req, res) => {
+  const { newAssigneeId } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  // if (req.user._id !== gig.currentAssignee._id) {
+  //   res.status(401);
+  //   throw new Error("Access denied, Gig not assigned to the current user");
+  // }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("User to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  const currGigStatus = await GigStatus.findById(gig.currentStatus);
+  const nextGigStatus = await GigStatus.findOne({
+    step: currGigStatus.step + 1,
+  });
+
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
+
+  newAssignee.todos.push(gig);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepTen = async (req, res) => {
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+
+  //validations
+  // if (req.user._id !== gig.currentAssignee._id) {
+  //   res.status(401);
+  //   throw new Error("Access denied, Gig not assigned to the current user");
+  // }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  const nextGigStatus = await GigStatus.findOne({
+    step: 11,
+  });
+
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   res.json({
     message: "Success",
