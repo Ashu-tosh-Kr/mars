@@ -39,6 +39,7 @@ import MenuField from "components/formComponents/MenuField";
 import RadioField from "components/formComponents/RadioField";
 import TextAreaField from "components/formComponents/TextAreaField";
 import Loader from "components/globals/Loader";
+import RichTextEditor from "components/formComponents/RichTextEditor";
 
 //helpers
 const validationSchema = Yup.object({
@@ -264,11 +265,20 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         />
                       </GridItem>
                       <GridItem colSpan={12}>
-                        <TextAreaField
+                        {/* <TextAreaField
                           disabled={user.role === 0}
                           label="Details"
                           placeholder="Details"
                           name="gigDetails"
+                        /> */}
+                        <FormLabel htmlFor={"gigDetails"}>
+                          {"Details"}
+                        </FormLabel>
+                        <RichTextEditor
+                          value={formik.values.gigDetails}
+                          onChange={(date) =>
+                            formik.setFieldValue("gigDetails", date)
+                          }
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>

@@ -38,6 +38,9 @@ export const RequireAuth = () => {
             background: "teal",
             borderRadius: "24px",
           },
+          ".ck-editor__editable_inline": {
+            minHeight: "200px",
+          },
         }}
         overflow={"scroll"}
         w="85%"

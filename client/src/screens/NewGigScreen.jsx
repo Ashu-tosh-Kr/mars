@@ -25,6 +25,7 @@ import RadioField from "components/formComponents/RadioField";
 import TextAreaField from "components/formComponents/TextAreaField";
 import Loader from "components/globals/Loader";
 import { useTranslation } from "react-i18next";
+import RichTextEditor from "components/formComponents/RichTextEditor";
 
 const initialValues = {
   galId: "",
@@ -202,10 +203,17 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={12}>
-                    <TextAreaField
+                    {/* <TextAreaField
                       label={t("NewGigScreen.Details")}
                       placeholder={t("NewGigScreen.Details")}
                       name="gigDetails"
+                    /> */}
+                    <FormLabel htmlFor={"gigDetails"}>{"Details"}</FormLabel>
+                    <RichTextEditor
+                      value={formik.values.gigDetails}
+                      onChange={(date) =>
+                        formik.setFieldValue("gigDetails", date)
+                      }
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
