@@ -69,6 +69,15 @@ i18n
             Title: "Title",
             What_To_Bring: "What To Bring",
           },
+          NewCompanyModal: {
+            Add_new_company: "Add new company",
+            Name: "Name",
+            Postal_code: "Postal code",
+            Office_address: "Office address",
+            Note: "Note",
+            Add: "Add",
+            Cancel: "Cancel",
+          },
           CostModal: {
             Category: "Category",
             Detail: "Detail",
@@ -80,6 +89,15 @@ i18n
       ja: {
         translation: {
           now_in_english: "日本語で表示中",
+          NewCompanyModal: {
+            Add_new_company: "会社を追加",
+            Name: "会社名",
+            Postal_code: "〒",
+            Office_address: "所在地",
+            Note: "メモ",
+            Add: "追加",
+            Cancel: "中止",
+          },
           Sidebar: {
             All_Gigs: "案件の一覧",
             Clients: "依頼元の一覧",

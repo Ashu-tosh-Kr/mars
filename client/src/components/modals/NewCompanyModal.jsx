@@ -12,6 +12,7 @@ import { useAddNewCompany } from "api/hooks";
 import InputField from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
   name: "",
@@ -28,6 +29,9 @@ const validationSchema = Yup.object({
 });
 
 const NewCompanyModal = ({ isOpen, onClose }) => {
+  // ↓ translator hook
+  const { t } = useTranslation();
+
   const { mutate, isLoading } = useAddNewCompany(onClose);
 
   const onSubmit = (values) => {
@@ -38,7 +42,7 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add New Company</ModalHeader>
+        <ModalHeader>{t("NewCompanyModal.Add_new_company")}</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -47,26 +51,21 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder="Name" name="name" />
-              <InputField mb={3} placeholder="Postal Code" name="postCode" />
+              <InputField mb={3} placeholder={t("NewCompanyModal.Name")} name="name" />
+              <InputField mb={3} placeholder={t("NewCompanyModal.Postal_code")} name="postCode" />
               <InputField
                 mb={3}
-                placeholder="Office Address"
+                placeholder={t("NewCompanyModal.Office_address")}
                 name="officeAddress"
               />
-              <InputField mb={3} placeholder="Note" name="note" />
+              <InputField mb={3} placeholder={t("NewCompanyModal.Note")} name="note" />
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                colorScheme="blue"
-                mr={3}
-              >
-                Add
+              <Button type="submit" isLoading={isLoading} colorScheme="blue" mr={3}>
+                {t("NewCompanyModal.Add")}
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>{t("NewCompanyModal.Cancel")}</Button>
             </ModalFooter>
           </Form>
         </Formik>
