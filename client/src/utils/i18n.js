@@ -70,6 +70,20 @@ i18n
             What_To_Bring: "What To Bring",
           },
           NewCompanyModal: {
+            Add_new_company: "Add_new_company",
+            Name: "Name",
+            Postal_code: "Postal_code",
+            Office_address: "Office_address",
+            Note: "Note",
+            Add: "Add",
+            Cancel: "Cancel",
+          },
+        },
+      },
+      ja: {
+        translation: {
+          now_in_english: "日本語で表示中",
+          NewCompanyModal: {
             Add_new_company: "会社を追加",
             Name: "会社名",
             Postal_code: "〒",
@@ -78,11 +92,6 @@ i18n
             Add: "追加",
             Cancel: "中止",
           },
-        },
-      },
-      ja: {
-        translation: {
-          now_in_english: "日本語で表示中",
           Sidebar: {
             All_Gigs: "案件の一覧",
             Clients: "依頼元の一覧",
