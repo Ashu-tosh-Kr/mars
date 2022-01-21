@@ -69,6 +69,15 @@ i18n
             Title: "Title",
             What_To_Bring: "What To Bring",
           },
+          NewCompanyModal: {
+            Add_new_company: "会社を追加",
+            Name: "会社名",
+            Postal_code: "〒",
+            Office_address: "所在地",
+            Note: "メモ",
+            Add: "追加",
+            Cancel: "中止",
+          },
         },
       },
       ja: {
