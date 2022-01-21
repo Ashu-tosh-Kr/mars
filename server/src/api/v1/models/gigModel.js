@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Cost from "./costModel.js";
 
 const completedStatusSchema = new mongoose.Schema({
   status: {
@@ -74,6 +75,9 @@ const gigSchema = new mongoose.Schema(
     autograph: String,
     food: String,
     other: String,
+    costs: {
+      type: [Cost.schema],
+    },
     //meta data
     memo: String,
     currentAssignee: {

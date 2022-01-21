@@ -331,3 +331,43 @@ export const useGetAllGigs = () => {
   );
   return { gigs, gigsLoading, gigsError };
 };
+
+export const useAddCostToGig = () => {
+  const errorHandler = useErrorHandler();
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.addCostToGig(values.gigId, values.values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Cost added to Gig", status: "success" });
+        queryClient.invalidateQueries("userInfo");
+      },
+      onError: (error) => errorHandler(error, "patch"),
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};
+
+export const useDelCostFromGig = () => {
+  const errorHandler = useErrorHandler();
+  const queryClient = useQueryClient();
+  const toast = useToast();
+  const { mutate, isLoading, isSuccess, error } = useMutation(
+    async (values) => {
+      const api = new API();
+      await api.delCostFromGig(values.gigId, values);
+    },
+    {
+      onSuccess: () => {
+        toast({ title: "Cost deleted from Gig", status: "success" });
+        queryClient.invalidateQueries("userInfo");
+      },
+      onError: (error) => errorHandler(error, "patch"),
+    }
+  );
+  return { mutate, isLoading, isSuccess, error };
+};

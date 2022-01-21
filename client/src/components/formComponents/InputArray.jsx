@@ -8,7 +8,7 @@ import {
   InputLeftAddon,
 } from "@chakra-ui/react";
 
-const InputField = ({
+const InputArray = ({
   name,
   mb,
   rightAddOn,
@@ -44,4 +44,4 @@ const InputField = ({
     </>
   );
 };
-export default InputField;
+export default InputArray;

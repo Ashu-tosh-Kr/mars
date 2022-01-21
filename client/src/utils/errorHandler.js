@@ -42,7 +42,7 @@ const useErrorHandler = () => {
         replace: true,
         state: {
           errorStatusCode: error.toJSON().status,
-          redirect: error.response.data.redirect,
+          redirect: error.response?.data?.redirect,
         },
       });
       toast({

@@ -69,6 +69,12 @@ i18n
             Title: "Title",
             What_To_Bring: "What To Bring",
           },
+          CostModal: {
+            Category: "Category",
+            Detail: "Detail",
+            Price: "Price",
+            Method: "Payment Method",
+          },
         },
       },
       ja: {
@@ -126,6 +132,12 @@ i18n
             Talent: "タレント名",
             Title: "題名",
             What_To_Bring: "持ち物",
+          },
+          CostModal: {
+            Category: "",
+            Detail: "",
+            Price: "",
+            Method: "",
           },
         },
       },

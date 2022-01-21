@@ -16,23 +16,43 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiEditBoxLine } from "react-icons/ri";
+import { FaRegMoneyBillAlt } from "react-icons/fa";
 //non lib imports
 import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetCurrUserInfo } from "api/hooks";
 import EditGigModal from "components/modals/EditGigModal";
+import CostModal from "components/modals/CostModal";
 
 const TodoScreen = () => {
+  /** hooks */
+  const {
+    isOpen: isOpenEditGig,
+    onOpen: onOpenEditGig,
+    onClose: onCloseEditGig,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenCost,
+    onOpen: onOpenCost,
+    onClose: onCloseCost,
+  } = useDisclosure();
   //states
   const [toBeEditedGig, setToBeEditedGig] = useState({});
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
   //queries
   const { userInfo, userInfoLoading, userInfoError } = useGetCurrUserInfo();
 
   //jsx
   return (
     <>
-      <EditGigModal isOpen={isOpen} onClose={onClose} gig={toBeEditedGig} />
+      <CostModal
+        isOpen={isOpenCost}
+        onClose={onCloseCost}
+        gig={toBeEditedGig}
+      />
+      <EditGigModal
+        isOpen={isOpenEditGig}
+        onClose={onCloseEditGig}
+        gig={toBeEditedGig}
+      />
       {userInfoLoading ? (
         <Stack w="100%">
           <Skeleton isLoaded={!userInfoLoading} height="50px" />
@@ -70,9 +90,19 @@ const TodoScreen = () => {
                       <IconButton
                         onClick={() => {
                           setToBeEditedGig(todo);
-                          onOpen();
+                          onOpenCost();
                         }}
-                        // onClick={onOpenEditClient}
+                        size="sm"
+                        icon={<FaRegMoneyBillAlt />}
+                      />
+                    </Td>
+
+                    <Td>
+                      <IconButton
+                        onClick={() => {
+                          setToBeEditedGig(todo);
+                          onOpenEditGig();
+                        }}
                         size="sm"
                         icon={<RiEditBoxLine />}
                       />

@@ -108,6 +108,13 @@ export default class API {
     return this.instance.get(`/gig`);
   }
 
+  //cost apis
+  addCostToGig(gigId, data) {
+    return this.instance.patch(`/cost/${gigId}/add`, data);
+  }
+  delCostFromGig(gigId, data) {
+    return this.instance.patch(`/cost/${gigId}/del`, data);
+  }
   // getAllClients() {
   //   return this.instance.get("/client", data, {
   //     headers: {
