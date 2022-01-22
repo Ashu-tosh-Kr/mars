@@ -16,6 +16,22 @@ i18n
       en: {
         translation: {
           now_in_english: "Now in English",
+          TodoScreen: {
+            Oops_Todos_cannot_be_loaded: "Oops! Todos cannot be loaded",
+            Name: "Name",
+            Client: "Client",
+            Talent: "Talent",
+            Status: "Status",
+            Memo: "Memo",
+          },
+          AllGigScreen: {
+            Oops_Todos_cannot_be_loaded: "Oops! Todos cannot be loaded",
+            Name: "Name",
+            Client: "Client",
+            Talent: "Talent",
+            Status: "Status",
+            Memo: "Memo",
+          },
           NewUserModal: {
             Add_user: "Add_user",
             Employee_ID: "Employee_ID",
@@ -112,6 +128,22 @@ i18n
       ja: {
         translation: {
           now_in_english: "日本語で表示中",
+          TodoScreen: {
+            Oops_Todos_cannot_be_loaded: "あらっ！やることの一覧を取得できませんね…",
+            Name: "題名",
+            Client: "依頼元",
+            Talent: "タレント",
+            Status: "ステータス",
+            Memo: "ステータスのメモ",
+          },
+          AllGigScreen: {
+            Oops_Todos_cannot_be_loaded: "あらっ！依頼の一覧を取得できませんね…",
+            Name: "題名",
+            Client: "依頼元",
+            Talent: "タレント",
+            Status: "ステータス",
+            Memo: "ステータスのメモ",
+          },
           NewClientModal: {
             Add: "追加",
             Add_New_Client: "依頼元の担当者を追加",
@@ -181,7 +213,7 @@ i18n
             Other: "その他",
             People_Count: "対象人数",
             Photo_Shoot: "当日写真撮影",
-            Memo: "メモ",
+            Memo: "ステータスのメモ",
             Promotion: "告知物",
             Postal_code: "〒",
             Schedule_Details: "スケジュール",

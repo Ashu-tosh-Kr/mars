@@ -22,37 +22,24 @@ import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetCurrUserInfo } from "api/hooks";
 import EditGigModal from "components/modals/EditGigModal";
 import CostModal from "components/modals/CostModal";
+import { useTranslation } from "react-i18next";
 
 const TodoScreen = () => {
   /** hooks */
-  const {
-    isOpen: isOpenEditGig,
-    onOpen: onOpenEditGig,
-    onClose: onCloseEditGig,
-  } = useDisclosure();
-  const {
-    isOpen: isOpenCost,
-    onOpen: onOpenCost,
-    onClose: onCloseCost,
-  } = useDisclosure();
+  const { isOpen: isOpenEditGig, onOpen: onOpenEditGig, onClose: onCloseEditGig } = useDisclosure();
+  const { isOpen: isOpenCost, onOpen: onOpenCost, onClose: onCloseCost } = useDisclosure();
   //states
   const [toBeEditedGig, setToBeEditedGig] = useState({});
   //queries
   const { userInfo, userInfoLoading, userInfoError } = useGetCurrUserInfo();
 
+  const { t } = useTranslation();
+
   //jsx
   return (
     <>
-      <CostModal
-        isOpen={isOpenCost}
-        onClose={onCloseCost}
-        gig={toBeEditedGig}
-      />
-      <EditGigModal
-        isOpen={isOpenEditGig}
-        onClose={onCloseEditGig}
-        gig={toBeEditedGig}
-      />
+      <CostModal isOpen={isOpenCost} onClose={onCloseCost} gig={toBeEditedGig} />
+      <EditGigModal isOpen={isOpenEditGig} onClose={onCloseEditGig} gig={toBeEditedGig} />
       {userInfoLoading ? (
         <Stack w="100%">
           <Skeleton isLoaded={!userInfoLoading} height="50px" />
@@ -62,7 +49,7 @@ const TodoScreen = () => {
       ) : userInfoError ? (
         <Alert status="error">
           <AlertIcon />
-          Oops! Todos cannot be loaded
+          {t("TodoScreen.Oops_Todos_cannot_be_loaded")}
         </Alert>
       ) : (
         <Box w="full">
@@ -70,11 +57,11 @@ const TodoScreen = () => {
             <Table variant="striped" colorScheme="teal">
               <Thead>
                 <Tr>
-                  <Th>Name</Th>
-                  <Th>Client</Th>
-                  <Th>Talent</Th>
-                  <Th>Status</Th>
-                  <Th>Memo</Th>
+                  <Th>{t("TodoScreen.Name")}</Th>
+                  <Th>{t("TodoScreen.Client")}</Th>
+                  <Th>{t("TodoScreen.Talent")}</Th>
+                  <Th>{t("TodoScreen.Status")}</Th>
+                  <Th>{t("TodoScreen.Memo")}</Th>
                 </Tr>
               </Thead>
               <Tbody>
