@@ -16,6 +16,26 @@ i18n
       en: {
         translation: {
           now_in_english: "Now in English",
+          EditClientModal: {
+            Cancel: "Cancel",
+            Email: "Email",
+            Name: "Name",
+            Note: "Note",
+            Phone: "Phone",
+            Team: "Team",
+            Title: "Title",
+            Update: "Update",
+            Update_client: "Update_client",
+          },
+          EditCompanyModal: {
+            Cancel: "Cancel",
+            Name: "Name",
+            Note: "Note",
+            Office_address: "Office_address",
+            Postal_code: "Postal_code",
+            Update: "Update",
+            Update_company: "Update_company",
+          },
           SettingsScreen: {
             Old_password: "Old_password",
             New_password: "New_password",
@@ -165,6 +185,26 @@ i18n
       ja: {
         translation: {
           now_in_english: "日本語で表示中",
+          EditClientModal: {
+            Cancel: "中止",
+            Email: "メアド",
+            Name: "名前",
+            Note: "メモ",
+            Phone: "電話",
+            Team: "部署",
+            Title: "役職",
+            Update: "編集",
+            Update_client: "依頼元の情報を編集",
+          },
+          EditCompanyModal: {
+            Cancel: "中止",
+            Name: "名前",
+            Note: "メモ",
+            Office_address: "所在地",
+            Postal_code: "〒",
+            Update: "編集",
+            Update_company: "依頼元の会社の情報を編集",
+          },
           SettingsScreen: {
             Old_password: "今までのパスワードを入力してね",
             New_password: "新しく使うパスワードを入力してね",

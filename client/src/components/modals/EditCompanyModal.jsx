@@ -13,6 +13,8 @@ import InputField from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
+import { useTranslation } from "react-i18next";
+
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
   postCode: Yup.string().required("Required"),
@@ -34,11 +36,13 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
     mutate({ companyId: company._id, ...values });
   };
 
+  const { t } = useTranslation();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Update Company</ModalHeader>
+        <ModalHeader>{t("EditCompanyModal.Update_company")}</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -47,26 +51,21 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder="Name" name="name" />
-              <InputField mb={3} placeholder="Postal Code" name="postCode" />
+              <InputField mb={3} placeholder={t("EditCompanyModal.Name")} name="name" />
+              <InputField mb={3} placeholder={t("EditCompanyModal.Postal_code")} name="postCode" />
               <InputField
                 mb={3}
-                placeholder="Office Address"
+                placeholder={t("EditCompanyModal.Office_address")}
                 name="officeAddress"
               />
-              <InputField mb={3} placeholder="Note" name="note" />
+              <InputField mb={3} placeholder={t("EditCompanyModal.Note")} name="note" />
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                colorScheme="teal"
-                mr={3}
-              >
-                Update
+              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+                {t("EditCompanyModal.Update")}
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>{t("EditCompanyModal.Cancel")}</Button>
             </ModalFooter>
           </Form>
         </Formik>
