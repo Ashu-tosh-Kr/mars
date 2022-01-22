@@ -13,6 +13,7 @@ import InputField from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
   username: "",
@@ -44,11 +45,13 @@ const NewUserModal = ({ isOpen, onClose }) => {
     mutate({ ...values, isActive: values.isActive === "true" });
   };
 
+  const { t } = useTranslation();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add User</ModalHeader>
+        <ModalHeader>{t("NewUserModal.Add_user")}</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -57,23 +60,18 @@ const NewUserModal = ({ isOpen, onClose }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder="Employee ID" name="employeeId" />
-              <InputField mb={3} placeholder="Username" name="username" />
-              <InputField mb={3} placeholder="E-mail" name="email" />
-              <InputField mb={3} placeholder="Phone" name="phone" />
+              <InputField mb={3} placeholder={t("NewUserModal.Employee_ID")} name="employeeId" />
+              <InputField mb={3} placeholder={t("NewUserModal.Username")} name="username" />
+              <InputField mb={3} placeholder={t("NewUserModal.EMail")} name="email" />
+              <InputField mb={3} placeholder={t("NewUserModal.Phone")} name="phone" />
               <MenuField mb={3} name="role" options={Roles} />
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                colorScheme="teal"
-                mr={3}
-              >
-                Add
+              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+                {t("NewUserModal.Add")}
               </Button>
-              <Button onClick={onClose}>Cancel</Button>
+              <Button onClick={onClose}>{t("NewUserModal.Cancel")}</Button>
             </ModalFooter>
           </Form>
         </Formik>

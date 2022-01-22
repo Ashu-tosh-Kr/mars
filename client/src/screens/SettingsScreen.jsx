@@ -1,15 +1,9 @@
-import {
-  Button,
-  Tab,
-  TabList,
-  TabPanel,
-  TabPanels,
-  Tabs,
-} from "@chakra-ui/react";
+import { Button, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
 import { useChangePass } from "api/hooks";
 import InputField from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
   oldPass: "",
@@ -29,11 +23,14 @@ const SettingsScreen = () => {
   const onSubmit = (values) => {
     mutate(values);
   };
+
+  const { t } = useTranslation();
+
   return (
     <>
       <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
         <TabList mb="1em">
-          <Tab>Change Password</Tab>
+          <Tab>{t("SettingsScreen.Change_password")}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel w="50%">
@@ -43,21 +40,16 @@ const SettingsScreen = () => {
               validationSchema={validationSchema}
             >
               <Form>
-                <InputField mb={3} placeholder="Old Password" name="oldPass" />
-                <InputField mb={3} placeholder="New Password" name="newPass" />
+                <InputField mb={3} placeholder={t("SettingsScreen.Old_password")} name="oldPass" />
+                <InputField mb={3} placeholder={t("SettingsScreen.New_password")} name="newPass" />
                 <InputField
                   mb={3}
-                  placeholder="Confirm Password"
+                  placeholder={t("SettingsScreen.Confirm_password")}
                   name="confirmPass"
                 />
 
-                <Button
-                  type="submit"
-                  isLoading={isLoading}
-                  colorScheme="teal"
-                  mr={3}
-                >
-                  Change
+                <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+                  {t("SettingsScreen.Change")}
                 </Button>
               </Form>
             </Formik>

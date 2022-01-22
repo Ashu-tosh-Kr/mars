@@ -11,17 +11,14 @@ import { useGetAllUsers } from "api/hooks";
 import { useState } from "react";
 import NewUserModal from "components/modals/NewUserModal";
 import EditUserModal from "components/modals/EditUserModal";
+import { useTranslation } from "react-i18next";
 
 const ManageUsersScreen = () => {
   const { users, usersLoading, usersError } = useGetAllUsers();
 
   const [toBeEditedUser, setToBeEditedUser] = useState({});
 
-  const {
-    isOpen: isOpenNewUser,
-    onOpen: onOpenNewUser,
-    onClose: onCloseNewUser,
-  } = useDisclosure();
+  const { isOpen: isOpenNewUser, onOpen: onOpenNewUser, onClose: onCloseNewUser } = useDisclosure();
 
   const {
     isOpen: isOpenEditUser,
@@ -29,23 +26,21 @@ const ManageUsersScreen = () => {
     onClose: onCloseEditUser,
   } = useDisclosure();
 
+  const { t } = useTranslation();
+
   return (
     <>
       <NewUserModal isOpen={isOpenNewUser} onClose={onCloseNewUser} />
-      <EditUserModal
-        isOpen={isOpenEditUser}
-        onClose={onCloseEditUser}
-        user={toBeEditedUser}
-      />
+      <EditUserModal isOpen={isOpenEditUser} onClose={onCloseEditUser} user={toBeEditedUser} />
       <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
         <TabList mb="1em">
-          <Tab>Active Users</Tab>
-          <Tab>Inactive Users</Tab>
+          <Tab>{t("ManageUsersScreen.Active_users")}</Tab>
+          <Tab>{t("ManageUsersScreen.Inactive_users")}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <Button m="2rem" onClick={onOpenNewUser} colorScheme="teal">
-              Add new User
+              {t("ManageUsersScreen.Add_new_user")}
             </Button>
 
             {usersLoading ? (
@@ -57,17 +52,17 @@ const ManageUsersScreen = () => {
             ) : usersError ? (
               <Alert status="error">
                 <AlertIcon />
-                Oops! Users list cannot be loaded
+                {t("ManageUsersScreen.Oops_Users_list_cannot_be_loaded")}
               </Alert>
             ) : (
               <Table variant="striped" colorScheme="teal">
                 <Thead>
                   <Tr>
-                    <Th>Name</Th>
-                    <Th>Employee Id</Th>
-                    <Th>Email</Th>
-                    <Th>Role</Th>
-                    <Th>Phone</Th>
+                    <Th>{t("ManageUsersScreen.Name")}</Th>
+                    <Th>{t("ManageUsersScreen.Employee_Id")}</Th>
+                    <Th>{t("ManageUsersScreen.Email")}</Th>
+                    <Th>{t("ManageUsersScreen.Role")}</Th>
+                    <Th>{t("ManageUsersScreen.Phone")}</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -117,17 +112,17 @@ const ManageUsersScreen = () => {
             ) : usersError ? (
               <Alert status="error">
                 <AlertIcon />
-                Oops! Users list cannot be loaded
+                {t("ManageUsersScreen.Oops_Users_list_cannot_be_loaded")}
               </Alert>
             ) : (
               <Table variant="striped" colorScheme="teal">
                 <Thead>
                   <Tr>
-                    <Th>Name</Th>
-                    <Th>Employee Id</Th>
-                    <Th>Email</Th>
-                    <Th>Role</Th>
-                    <Th>Phone</Th>
+                    <Th>{t("ManageUsersScreen.Name")}</Th>
+                    <Th>{t("ManageUsersScreen.Employee_Id")}</Th>
+                    <Th>{t("ManageUsersScreen.Email")}</Th>
+                    <Th>{t("ManageUsersScreen.Role")}</Th>
+                    <Th>{t("ManageUsersScreen.Phone")}</Th>
                   </Tr>
                 </Thead>
                 <Tbody>

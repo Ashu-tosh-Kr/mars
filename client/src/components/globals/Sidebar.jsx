@@ -63,13 +63,7 @@ export default function Sidebar() {
       flexDir="column"
       justifyContent="space-between"
     >
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={["center", "flex-start"]}
-        as="nav"
-      >
+      <Flex p="5%" flexDir="column" w="100%" alignItems={["center", "flex-start"]} as="nav">
         <NavItem
           to="/"
           icon={FiHome}
@@ -77,52 +71,21 @@ export default function Sidebar() {
           description="This is the description for the dashboard."
         />
         <Flex pos="relative" align={"center"} w="full">
-          <NavItem
-            to="todo"
-            icon={FiCalendar}
-            title={t("Sidebar.ToDo")}
-            active
-          />
-          <Badge
-            pos="relative"
-            left={["-10%", "-20%", "-30%", "-40%"]}
-            colorScheme="purple"
-          >
+          <NavItem to="todo" icon={FiCalendar} title={t("Sidebar.ToDo")} active />
+          <Badge pos="relative" left={["-10%", "-20%", "-30%", "-40%"]} colorScheme="purple">
             {userInfo?.todos?.length}
           </Badge>
         </Flex>
         <NavItem to="clients" icon={FiUser} title={t("Sidebar.Clients")} />
-        <NavItem
-          to="new-gig"
-          icon={FiDollarSign}
-          title={t("Sidebar.New_Gig")}
-        />
-        <NavItem
-          to="all-gigs"
-          icon={FiBriefcase}
-          title={t("Sidebar.All_Gigs")}
-        />
+        <NavItem to="new-gig" icon={FiDollarSign} title={t("Sidebar.New_Gig")} />
+        <NavItem to="all-gigs" icon={FiBriefcase} title={t("Sidebar.All_Gigs")} />
         {user.role === 4 && (
-          <NavItem
-            to="admin/manage"
-            icon={AiOutlineUserAdd}
-            title={t("Sidebar.Manage_Users")}
-          />
+          <NavItem to="admin/manage" icon={AiOutlineUserAdd} title={t("Sidebar.Manage_Users")} />
         )}
-        <NavItem
-          to="settings"
-          icon={FiSettings}
-          title={t("Sidebar.Settings")}
-        />
+        <NavItem to="settings" icon={FiSettings} title={t("Sidebar.Settings")} />
       </Flex>
 
-      <Flex
-        p="5%"
-        flexDir="column"
-        w="100%"
-        alignItems={["center", "flex-start"]}
-        mb={4}
-      >
+      <Flex p="5%" flexDir="column" w="100%" alignItems={["center", "flex-start"]} mb={4}>
         <Divider display={["none", "flex"]} />
         <Popover placement="top-start">
           <PopoverTrigger>
@@ -153,7 +116,7 @@ export default function Sidebar() {
             <PopoverBody color="teal">
               <VStack>
                 <Button colorScheme="teal" variant="link">
-                  Profile
+                  {t("Sidebar.Profile")}
                 </Button>
                 <Divider bg="teal" />
                 <Button
@@ -162,7 +125,7 @@ export default function Sidebar() {
                   variant="outline"
                   onClick={handleLogout}
                 >
-                  Logout
+                  {t("Sidebar.Log_out")}
                 </Button>
               </VStack>
             </PopoverBody>

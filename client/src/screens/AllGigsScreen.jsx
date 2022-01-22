@@ -13,13 +13,19 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+
 //non lib imports
 import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetAllGigs } from "api/hooks";
 
+import { useTranslation } from "react-i18next";
+
 const AllGigsScreen = () => {
   //queries
   const { gigs, gigsLoading, gigsError } = useGetAllGigs();
+
+  const { t } = useTranslation();
+
   //jsx
   return (
     <>
@@ -32,7 +38,8 @@ const AllGigsScreen = () => {
       ) : gigsError ? (
         <Alert status="error">
           <AlertIcon />
-          Oops! Todos cannot be loaded
+          {/* TODO ↓ Should be "Gigs cannot be loaded"?} */}
+          {t("Oops_Todos_cannot_be_loaded")}
         </Alert>
       ) : (
         <Box w="full">
@@ -40,11 +47,11 @@ const AllGigsScreen = () => {
             <Table variant="striped" colorScheme="teal">
               <Thead>
                 <Tr>
-                  <Th>Name</Th>
-                  <Th>Client</Th>
-                  <Th>Talent</Th>
-                  <Th>Status</Th>
-                  <Th>Memo</Th>
+                  <Th>{t("AllGigScreen.Name")}</Th>
+                  <Th>{t("AllGigScreen.Client")}</Th>
+                  <Th>{t("AllGigScreen.Talent")}</Th>
+                  <Th>{t("AllGigScreen.Status")}</Th>
+                  <Th>{t("AllGigScreen.Memo")}</Th>
                 </Tr>
               </Thead>
               <Tbody>

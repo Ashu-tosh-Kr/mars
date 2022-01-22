@@ -48,6 +48,7 @@ const validationSchema = Yup.object({
   paymentMethod: Yup.string().required("Required"),
 });
 
+// TODO ↓ Can I transalte the values of name withot breaking the integrity with DB?
 const costCategories = [
   { _id: "Transport", name: "Transport" },
   { _id: "Hotel", name: "Hotel" },
@@ -66,6 +67,7 @@ const paymentMethods = [
 export default function CostModal({ isOpen, onClose, gig }) {
   /** hooks */
   const { t } = useTranslation();
+
   //queries
   const { mutate, isLoading } = useAddCostToGig();
   const { mutate: mutateDel, isLoading: isLoadingDel } = useDelCostFromGig();
@@ -127,12 +129,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
                       />
                     </GridItem>
                   </Grid>
-                  <Button
-                    type="submit"
-                    colorScheme="teal"
-                    isLoading={isLoading}
-                    mr={3}
-                  >
+                  <Button type="submit" colorScheme="teal" isLoading={isLoading} mr={3}>
                     Add Expense
                   </Button>
                 </VStack>
@@ -181,7 +178,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
         </ModalBody>
         <ModalFooter>
           <Heading>
-            Total:
+            {t("CostModal.Total")}:
             {gig?.costs?.reduce((previousValue, currentValue) => {
               return +previousValue + +currentValue.price;
             }, 0)}
