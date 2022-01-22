@@ -69,6 +69,18 @@ i18n
             Title: "Title",
             What_To_Bring: "What To Bring",
           },
+          NewClientModal: {
+            Add: "Add",
+            Add_New_Client: "Add_New_Client",
+            Cancel: "Cancel",
+            Email: "Email",
+            Name: "Name",
+            Note: "Note",
+            Phone: "Phone",
+            Select_Company: "Select_Company",
+            Team: "Team",
+            Title: "Title",
+          },
           NewCompanyModal: {
             Add_new_company: "Add new company",
             Name: "Name",
@@ -89,6 +101,18 @@ i18n
       ja: {
         translation: {
           now_in_english: "日本語で表示中",
+          NewClientModal: {
+            Add: "追加",
+            Add_New_Client: "依頼元の担当者を追加",
+            Cancel: "中止",
+            Email: "メアド",
+            Name: "お名前",
+            Note: "メモ",
+            Phone: "電話",
+            Select_Company: "所属の会社を選択してね",
+            Team: "部署",
+            Title: "役職",
+          },
           NewCompanyModal: {
             Add_new_company: "会社を追加",
             Name: "会社名",
