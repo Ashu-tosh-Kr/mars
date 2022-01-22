@@ -44,7 +44,7 @@ const AllGigsScreen = () => {
       ) : (
         <Box w="full">
           {gigs.length > 0 ? (
-            <Table variant="striped" colorScheme="teal">
+            <Table variant="striped">
               <Thead>
                 <Tr>
                   <Th>{t("AllGigScreen.Name")}</Th>

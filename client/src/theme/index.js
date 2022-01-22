@@ -9,6 +9,8 @@ import { extendTheme } from "@chakra-ui/react";
 
 // Component style overrides
 import Button from "./components/button";
+import Tabs from "./components/tabs";
+import Table from "./components/table";
 
 const overrides = {
   // styles,
@@ -16,6 +18,8 @@ const overrides = {
   // Other foundational style overrides go here
   components: {
     Button,
+    Tabs,
+    Table,
     // Other components go here
   },
 };

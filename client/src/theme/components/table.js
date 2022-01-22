@@ -1,7 +1,7 @@
-const Button = {
+const Table = {
   defaultProps: {
     colorScheme: "teal",
   },
 };
 
-export default Button;
+export default Table;

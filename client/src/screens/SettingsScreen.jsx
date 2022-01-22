@@ -35,7 +35,7 @@ const SettingsScreen = () => {
 
   return (
     <>
-      <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
+      <Tabs w="100%" isFitted variant="soft-rounded">
         <TabList mb="1em">
           <Tab>{t("SettingsScreen.Change_password")}</Tab>
         </TabList>

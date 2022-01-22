@@ -40,7 +40,7 @@ const ManageUsersScreen = () => {
         onClose={onCloseEditUser}
         user={toBeEditedUser}
       />
-      <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
+      <Tabs w="100%" isFitted variant="soft-rounded">
         <TabList mb="1em">
           <Tab>{t("ManageUsersScreen.Active_users")}</Tab>
           <Tab>{t("ManageUsersScreen.Inactive_users")}</Tab>
@@ -63,7 +63,7 @@ const ManageUsersScreen = () => {
                 {t("ManageUsersScreen.Oops_Users_list_cannot_be_loaded")}
               </Alert>
             ) : (
-              <Table variant="striped" colorScheme="teal">
+              <Table variant="striped">
                 <Thead>
                   <Tr>
                     <Th>{t("ManageUsersScreen.Name")}</Th>
@@ -123,7 +123,7 @@ const ManageUsersScreen = () => {
                 {t("ManageUsersScreen.Oops_Users_list_cannot_be_loaded")}
               </Alert>
             ) : (
-              <Table variant="striped" colorScheme="teal">
+              <Table variant="striped">
                 <Thead>
                   <Tr>
                     <Th>{t("ManageUsersScreen.Name")}</Th>

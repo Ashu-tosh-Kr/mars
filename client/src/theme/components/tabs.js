@@ -1,7 +1,7 @@
-const Button = {
+const Tabs = {
   defaultProps: {
     colorScheme: "teal",
   },
 };
 
-export default Button;
+export default Tabs;

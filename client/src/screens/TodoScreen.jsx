@@ -26,8 +26,16 @@ import { useTranslation } from "react-i18next";
 
 const TodoScreen = () => {
   /** hooks */
-  const { isOpen: isOpenEditGig, onOpen: onOpenEditGig, onClose: onCloseEditGig } = useDisclosure();
-  const { isOpen: isOpenCost, onOpen: onOpenCost, onClose: onCloseCost } = useDisclosure();
+  const {
+    isOpen: isOpenEditGig,
+    onOpen: onOpenEditGig,
+    onClose: onCloseEditGig,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenCost,
+    onOpen: onOpenCost,
+    onClose: onCloseCost,
+  } = useDisclosure();
   //states
   const [toBeEditedGig, setToBeEditedGig] = useState({});
   //queries
@@ -38,8 +46,16 @@ const TodoScreen = () => {
   //jsx
   return (
     <>
-      <CostModal isOpen={isOpenCost} onClose={onCloseCost} gig={toBeEditedGig} />
-      <EditGigModal isOpen={isOpenEditGig} onClose={onCloseEditGig} gig={toBeEditedGig} />
+      <CostModal
+        isOpen={isOpenCost}
+        onClose={onCloseCost}
+        gig={toBeEditedGig}
+      />
+      <EditGigModal
+        isOpen={isOpenEditGig}
+        onClose={onCloseEditGig}
+        gig={toBeEditedGig}
+      />
       {userInfoLoading ? (
         <Stack w="100%">
           <Skeleton isLoaded={!userInfoLoading} height="50px" />
@@ -54,7 +70,7 @@ const TodoScreen = () => {
       ) : (
         <Box w="full">
           {userInfo.todos.length > 0 ? (
-            <Table variant="striped" colorScheme="teal">
+            <Table variant="striped">
               <Thead>
                 <Tr>
                   <Th>{t("TodoScreen.Name")}</Th>

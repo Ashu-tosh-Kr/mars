@@ -77,7 +77,7 @@ const ClientCompanyScreen = () => {
         onClose={onCloseEditCompany}
         company={toBeEditedCompany}
       />
-      <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
+      <Tabs w="100%" isFitted variant="soft-rounded">
         <TabList mb="1em">
           <Tab>{t("ClientCompanyScreen.Client")}</Tab>
           <Tab>{t("ClientCompanyScreen.Company")}</Tab>
@@ -102,7 +102,7 @@ const ClientCompanyScreen = () => {
             ) : (
               <>
                 {clients.length > 0 ? (
-                  <Table variant="striped" colorScheme="teal">
+                  <Table variant="striped">
                     <Thead>
                       <Tr>
                         <Th>{t("ClientCompanyScreen.Name")}</Th>
@@ -166,7 +166,7 @@ const ClientCompanyScreen = () => {
             ) : (
               <>
                 {companies.length > 0 ? (
-                  <Table variant="striped" colorScheme="teal">
+                  <Table variant="striped">
                     <Thead>
                       <Tr>
                         <Th>{t("ClientCompanyScreen.Name")}</Th>
