@@ -16,6 +16,15 @@ i18n
       en: {
         translation: {
           now_in_english: "Now in English",
+          NewUserModal: {
+            Add_user: "Add_user",
+            Employee_ID: "Employee_ID",
+            Username: "Username",
+            EMail: "E-mail",
+            Phone: "Phone",
+            Add: "Add",
+            Cancel: "Cancel",
+          },
           Sidebar: {
             All_Gigs: "All Gigs",
             Clients: "Clients",
@@ -121,6 +130,15 @@ i18n
             Note: "メモ",
             Add: "追加",
             Cancel: "中止",
+          },
+          NewUserModal: {
+            Add: "追加",
+            Add_user: "ユーザを追加",
+            Cancel: "中止",
+            EMail: "メアド",
+            Employee_ID: "社員番号",
+            Phone: "電話番号",
+            Username: "ユーザ名",
           },
           Sidebar: {
             All_Gigs: "案件の一覧",

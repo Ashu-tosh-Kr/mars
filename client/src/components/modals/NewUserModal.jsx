@@ -13,6 +13,7 @@ import InputField from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+import { useTranslation } from "react-i18next";
 
 const initialValues = {
   username: "",
@@ -44,11 +45,13 @@ const NewUserModal = ({ isOpen, onClose }) => {
     mutate({ ...values, isActive: values.isActive === "true" });
   };
 
+  const { t } = useTranslation();
+
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Add User</ModalHeader>
+        <ModalHeader>{t("Add_user")}</ModalHeader>
         <ModalCloseButton />
         <Formik
           initialValues={initialValues}
@@ -65,12 +68,7 @@ const NewUserModal = ({ isOpen, onClose }) => {
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                colorScheme="teal"
-                mr={3}
-              >
+              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
                 Add
               </Button>
               <Button onClick={onClose}>Cancel</Button>
@@ -83,3 +81,5 @@ const NewUserModal = ({ isOpen, onClose }) => {
 };
 
 export default NewUserModal;
+
+Add_user;
