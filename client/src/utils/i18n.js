@@ -84,6 +84,8 @@ i18n
             New_Gig: "New Gig",
             Settings: "Settings",
             ToDo: "ToDo",
+            Profile: "Profile",
+            Log_out: "Log out",
           },
           NewGigScreen: {
             Add: "Add",
@@ -252,6 +254,8 @@ i18n
             New_Gig: "新しい案件",
             Settings: "設定",
             ToDo: "やること",
+            Profile: "このアカウントの設定",
+            Log_out: "ログアウト",
           },
           NewGigScreen: {
             Add: "追加",
