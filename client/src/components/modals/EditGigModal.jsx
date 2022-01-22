@@ -27,12 +27,7 @@ import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
 
 //non library imports
-import {
-  useEditGig,
-  useGetAllClients,
-  useGetAllUsers,
-  useUpdateGigStatus,
-} from "api/hooks";
+import { useEditGig, useGetAllClients, useGetAllUsers, useUpdateGigStatus } from "api/hooks";
 import InputField from "components/formComponents/InputField";
 import InputArray from "components/formComponents/InputArray";
 import MenuField from "components/formComponents/MenuField";
@@ -118,9 +113,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
   const user = useSelector((state) => state.userLogin.userInfo.data.user);
   //mutation
   const { mutate: mutateEditGig, isLoading } = useEditGig(gig._id);
-  const { mutateStatusUpdate, isLoadingStatusUpdate } = useUpdateGigStatus(
-    gig._id
-  );
+  const { mutateStatusUpdate, isLoadingStatusUpdate } = useUpdateGigStatus(gig._id);
 
   //handlers
   const onSubmit = (values) => {
@@ -152,9 +145,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
               <AlertTitle mr={2}>
                 There was an error in fetching client or talent details
               </AlertTitle>
-              <AlertDescription>
-                Check your internet connection
-              </AlertDescription>
+              <AlertDescription>Check your internet connection</AlertDescription>
             </Alert>
           </Center>
         </ModalContent>
@@ -166,16 +157,12 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     <Modal size="4xl" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
+        {/* TODO ↓ Should be "Update Gig" ? */}
         <ModalHeader>Update Client</ModalHeader>
+
         <ModalCloseButton />
 
-        <Flex
-          align="flex-start"
-          justify={"center"}
-          width="100%"
-          minHeight="100%"
-          px={20}
-        >
+        <Flex align="flex-start" justify={"center"} width="100%" minHeight="100%" px={20}>
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
@@ -281,26 +268,18 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                           placeholder="Details"
                           name="gigDetails"
                         /> */}
-                        <FormLabel htmlFor={"gigDetails"}>
-                          {"Details"}
-                        </FormLabel>
+                        <FormLabel htmlFor={"gigDetails"}>{"Details"}</FormLabel>
                         <RichTextEditor
                           value={formik.values.gigDetails}
-                          onChange={(date) =>
-                            formik.setFieldValue("gigDetails", date)
-                          }
+                          onChange={(date) => formik.setFieldValue("gigDetails", date)}
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
-                        <FormLabel htmlFor={"gigStart"}>
-                          {"Gig Start"}
-                        </FormLabel>
+                        <FormLabel htmlFor={"gigStart"}>{"Gig Start"}</FormLabel>
                         <DatePicker
                           disabled={user.role === 0}
                           selected={formik.values.gigStart}
-                          onChange={(date) =>
-                            formik.setFieldValue("gigStart", date)
-                          }
+                          onChange={(date) => formik.setFieldValue("gigStart", date)}
                           selectsStart
                           startDate={formik.values.gigStart}
                           endDate={formik.values.gigEnd}
@@ -318,9 +297,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         <DatePicker
                           disabled={user.role === 0}
                           selected={formik.values.gigEnd}
-                          onChange={(date) =>
-                            formik.setFieldValue("gigEnd", date)
-                          }
+                          onChange={(date) => formik.setFieldValue("gigEnd", date)}
                           selectsEnd
                           startDate={formik.values.gigStart}
                           endDate={formik.values.gigEnd}
@@ -339,9 +316,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         <DatePicker
                           disabled={user.role === 0}
                           selected={formik.values.gigArrive}
-                          onChange={(time) =>
-                            formik.setFieldValue("gigArrive", time)
-                          }
+                          onChange={(time) => formik.setFieldValue("gigArrive", time)}
                           showTimeSelect
                           timeIntervals={15}
                           timeCaption="Time"
@@ -352,15 +327,11 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 6]}>
-                        <FormLabel htmlFor="gigGoHome">
-                          Departure Time
-                        </FormLabel>
+                        <FormLabel htmlFor="gigGoHome">Departure Time</FormLabel>
                         <DatePicker
                           disabled={user.role === 0}
                           selected={formik.values.gigGoHome}
-                          onChange={(time) =>
-                            formik.setFieldValue("gigGoHome", time)
-                          }
+                          onChange={(time) => formik.setFieldValue("gigGoHome", time)}
                           showTimeSelect
                           timeIntervals={15}
                           timeCaption="Time"
@@ -375,9 +346,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         <DatePicker
                           disabled={user.role === 0}
                           selected={formik.values.embargo}
-                          onChange={(time) =>
-                            formik.setFieldValue("embargo", time)
-                          }
+                          onChange={(time) => formik.setFieldValue("embargo", time)}
                           showTimeSelect
                           timeIntervals={15}
                           timeCaption="Time"
@@ -436,41 +405,29 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12]}>
-                        <FormLabel htmlFor="gigPeopleName">
-                          Gig People Name
-                        </FormLabel>
+                        <FormLabel htmlFor="gigPeopleName">Gig People Name</FormLabel>
                         <FieldArray
                           disabled={user.role === 0}
                           name="gigPeopleName"
                           render={(arrayHelpers) => (
                             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                              {formik.values.gigPeopleName.map(
-                                (name, index) => (
-                                  <GridItem
-                                    colSpan={[12, 12, 12, 12]}
+                              {formik.values.gigPeopleName.map((name, index) => (
+                                <GridItem colSpan={[12, 12, 12, 12]} key={index}>
+                                  <InputArray
                                     key={index}
-                                  >
-                                    <InputArray
-                                      key={index}
-                                      label="Gig People Name"
-                                      placeholder="Gig People Name"
-                                      name={`gigPeopleName.${index}`}
-                                      rightAddOn={<AiOutlinePlusCircle />}
-                                      leftAddOn={<AiOutlineMinusCircle />}
-                                      rightAddOnClick={() =>
-                                        arrayHelpers.insert(index + 1)
-                                      }
-                                      leftAddOnClick={() => {
-                                        if (
-                                          formik.values.gigPeopleName.length !==
-                                          1
-                                        )
-                                          arrayHelpers.remove(index);
-                                      }}
-                                    />
-                                  </GridItem>
-                                )
-                              )}
+                                    label="Gig People Name"
+                                    placeholder="Gig People Name"
+                                    name={`gigPeopleName.${index}`}
+                                    rightAddOn={<AiOutlinePlusCircle />}
+                                    leftAddOn={<AiOutlineMinusCircle />}
+                                    rightAddOnClick={() => arrayHelpers.insert(index + 1)}
+                                    leftAddOnClick={() => {
+                                      if (formik.values.gigPeopleName.length !== 1)
+                                        arrayHelpers.remove(index);
+                                    }}
+                                  />
+                                </GridItem>
+                              ))}
                             </Grid>
                           )}
                         />
@@ -535,44 +492,31 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12, 12]}>
-                        <InputField
-                          label="Memo"
-                          placeholder="Memo"
-                          name="memo"
-                        />
+                        <InputField label="Memo" placeholder="Memo" name="memo" />
                       </GridItem>
                       <GridItem colSpan={[12, 12, 12]}>
-                        <FormLabel htmlFor="interviewQuestions">
-                          Interview Questions
-                        </FormLabel>
+                        <FormLabel htmlFor="interviewQuestions">Interview Questions</FormLabel>
                         <FieldArray
                           disabled={user.role === 0}
                           name="interviewQuestions"
                           render={(arrayHelpers) => (
                             <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                              {formik.values.interviewQuestions.map(
-                                (question, index) => (
-                                  <GridItem colSpan={[12, 12, 12]} key={index}>
-                                    <InputArray
-                                      key={index}
-                                      placeholder="Interview Questions"
-                                      name={`interviewQuestions.${index}`}
-                                      rightAddOn={<AiOutlinePlusCircle />}
-                                      leftAddOn={<AiOutlineMinusCircle />}
-                                      rightAddOnClick={() =>
-                                        arrayHelpers.insert(index + 1)
-                                      }
-                                      leftAddOnClick={() => {
-                                        if (
-                                          formik.values.interviewQuestions
-                                            .length !== 1
-                                        )
-                                          arrayHelpers.remove(index);
-                                      }}
-                                    />
-                                  </GridItem>
-                                )
-                              )}
+                              {formik.values.interviewQuestions.map((question, index) => (
+                                <GridItem colSpan={[12, 12, 12]} key={index}>
+                                  <InputArray
+                                    key={index}
+                                    placeholder="Interview Questions"
+                                    name={`interviewQuestions.${index}`}
+                                    rightAddOn={<AiOutlinePlusCircle />}
+                                    leftAddOn={<AiOutlineMinusCircle />}
+                                    rightAddOnClick={() => arrayHelpers.insert(index + 1)}
+                                    leftAddOnClick={() => {
+                                      if (formik.values.interviewQuestions.length !== 1)
+                                        arrayHelpers.remove(index);
+                                    }}
+                                  />
+                                </GridItem>
+                              ))}
                             </Grid>
                           )}
                         />
@@ -592,11 +536,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                   </ModalBody>
                   <ModalFooter>
                     <HStack d={user?.role === 0 && "none"}>
-                      <Button
-                        type="submit"
-                        isLoading={isLoading}
-                        colorScheme="teal"
-                      >
+                      <Button type="submit" isLoading={isLoading} colorScheme="teal">
                         Save
                       </Button>
                       <Button
@@ -610,8 +550,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         }
                         mt={3}
                       >
-                        {gig.currentStatus.step === 1 ||
-                        gig.currentStatus.step === 3
+                        {gig.currentStatus.step === 1 || gig.currentStatus.step === 3
                           ? "Send For Review"
                           : gig.currentStatus.step <= 5
                           ? "Approve"
