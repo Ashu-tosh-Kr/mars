@@ -59,7 +59,7 @@ const ManageUsersScreen = () => {
                 <Thead>
                   <Tr>
                     <Th>{t("ManageUsersScreen.Name")}</Th>
-                    <Th>{t("ManageUsersScreen.Employee")}</Th>
+                    <Th>{t("ManageUsersScreen.Employee_Id")}</Th>
                     <Th>{t("ManageUsersScreen.Email")}</Th>
                     <Th>{t("ManageUsersScreen.Role")}</Th>
                     <Th>{t("ManageUsersScreen.Phone")}</Th>
@@ -119,7 +119,7 @@ const ManageUsersScreen = () => {
                 <Thead>
                   <Tr>
                     <Th>{t("ManageUsersScreen.Name")}</Th>
-                    <Th>{t("ManageUsersScreen.Employee")} Id</Th>
+                    <Th>{t("ManageUsersScreen.Employee_Id")}</Th>
                     <Th>{t("ManageUsersScreen.Email")}</Th>
                     <Th>{t("ManageUsersScreen.Role")}</Th>
                     <Th>{t("ManageUsersScreen.Phone")}</Th>
