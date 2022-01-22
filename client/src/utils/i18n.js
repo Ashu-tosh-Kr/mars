@@ -16,6 +16,13 @@ i18n
       en: {
         translation: {
           now_in_english: "Now in English",
+          SettingsScreen: {
+            Old_password: "Old_password",
+            New_password: "New_password",
+            Confirm_password: "Confirm_password",
+            Change: "Change",
+            Change_password: "Change_password",
+          },
           ClientCompanyScreen: {
             Add_new_client: "Add_new_client",
             Add_new_company: "Add_new_company",
@@ -156,6 +163,13 @@ i18n
       ja: {
         translation: {
           now_in_english: "日本語で表示中",
+          SettingsScreen: {
+            Old_password: "今までのパスワードを入力してね",
+            New_password: "新しく使うパスワードを入力してね",
+            Confirm_password: "新しく使うパスワードをもう一度入力してね",
+            Change: "パスワードを変更する",
+            Change_password: "パスワードを変更",
+          },
           ClientCompanyScreen: {
             Add_new_client: "依頼元を追加",
             Add_new_company: "依頼元の会社を追加",
