@@ -57,7 +57,11 @@ const ClientCompanyScreen = () => {
   return (
     <>
       {!companiesLoading && (
-        <NewClientModal isOpen={isOpenNewClient} onClose={onCloseNewClient} companies={companies} />
+        <NewClientModal
+          isOpen={isOpenNewClient}
+          onClose={onCloseNewClient}
+          companies={companies}
+        />
       )}
       {!companiesLoading && (
         <EditClientModal
@@ -80,7 +84,7 @@ const ClientCompanyScreen = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Button m="2rem" onClick={onOpenNewClient} colorScheme="teal">
+            <Button m="2rem" onClick={onOpenNewClient}>
               {t("ClientCompanyScreen.Add_new_client")}
             </Button>
 
@@ -145,7 +149,7 @@ const ClientCompanyScreen = () => {
             )}
           </TabPanel>
           <TabPanel>
-            <Button onClick={onOpenNewCompany} m="2rem" colorScheme="teal">
+            <Button onClick={onOpenNewCompany} m="2rem">
               {t("ClientCompanyScreen.Add_new_company")}
             </Button>
             {companiesLoading ? (

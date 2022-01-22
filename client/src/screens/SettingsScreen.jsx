@@ -1,4 +1,11 @@
-import { Button, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react";
+import {
+  Button,
+  Tab,
+  TabList,
+  TabPanel,
+  TabPanels,
+  Tabs,
+} from "@chakra-ui/react";
 import { useChangePass } from "api/hooks";
 import InputField from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
@@ -40,15 +47,23 @@ const SettingsScreen = () => {
               validationSchema={validationSchema}
             >
               <Form>
-                <InputField mb={3} placeholder={t("SettingsScreen.Old_password")} name="oldPass" />
-                <InputField mb={3} placeholder={t("SettingsScreen.New_password")} name="newPass" />
+                <InputField
+                  mb={3}
+                  placeholder={t("SettingsScreen.Old_password")}
+                  name="oldPass"
+                />
+                <InputField
+                  mb={3}
+                  placeholder={t("SettingsScreen.New_password")}
+                  name="newPass"
+                />
                 <InputField
                   mb={3}
                   placeholder={t("SettingsScreen.Confirm_password")}
                   name="confirmPass"
                 />
 
-                <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+                <Button type="submit" isLoading={isLoading} mr={3}>
                   {t("SettingsScreen.Change")}
                 </Button>
               </Form>

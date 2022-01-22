@@ -51,18 +51,30 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder={t("EditCompanyModal.Name")} name="name" />
-              <InputField mb={3} placeholder={t("EditCompanyModal.Postal_code")} name="postCode" />
+              <InputField
+                mb={3}
+                placeholder={t("EditCompanyModal.Name")}
+                name="name"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("EditCompanyModal.Postal_code")}
+                name="postCode"
+              />
               <InputField
                 mb={3}
                 placeholder={t("EditCompanyModal.Office_address")}
                 name="officeAddress"
               />
-              <InputField mb={3} placeholder={t("EditCompanyModal.Note")} name="note" />
+              <InputField
+                mb={3}
+                placeholder={t("EditCompanyModal.Note")}
+                name="note"
+              />
             </ModalBody>
 
             <ModalFooter>
-              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+              <Button type="submit" isLoading={isLoading} mr={3}>
                 {t("EditCompanyModal.Update")}
               </Button>
               <Button onClick={onClose}>{t("EditCompanyModal.Cancel")}</Button>

@@ -210,11 +210,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                   </ModalBody>
                   <ModalFooter>
                     <HStack d={user?.role === 0 && "none"}>
-                      <Button
-                        type="submit"
-                        isLoading={isLoading}
-                        colorScheme="teal"
-                      >
+                      <Button type="submit" isLoading={isLoading}>
                         Save
                       </Button>
                       <Button

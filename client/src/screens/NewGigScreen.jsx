@@ -95,7 +95,9 @@ const NewGigScreen = () => {
       <Center width="100%" h="100%">
         <Alert status="error">
           <AlertIcon />
-          <AlertTitle mr={2}>There was an error in fetching client or talent details</AlertTitle>
+          <AlertTitle mr={2}>
+            There was an error in fetching client or talent details
+          </AlertTitle>
           <AlertDescription>Check your internet connection</AlertDescription>
         </Alert>
       </Center>
@@ -104,7 +106,13 @@ const NewGigScreen = () => {
 
   return (
     <>
-      <Flex align="flex-start" justify={"center"} width="100%" minHeight="100%" px={20}>
+      <Flex
+        align="flex-start"
+        justify={"center"}
+        width="100%"
+        minHeight="100%"
+        px={20}
+      >
         <Formik
           initialValues={initialValues}
           onSubmit={onSubmit}
@@ -200,17 +208,25 @@ const NewGigScreen = () => {
                       placeholder={t("NewGigScreen.Details")}
                       name="gigDetails"
                     /> */}
-                    <FormLabel htmlFor={"gigDetails"}>{t("NewGigScreen.Details")}</FormLabel>
+                    <FormLabel htmlFor={"gigDetails"}>
+                      {t("NewGigScreen.Details")}
+                    </FormLabel>
                     <RichTextEditor
                       value={formik.values.gigDetails}
-                      onChange={(date) => formik.setFieldValue("gigDetails", date)}
+                      onChange={(date) =>
+                        formik.setFieldValue("gigDetails", date)
+                      }
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <FormLabel htmlFor={"gigStart"}>{t("NewGigScreen.Gig_Start_Date")}</FormLabel>
+                    <FormLabel htmlFor={"gigStart"}>
+                      {t("NewGigScreen.Gig_Start_Date")}
+                    </FormLabel>
                     <DatePicker
                       selected={formik.values.gigStart}
-                      onChange={(date) => formik.setFieldValue("gigStart", date)}
+                      onChange={(date) =>
+                        formik.setFieldValue("gigStart", date)
+                      }
                       selectsStart
                       startDate={formik.values.gigStart}
                       endDate={formik.values.gigEnd}
@@ -224,7 +240,9 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <FormLabel htmlFor="gigEnd">{t("NewGigScreen.Gig_End_Date")}</FormLabel>
+                    <FormLabel htmlFor="gigEnd">
+                      {t("NewGigScreen.Gig_End_Date")}
+                    </FormLabel>
                     <DatePicker
                       selected={formik.values.gigEnd}
                       onChange={(date) => formik.setFieldValue("gigEnd", date)}
@@ -242,10 +260,14 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <FormLabel htmlFor="gigArrive">{t("NewGigScreen.Arrival_Time")}</FormLabel>
+                    <FormLabel htmlFor="gigArrive">
+                      {t("NewGigScreen.Arrival_Time")}
+                    </FormLabel>
                     <DatePicker
                       selected={formik.values.gigArrive}
-                      onChange={(time) => formik.setFieldValue("gigArrive", time)}
+                      onChange={(time) =>
+                        formik.setFieldValue("gigArrive", time)
+                      }
                       showTimeSelect
                       timeIntervals={15}
                       timeCaption="Time"
@@ -256,10 +278,14 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <FormLabel htmlFor="gigGoHome">{t("NewGigScreen.Departure_Time")}</FormLabel>
+                    <FormLabel htmlFor="gigGoHome">
+                      {t("NewGigScreen.Departure_Time")}
+                    </FormLabel>
                     <DatePicker
                       selected={formik.values.gigGoHome}
-                      onChange={(time) => formik.setFieldValue("gigGoHome", time)}
+                      onChange={(time) =>
+                        formik.setFieldValue("gigGoHome", time)
+                      }
                       showTimeSelect
                       timeIntervals={15}
                       timeCaption="Time"
@@ -270,7 +296,9 @@ const NewGigScreen = () => {
                     />
                   </GridItem>
                   <GridItem colSpan={[12, 12, 12, 6]}>
-                    <FormLabel htmlFor="embargo">{t("NewGigScreen.Embargo")}</FormLabel>
+                    <FormLabel htmlFor="embargo">
+                      {t("NewGigScreen.Embargo")}
+                    </FormLabel>
                     <DatePicker
                       selected={formik.values.embargo}
                       onChange={(time) => formik.setFieldValue("embargo", time)}
@@ -339,11 +367,15 @@ const NewGigScreen = () => {
                                 key={index}
                                 // TODO ↓ is this label required?
                                 label={t("NewGigScreen.Gig_People_Name")}
-                                placeholder={t("NewGigScreen.Enter_Gig_People_Name")}
+                                placeholder={t(
+                                  "NewGigScreen.Enter_Gig_People_Name"
+                                )}
                                 name={`gigPeopleName.${index}`}
                                 rightAddOn={<AiOutlinePlusCircle />}
                                 leftAddOn={<AiOutlineMinusCircle />}
-                                rightAddOnClick={() => arrayHelpers.insert(index + 1)}
+                                rightAddOnClick={() =>
+                                  arrayHelpers.insert(index + 1)
+                                }
                                 leftAddOnClick={() => {
                                   if (formik.values.gigPeopleName.length !== 1)
                                     arrayHelpers.remove(index);
@@ -423,28 +455,37 @@ const NewGigScreen = () => {
                       name="interviewQuestions"
                       render={(arrayHelpers) => (
                         <Grid templateColumns="repeat(12, 1fr)" gap={4}>
-                          {formik.values.interviewQuestions.map((question, index) => (
-                            <GridItem colSpan={[12, 12, 12]} key={index}>
-                              <InputArray
-                                key={index}
-                                placeholder={t("NewGigScreen.Enter_Interview_Questions")}
-                                name={`interviewQuestions.${index}`}
-                                rightAddOn={<AiOutlinePlusCircle />}
-                                leftAddOn={<AiOutlineMinusCircle />}
-                                rightAddOnClick={() => arrayHelpers.insert(index + 1)}
-                                leftAddOnClick={() => {
-                                  if (formik.values.interviewQuestions.length !== 1)
-                                    arrayHelpers.remove(index);
-                                }}
-                              />
-                            </GridItem>
-                          ))}
+                          {formik.values.interviewQuestions.map(
+                            (question, index) => (
+                              <GridItem colSpan={[12, 12, 12]} key={index}>
+                                <InputArray
+                                  key={index}
+                                  placeholder={t(
+                                    "NewGigScreen.Enter_Interview_Questions"
+                                  )}
+                                  name={`interviewQuestions.${index}`}
+                                  rightAddOn={<AiOutlinePlusCircle />}
+                                  leftAddOn={<AiOutlineMinusCircle />}
+                                  rightAddOnClick={() =>
+                                    arrayHelpers.insert(index + 1)
+                                  }
+                                  leftAddOnClick={() => {
+                                    if (
+                                      formik.values.interviewQuestions
+                                        .length !== 1
+                                    )
+                                      arrayHelpers.remove(index);
+                                  }}
+                                />
+                              </GridItem>
+                            )
+                          )}
                         </Grid>
                       )}
                     />
                   </GridItem>
                 </Grid>
-                <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3} mt={3}>
+                <Button type="submit" isLoading={isLoading} mr={3} mt={3}>
                   {t("NewGigScreen.Add")}
                 </Button>
                 <Button mt={3}>{t("NewGigScreen.Cancel")}</Button>

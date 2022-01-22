@@ -60,15 +60,31 @@ const NewUserModal = ({ isOpen, onClose }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder={t("NewUserModal.Employee_ID")} name="employeeId" />
-              <InputField mb={3} placeholder={t("NewUserModal.Username")} name="username" />
-              <InputField mb={3} placeholder={t("NewUserModal.EMail")} name="email" />
-              <InputField mb={3} placeholder={t("NewUserModal.Phone")} name="phone" />
+              <InputField
+                mb={3}
+                placeholder={t("NewUserModal.Employee_ID")}
+                name="employeeId"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewUserModal.Username")}
+                name="username"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewUserModal.EMail")}
+                name="email"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewUserModal.Phone")}
+                name="phone"
+              />
               <MenuField mb={3} name="role" options={Roles} />
             </ModalBody>
 
             <ModalFooter>
-              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+              <Button type="submit" isLoading={isLoading} mr={3}>
                 {t("NewUserModal.Add")}
               </Button>
               <Button onClick={onClose}>{t("NewUserModal.Cancel")}</Button>

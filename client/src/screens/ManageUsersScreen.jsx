@@ -18,7 +18,11 @@ const ManageUsersScreen = () => {
 
   const [toBeEditedUser, setToBeEditedUser] = useState({});
 
-  const { isOpen: isOpenNewUser, onOpen: onOpenNewUser, onClose: onCloseNewUser } = useDisclosure();
+  const {
+    isOpen: isOpenNewUser,
+    onOpen: onOpenNewUser,
+    onClose: onCloseNewUser,
+  } = useDisclosure();
 
   const {
     isOpen: isOpenEditUser,
@@ -31,7 +35,11 @@ const ManageUsersScreen = () => {
   return (
     <>
       <NewUserModal isOpen={isOpenNewUser} onClose={onCloseNewUser} />
-      <EditUserModal isOpen={isOpenEditUser} onClose={onCloseEditUser} user={toBeEditedUser} />
+      <EditUserModal
+        isOpen={isOpenEditUser}
+        onClose={onCloseEditUser}
+        user={toBeEditedUser}
+      />
       <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
         <TabList mb="1em">
           <Tab>{t("ManageUsersScreen.Active_users")}</Tab>
@@ -39,7 +47,7 @@ const ManageUsersScreen = () => {
         </TabList>
         <TabPanels>
           <TabPanel>
-            <Button m="2rem" onClick={onOpenNewUser} colorScheme="teal">
+            <Button m="2rem" onClick={onOpenNewUser}>
               {t("ManageUsersScreen.Add_new_user")}
             </Button>
 

@@ -80,12 +80,7 @@ const EditUserModal = ({ isOpen, onClose, user }) => {
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                colorScheme="teal"
-                mr={3}
-              >
+              <Button type="submit" isLoading={isLoading} mr={3}>
                 Update
               </Button>
               <Button onClick={onClose}>Cancel</Button>

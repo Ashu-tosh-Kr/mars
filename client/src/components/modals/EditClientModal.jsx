@@ -58,17 +58,41 @@ const EditClientModal = ({ isOpen, onClose, companies, client }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder={t("EditClientModal.Name")} name="name" />
-              <InputField mb={3} placeholder={t("EditClientModal.Title")} name="title" />
+              <InputField
+                mb={3}
+                placeholder={t("EditClientModal.Name")}
+                name="name"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("EditClientModal.Title")}
+                name="title"
+              />
               <MenuField mb={3} name="companyId" options={companies} />
-              <InputField mb={3} placeholder={t("EditClientModal.Team")} name="clientTeam" />
-              <InputField mb={3} placeholder={t("EditClientModal.Email")} name="email" />
-              <InputField mb={3} placeholder={t("EditClientModal.Phone")} name="phone" />
-              <InputField mb={3} placeholder={t("EditClientModal.Note")} name="note" />
+              <InputField
+                mb={3}
+                placeholder={t("EditClientModal.Team")}
+                name="clientTeam"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("EditClientModal.Email")}
+                name="email"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("EditClientModal.Phone")}
+                name="phone"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("EditClientModal.Note")}
+                name="note"
+              />
             </ModalBody>
 
             <ModalFooter>
-              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+              <Button type="submit" isLoading={isLoading} mr={3}>
                 {t("EditClientModal.Update")}
               </Button>
               <Button onClick={onClose}>{t("EditClientModal.Cancel")}</Button>

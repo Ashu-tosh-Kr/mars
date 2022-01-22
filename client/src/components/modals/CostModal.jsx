@@ -129,7 +129,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
                       />
                     </GridItem>
                   </Grid>
-                  <Button type="submit" colorScheme="teal" isLoading={isLoading} mr={3}>
+                  <Button type="submit" isLoading={isLoading} mr={3}>
                     Add Expense
                   </Button>
                 </VStack>
@@ -137,7 +137,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
             </Formik>
             <Box w="full">
               {gig.costs?.length > 0 ? (
-                <Table variant="striped" colorScheme="teal">
+                <Table variant="striped">
                   <Thead>
                     <Tr>
                       <Th>{t("CostModal.Category")}</Th>

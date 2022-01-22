@@ -14,11 +14,7 @@ const PageNotFound = () => {
           boxSize="500px"
           objectFit="cover"
         />
-        <Button
-          leftIcon={<FiArrowLeft />}
-          colorScheme="teal"
-          onClick={() => navigate(-1)}
-        >
+        <Button leftIcon={<FiArrowLeft />} onClick={() => navigate(-1)}>
           Go Back
         </Button>
       </VStack>

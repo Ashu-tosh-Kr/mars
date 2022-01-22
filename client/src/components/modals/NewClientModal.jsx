@@ -57,22 +57,46 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder={t("NewClientModal.Name")} name="name" />
-              <InputField mb={3} placeholder={t("NewClientModal.Title")} name="title" />
+              <InputField
+                mb={3}
+                placeholder={t("NewClientModal.Name")}
+                name="name"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewClientModal.Title")}
+                name="title"
+              />
               <MenuField
                 mb={3}
                 placeholder={t("NewClientModal.Select_Company")}
                 name="companyId"
                 options={companies}
               />
-              <InputField mb={3} placeholder={t("NewClientModal.Phone")} name="phone" />
-              <InputField mb={3} placeholder={t("NewClientModal.Team")} name="clientTeam" />
-              <InputField mb={3} placeholder={t("NewClientModal.Email")} name="email" />
-              <InputField mb={3} placeholder={t("NewClientModal.Note")} name="note" />
+              <InputField
+                mb={3}
+                placeholder={t("NewClientModal.Phone")}
+                name="phone"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewClientModal.Team")}
+                name="clientTeam"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewClientModal.Email")}
+                name="email"
+              />
+              <InputField
+                mb={3}
+                placeholder={t("NewClientModal.Note")}
+                name="note"
+              />
             </ModalBody>
 
             <ModalFooter>
-              <Button type="submit" isLoading={isLoading} colorScheme="teal" mr={3}>
+              <Button type="submit" isLoading={isLoading} mr={3}>
                 {t("NewClientModal.Add")}
               </Button>
               <Button onClick={onClose}>{t("NewClientModal.Cancel")}</Button>

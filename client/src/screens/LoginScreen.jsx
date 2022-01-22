@@ -70,12 +70,7 @@ const LoginScreen = () => {
               type="password"
               mb={6}
             />
-            <Button
-              isLoading={loading}
-              loadingText="Logging In"
-              type="submit"
-              colorScheme="teal"
-            >
+            <Button isLoading={loading} loadingText="Logging In" type="submit">
               Log In
             </Button>
           </Flex>

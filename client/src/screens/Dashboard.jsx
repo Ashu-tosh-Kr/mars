@@ -23,7 +23,6 @@ const Dashboard = () => {
         width="200px"
         fontSize="2rem"
         leftIcon={<FcTodoList />}
-        colorScheme="teal"
         variant="ghost"
       >
         Todos: {userInfo?.todos?.length}
