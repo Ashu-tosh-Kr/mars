@@ -20,7 +20,7 @@ import { FaRegMoneyBillAlt } from "react-icons/fa";
 //non lib imports
 import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetCurrUserInfo } from "api/hooks";
-import EditGigModal from "components/modals/EditGigModal";
+import EditGigModal from "components/modals/EditGigModal/EditGigModal";
 import CostModal from "components/modals/CostModal";
 import { useTranslation } from "react-i18next";
 
