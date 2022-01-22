@@ -178,7 +178,7 @@ i18n
             All_Gigs: "案件の一覧",
             Clients: "依頼元の一覧",
             Dashboard: "ホームページ",
-            Manage_Users: "ユーザーの管理",
+            Manage_Users: "ユーザの管理",
             New_Gig: "新しい案件",
             Settings: "設定",
             ToDo: "やること",
