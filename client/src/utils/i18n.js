@@ -16,6 +16,23 @@ i18n
       en: {
         translation: {
           now_in_english: "Now in English",
+          ClientCompanyScreen: {
+            Add_new_client: "Add_new_client",
+            Add_new_company: "Add_new_company",
+            Client: "Client",
+            Company: "Company",
+            Edit: "Edit",
+            Email: "Email",
+            Name: "Name",
+            Note: "Note",
+            Office_address: "Office_address",
+            Oops_Client_list_cannot_be_loaded: "Oops_Client_list_cannot_be_loaded",
+            Oops_Company_list_cannot_be_loaded: "Oops_Company_list_cannot_be_loaded",
+            Phone: "Phone",
+            Postal_code: "Postal_code",
+            Team: "Team",
+            Title: "Title",
+          },
           TodoScreen: {
             Oops_Todos_cannot_be_loaded: "Oops! Todos cannot be loaded",
             Name: "Name",
@@ -139,6 +156,23 @@ i18n
       ja: {
         translation: {
           now_in_english: "日本語で表示中",
+          ClientCompanyScreen: {
+            Add_new_client: "依頼元を追加",
+            Add_new_company: "依頼元の会社を追加",
+            Client: "依頼元",
+            Company: "会社",
+            Edit: "編集",
+            Email: "メアド",
+            Name: "名前",
+            Note: "メモ",
+            Office_address: "所在地",
+            Oops_Client_list_cannot_be_loaded: "あらっ、依頼元の一覧を取得できませんね…",
+            Oops_Company_list_cannot_be_loaded: "あらっ、会社の一覧を取得できませんね",
+            Phone: "電話",
+            Postal_code: "〒",
+            Team: "部署",
+            Title: "役職",
+          },
           TodoScreen: {
             Oops_Todos_cannot_be_loaded: "あらっ！やることの一覧を取得できませんね…",
             Name: "題名",

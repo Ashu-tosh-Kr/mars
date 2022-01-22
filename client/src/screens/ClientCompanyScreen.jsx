@@ -8,6 +8,7 @@ import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
 import { RiEditBoxLine } from "react-icons/ri";
 import { useState } from "react";
+
 //non lib imports
 import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetAllClients, useGetAllCompanies } from "api/hooks";
@@ -15,6 +16,7 @@ import NewClientModal from "components/modals/NewClientModal";
 import NewCompanyModal from "components/modals/NewCompanyModal";
 import EditClientModal from "components/modals/EditClientModal";
 import EditCompanyModal from "components/modals/EditCompanyModal";
+import { useTranslation } from "react-i18next";
 
 const ClientCompanyScreen = () => {
   //state
@@ -49,15 +51,13 @@ const ClientCompanyScreen = () => {
   const { clients, clientsLoading, clientsError } = useGetAllClients();
   const { companies, companiesLoading, companiesError } = useGetAllCompanies();
 
+  const { t } = useTranslation();
+
   //jsx
   return (
     <>
       {!companiesLoading && (
-        <NewClientModal
-          isOpen={isOpenNewClient}
-          onClose={onCloseNewClient}
-          companies={companies}
-        />
+        <NewClientModal isOpen={isOpenNewClient} onClose={onCloseNewClient} companies={companies} />
       )}
       {!companiesLoading && (
         <EditClientModal
@@ -75,13 +75,13 @@ const ClientCompanyScreen = () => {
       />
       <Tabs w="100%" colorScheme="teal" isFitted variant="soft-rounded">
         <TabList mb="1em">
-          <Tab>Client</Tab>
-          <Tab>Company</Tab>
+          <Tab>{t("ClientCompanyScreen.Client")}</Tab>
+          <Tab>{t("ClientCompanyScreen.Company")}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <Button m="2rem" onClick={onOpenNewClient} colorScheme="teal">
-              Add new Client
+              {t("ClientCompanyScreen.Add_new_client")}
             </Button>
 
             {clientsLoading ? (
@@ -93,7 +93,7 @@ const ClientCompanyScreen = () => {
             ) : clientsError ? (
               <Alert status="error">
                 <AlertIcon />
-                Oops! Client list cannot be loaded
+                {t("ClientCompanyScreen.Oops_Client_list_cannot_be_loaded")}
               </Alert>
             ) : (
               <>
@@ -101,14 +101,14 @@ const ClientCompanyScreen = () => {
                   <Table variant="striped" colorScheme="teal">
                     <Thead>
                       <Tr>
-                        <Th>Name</Th>
-                        <Th>Title</Th>
-                        <Th>Company</Th>
-                        <Th>Team</Th>
-                        <Th>Email</Th>
-                        <Th>Phone</Th>
-                        <Th>Note</Th>
-                        <Th>Edit</Th>
+                        <Th>{t("ClientCompanyScreen.Name")}</Th>
+                        <Th>{t("ClientCompanyScreen.Title")}</Th>
+                        <Th>{t("ClientCompanyScreen.Company")}</Th>
+                        <Th>{t("ClientCompanyScreen.Team")}</Th>
+                        <Th>{t("ClientCompanyScreen.Email")}</Th>
+                        <Th>{t("ClientCompanyScreen.Phone")}</Th>
+                        <Th>{t("ClientCompanyScreen.Note")}</Th>
+                        <Th>{t("ClientCompanyScreen.Edit")}</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
@@ -146,7 +146,7 @@ const ClientCompanyScreen = () => {
           </TabPanel>
           <TabPanel>
             <Button onClick={onOpenNewCompany} m="2rem" colorScheme="teal">
-              Add new Company
+              {t("ClientCompanyScreen.Add_new_company")}
             </Button>
             {companiesLoading ? (
               <Stack>
@@ -157,7 +157,7 @@ const ClientCompanyScreen = () => {
             ) : companiesError ? (
               <Alert status="error">
                 <AlertIcon />
-                Oops! Company list cannot be loaded
+                {t("ClientCompanyScreen.Oops_Company_list_cannot_be_loaded")}
               </Alert>
             ) : (
               <>
@@ -165,10 +165,10 @@ const ClientCompanyScreen = () => {
                   <Table variant="striped" colorScheme="teal">
                     <Thead>
                       <Tr>
-                        <Th>Name</Th>
-                        <Th>Postal Code</Th>
-                        <Th>Office Address</Th>
-                        <Th>Note</Th>
+                        <Th>{t("ClientCompanyScreen.Name")}</Th>
+                        <Th>{t("ClientCompanyScreen.Postal_code")}</Th>
+                        <Th>{t("ClientCompanyScreen.Office_address")}</Th>
+                        <Th>{t("ClientCompanyScreen.Note")}</Th>
                       </Tr>
                     </Thead>
                     <Tbody>
