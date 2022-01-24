@@ -93,7 +93,7 @@ export default function DetailSection({ user, formik }) {
               disabled={user.role === 0}
               label="Host"
               placeholder="Host"
-              name="gigHosts"
+              name="gigHost"
             />
           </GridItem>
           <GridItem colSpan={12}>
@@ -101,7 +101,7 @@ export default function DetailSection({ user, formik }) {
               disabled={user.role === 0}
               label="Schedule Details"
               placeholder="Schedule Details"
-              name="gigScheduleDetails"
+              name="gigScheduleDetail"
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
