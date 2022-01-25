@@ -36,6 +36,20 @@ i18n
             Update: "Update",
             Update_company: "Update_company",
           },
+          EditGigModal: {
+            MoneySection: {
+              Tax: "Tax",
+              Cost_Condition: "Cost Condition",
+              Select_Cost_Condition: "Select Cost Condition",
+              Service_Fee_Before_Tax: "Service_Fee_Before_Tax",
+              Service_Fee_Including_Tax: "Service_Fee_Including_Tax",
+              Talent_Fee_Before_Tax: "Talent_Fee_Before_Tax",
+              Talent_Fee_Including_Tax: "Talent_Fee_Including_Tax",
+              Billable_Cost: "Billable_Cost",
+              Money_Note: "Money_Note",
+              Total: "Total",
+            },
+          },
           SettingsScreen: {
             Old_password: "Old_password",
             New_password: "New_password",
@@ -53,8 +67,10 @@ i18n
             Name: "Name",
             Note: "Note",
             Office_address: "Office_address",
-            Oops_Client_list_cannot_be_loaded: "Oops_Client_list_cannot_be_loaded",
-            Oops_Company_list_cannot_be_loaded: "Oops_Company_list_cannot_be_loaded",
+            Oops_Client_list_cannot_be_loaded:
+              "Oops_Client_list_cannot_be_loaded",
+            Oops_Company_list_cannot_be_loaded:
+              "Oops_Company_list_cannot_be_loaded",
             Phone: "Phone",
             Postal_code: "Postal_code",
             Team: "Team",
@@ -69,7 +85,8 @@ i18n
             Memo: "Memo",
           },
           ManageUsersScreen: {
-            Oops_Users_list_cannot_be_loaded: "Oops_Users_list_cannot_be_loaded",
+            Oops_Users_list_cannot_be_loaded:
+              "Oops_Users_list_cannot_be_loaded",
             Active_users: "Active_users",
             Inactive_users: "Inactive_users",
             Name: "Name",
@@ -223,15 +240,18 @@ i18n
             Name: "名前",
             Note: "メモ",
             Office_address: "所在地",
-            Oops_Client_list_cannot_be_loaded: "あらっ、依頼元の一覧を取得できませんね…",
-            Oops_Company_list_cannot_be_loaded: "あらっ、会社の一覧を取得できませんね",
+            Oops_Client_list_cannot_be_loaded:
+              "あらっ、依頼元の一覧を取得できませんね…",
+            Oops_Company_list_cannot_be_loaded:
+              "あらっ、会社の一覧を取得できませんね",
             Phone: "電話",
             Postal_code: "〒",
             Team: "部署",
             Title: "役職",
           },
           TodoScreen: {
-            Oops_Todos_cannot_be_loaded: "あらっ！やることの一覧を取得できませんね…",
+            Oops_Todos_cannot_be_loaded:
+              "あらっ！やることの一覧を取得できませんね…",
             Name: "題名",
             Client: "依頼元",
             Talent: "タレント",
@@ -239,7 +259,8 @@ i18n
             Memo: "ステータスのメモ",
           },
           ManageUsersScreen: {
-            Oops_Users_list_cannot_be_loaded: "あらっ！ユーザの一覧を取得できませんね…",
+            Oops_Users_list_cannot_be_loaded:
+              "あらっ！ユーザの一覧を取得できませんね…",
             Active_users: "有効なユーザ",
             Inactive_users: "無効なユーザ",
             Name: "ユーザ名",
@@ -250,7 +271,8 @@ i18n
             Add_new_user: "ユーザを追加",
           },
           AllGigScreen: {
-            Oops_Todos_cannot_be_loaded: "あらっ！依頼の一覧を取得できませんね…",
+            Oops_Todos_cannot_be_loaded:
+              "あらっ！依頼の一覧を取得できませんね…",
             Name: "題名",
             Client: "依頼元",
             Talent: "タレント",

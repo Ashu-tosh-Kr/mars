@@ -50,7 +50,9 @@ const validationSchema = Yup.object({
 
 // TODO ↓ Can I transalte the values of name withot breaking the integrity with DB?
 const costCategories = [
-  { _id: "Transport", name: "Transport" },
+  { _id: "Transport Taxi", name: "Transport Taxi" },
+  { _id: "Transport Bus", name: "Transport Bus" },
+  { _id: "Transport Train", name: "Transport Train" },
   { _id: "Hotel", name: "Hotel" },
   { _id: "Food", name: "Food" },
   { _id: "Cafe", name: "Cafe" },

@@ -49,3 +49,26 @@ const InputField = ({ name, mb, label, required, ...rest }) => {
   );
 };
 export default InputField;
+
+export const InputFieldSlow = ({ name, mb, label, required, ...rest }) => {
+  const [field, meta] = useField(name);
+  const configTextField = {
+    name,
+    variant: "filled",
+    ...field,
+    ...rest,
+  };
+  return (
+    <>
+      <FormControl
+        isRequired={required}
+        isInvalid={meta.error && meta.touched}
+        mb={mb}
+      >
+        <FormLabel htmlFor={name}>{label}</FormLabel>
+        <Input {...configTextField} isInvalid={meta.touched && !!meta.error} />
+        <FormErrorMessage>{meta.error}</FormErrorMessage>
+      </FormControl>
+    </>
+  );
+};
