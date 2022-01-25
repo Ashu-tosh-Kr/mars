@@ -156,6 +156,7 @@ export const editGig = async (req, res) => {
     food,
     other,
     memo,
+    money,
   } = req.body;
   const gig = await Gig.findById(req.params.gigId).populate("currentStatus");
   const client = await Client.findById(clientId);
@@ -213,6 +214,7 @@ export const editGig = async (req, res) => {
   gig.food = food || gig.food;
   gig.other = other || gig.other;
   gig.memo = memo || gig.memo;
+  gig.money = money || gig.money;
 
   await gig.save();
 

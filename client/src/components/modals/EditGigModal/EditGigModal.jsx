@@ -15,11 +15,6 @@ import {
   AlertDescription,
   HStack,
   Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionIcon,
-  AccordionPanel,
-  Box,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import "react-datepicker/dist/react-datepicker.css";
@@ -37,6 +32,7 @@ import Loader from "components/globals/Loader";
 import SummarySection from "./SummarySection";
 import DetailSection from "./DetailSection";
 import MoreDetailsSection from "./MoreDetailsSection";
+import MoneySection from "./MoneySection";
 
 //helpers
 const validationSchema = Yup.object({
@@ -74,6 +70,17 @@ const calcStep = (step) => {
 };
 
 const EditGigModal = ({ isOpen, onClose, gig }) => {
+  const placeholderMoneySlice = {
+    tax: 10,
+    serviceFeeBeforeTax: 0,
+    serviceFeeIncludingTax: 0,
+    costCondition: 1,
+    billableCost: 0,
+    moneyNote: "",
+    talentFeeBeforeTax: 0,
+    talentFeeIncludingTax: 0,
+    total: 0,
+  };
   const initialValues = {
     galId: gig?.galId,
     gigTitle: gig?.gigTitle,
@@ -106,6 +113,8 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     food: gig?.food,
     other: gig?.other,
     memo: gig?.memo,
+    costs: gig?.costs,
+    money: gig.money ? gig.money : placeholderMoneySlice,
     assignee: "",
   };
 
@@ -195,17 +204,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         formik={formik}
                         users={users}
                       />
-                      <AccordionItem>
-                        <h2>
-                          <AccordionButton>
-                            <Box flex="1" textAlign="left">
-                              Money
-                            </Box>
-                            <AccordionIcon />
-                          </AccordionButton>
-                        </h2>
-                        <AccordionPanel pb={4}></AccordionPanel>
-                      </AccordionItem>
+                      <MoneySection user={user} formik={formik} users={users} />
                     </Accordion>
                   </ModalBody>
                   <ModalFooter>

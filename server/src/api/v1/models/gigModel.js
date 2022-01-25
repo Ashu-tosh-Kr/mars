@@ -15,6 +15,18 @@ const completedStatusSchema = new mongoose.Schema({
   completionDate: Date,
 });
 
+const moneySchema = new mongoose.Schema({
+  tax: { type: Number, default: 10 },
+  serviceFeeBeforeTax: Number,
+  serviceFeeIncludingTax: Number,
+  costCondition: Number | String,
+  billableCost: Number | String,
+  moneyNote: String,
+  talentFeeBeforeTax: Number | String,
+  talentFeeIncludingTax: Number,
+  total: Number,
+});
+
 const gigSchema = new mongoose.Schema(
   {
     galId: {
@@ -78,6 +90,7 @@ const gigSchema = new mongoose.Schema(
     costs: {
       type: [Cost.schema],
     },
+    money: moneySchema,
     //meta data
     memo: String,
     currentAssignee: {
