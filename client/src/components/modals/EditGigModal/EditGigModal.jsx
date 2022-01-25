@@ -42,6 +42,10 @@ const validationSchema = Yup.object({
   gigTitle: Yup.string().required("Required"),
   clientId: Yup.string().required("Required"),
   talentId: Yup.string().required("Required"),
+  money: Yup.object().shape({
+    billableCost: Yup.string().matches(/^\d+$/, "Should be a number"),
+    talentFeeBeforeTax: Yup.string().matches(/^\d+$/, "Should be a number"),
+  }),
 });
 
 const calcStep = (step) => {

@@ -170,7 +170,7 @@ export default function MoneySection({ user, formik }) {
               value={
                 (formik.values.money.total =
                   formik.values.money.serviceFeeIncludingTax +
-                  formik.values.money.billableCost)
+                  +formik.values.money.billableCost)
               }
             />
           </GridItem>
