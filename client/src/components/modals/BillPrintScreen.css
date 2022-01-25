@@ -1,0 +1,29 @@
+.border {border-width:1px;}
+.border-2 {border-width:2px;}
+.border-black {border-color:black;}
+.border-dashed {border:dashed;}
+.border-gray-50 {border-color:#f9fafb;}
+.border-gray-700 {border-color:#374151;}
+.border-gray-800 {border-color:#1f2937;}
+.border-gray-900 {border-color:#111827;}
+.flex {display:flex;}
+.flex-auto {flex:1 1 auto;}
+.flex-grow {flex-grow:1;}
+.flex-nowrap {flex-wrap:nowrap;}
+.font-bold {font-weight:700;}
+.justify-between {justify-content:space-between;}
+.justify-end {justify-content:flex-end;}
+.m-5-auto {margin:1.25rem auto;}
+.m-auto {margin:auto;}
+.mb-10 {margin-bottom:2.5rem;}
+.mb-5 {margin-bottom:1.25rem;}
+.mt-5 {margin-top:1.25rem;}
+.p-1 {padding:0.25rem;}
+.p-2 {padding:0.5rem;}
+.text-4xl {	font-size:2.25rem; line-height:2.5rem;}
+.text-center {text-align:center;}
+.text-left {text-align:left;}
+.text-xl {font-size:1.25rem; line-height:1.75rem;}
+.w-10 {width:2.5rem;}
+.w-24 {width:6rem;}
+.w-full {width:100%;}
