@@ -1,12 +1,12 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 //TODO translate to EN (currently coding in JA, because JA is high priorty)
 
 //TODO fix CSS styling methodology - currently not the best way
 //TODO ↓ ideally get rid of this and use Chakra
-import "./BillPrintScreen.css";
+import "./ClientInvoice.css";
 
-const BillPrintScreen = () => {
+const ClientInvoice = React.forwardRef((props, ref) => {
   //TODO receive ↓ variables (currently using dummy states "myStates")
   //TODO rename ↓ variable names (currently too verbose)
   const [myStates] = useState({
@@ -30,17 +30,33 @@ const BillPrintScreen = () => {
     // array (or whatever data type) of "costs that are billable to Speilberg"
     // if gig's "billing condition" is equal to "cost is not billable", nothing appears here to begin with
     arrayOfCostsThatAreBillableToSpeilberg: [
-      { billId: "jf9olaalviaj3", billCategory: "transport-taxi", billHowMuch: 100 },
+      {
+        billId: "jf9olaalviaj3",
+        billCategory: "transport-taxi",
+        billHowMuch: 100,
+      },
       { billId: "e09jlalfeij39", billCategory: "food", billHowMuch: 200 },
-      { billId: "fF94(aslmN4823", billCategory: "transport-food", billHowMuch: 200 },
+      {
+        billId: "fF94(aslmN4823",
+        billCategory: "transport-food",
+        billHowMuch: 200,
+      },
       // ↑ billID won't appear on "PDF". it's just for keeping track e.g. when rendering with map method
     ],
   });
 
   return (
-    <div contentEditable="true" className="m-auto text-center m-5-auto" style={{ width: "960px" }}>
+    <div
+      ref={ref}
+      contentEditable="true"
+      className="m-auto text-center m-5-auto"
+      style={{ width: "960px" }}
+    >
       <script src="https://cdn.tailwindcss.com"></script>
-      <p className="mb-10 text-4xl font-bold" style={{ letterSpacing: "1.5rem" }}>
+      <p
+        className="mb-10 text-4xl font-bold"
+        style={{ letterSpacing: "1.5rem" }}
+      >
         御請求書
       </p>
       <div className="flex flex-nowrap">
@@ -120,13 +136,23 @@ const BillPrintScreen = () => {
           <p className="border border-gray-900 border-dashed">5</p>
         </div>
         <div className="flex-auto border-2 border-dashed border-gray-50">
-          <p className="font-bold border border-gray-700 border-dashed">案件名</p>
-          <p className="border border-gray-700 border-dashed">Late night movie</p>
-          <p className="border border-gray-700 border-dashed">World interview</p>
+          <p className="font-bold border border-gray-700 border-dashed">
+            案件名
+          </p>
+          <p className="border border-gray-700 border-dashed">
+            Late night movie
+          </p>
+          <p className="border border-gray-700 border-dashed">
+            World interview
+          </p>
           <p className="border border-gray-700 border-dashed">Photo shoot</p>
-          <p className="border border-gray-700 border-dashed">Movie - Matrix 6</p>
+          <p className="border border-gray-700 border-dashed">
+            Movie - Matrix 6
+          </p>
           <p className="border border-gray-700 border-dashed">Dance festival</p>
-          <p className="border border-gray-700 border-dashed">TOTAL BEFORE TAX</p>
+          <p className="border border-gray-700 border-dashed">
+            TOTAL BEFORE TAX
+          </p>
           <p className="border border-gray-700 border-dashed">TAX</p>
           <p className="border border-gray-700 border-dashed">TOTAL INCL TAX</p>
         </div>
@@ -178,6 +204,6 @@ const BillPrintScreen = () => {
       </p>
     </div>
   );
-};
-
-export default BillPrintScreen;
+});
+ClientInvoice.displayName = "ClientInvoice";
+export default ClientInvoice;

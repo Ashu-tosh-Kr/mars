@@ -16,13 +16,14 @@ import {
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiEditBoxLine } from "react-icons/ri";
-import { FaRegMoneyBillAlt } from "react-icons/fa";
+import { FaRegMoneyBillAlt, FaFilePdf } from "react-icons/fa";
 //non lib imports
 import inboxEmpty from "assets/globals/inboxEmpty.svg";
 import { useGetCurrUserInfo } from "api/hooks";
 import EditGigModal from "components/modals/EditGigModal/EditGigModal";
 import CostModal from "components/modals/CostModal";
 import { useTranslation } from "react-i18next";
+import ClientInvoiceModal from "components/modals/ClientInvoiceModal";
 
 const TodoScreen = () => {
   /** hooks */
@@ -35,6 +36,11 @@ const TodoScreen = () => {
     isOpen: isOpenCost,
     onOpen: onOpenCost,
     onClose: onCloseCost,
+  } = useDisclosure();
+  const {
+    isOpen: isOpenInvoice,
+    onOpen: onOpenInvoice,
+    onClose: onCloseInvoice,
   } = useDisclosure();
   //states
   const [toBeEditedGig, setToBeEditedGig] = useState({});
@@ -54,6 +60,11 @@ const TodoScreen = () => {
       <EditGigModal
         isOpen={isOpenEditGig}
         onClose={onCloseEditGig}
+        gig={toBeEditedGig}
+      />
+      <ClientInvoiceModal
+        isOpen={isOpenInvoice}
+        onClose={onCloseInvoice}
         gig={toBeEditedGig}
       />
       {userInfoLoading ? (
@@ -110,6 +121,18 @@ const TodoScreen = () => {
                         icon={<RiEditBoxLine />}
                       />
                     </Td>
+                    {todo.currentStatus.step > 5 && (
+                      <Td>
+                        <IconButton
+                          onClick={() => {
+                            setToBeEditedGig(todo);
+                            onOpenInvoice();
+                          }}
+                          size="sm"
+                          icon={<FaFilePdf />}
+                        />
+                      </Td>
+                    )}
                   </Tr>
                 ))}
               </Tbody>

@@ -50,6 +50,7 @@ i18n
               Total: "Total",
             },
           },
+          ClientInvoiceModal: { Print: "Print" },
           SettingsScreen: {
             Old_password: "Old_password",
             New_password: "New_password",
