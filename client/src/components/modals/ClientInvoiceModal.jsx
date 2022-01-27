@@ -15,7 +15,7 @@ import { useReactToPrint } from "react-to-print";
 //no lib imports
 import ClientInvoice from "components/globals/ClientInvoice";
 
-export default function ClientInvoiceModal({ isOpen, onClose }) {
+export default function ClientInvoiceModal({ isOpen, onClose, gig }) {
   /**hooks */
   const { t } = useTranslation();
   const ref = useRef();
@@ -34,7 +34,7 @@ export default function ClientInvoiceModal({ isOpen, onClose }) {
         <ModalHeader>Cost</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
-          <ClientInvoice ref={ref} />
+          <ClientInvoice ref={ref} gig={gig} />
         </ModalBody>
         <ModalFooter>
           <Button onClick={handlePrint} mr={3}>
