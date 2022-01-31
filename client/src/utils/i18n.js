@@ -15,42 +15,9 @@ i18n
     resources: {
       en: {
         translation: {
-          now_in_english: "Now in English",
-          EditClientModal: {
-            Cancel: "Cancel",
-            Email: "Email",
-            Name: "Name",
-            Note: "Note",
-            Phone: "Phone",
-            Team: "Team",
-            Title: "Title",
-            Update: "Update",
-            Update_client: "Update_client",
-          },
-          EditCompanyModal: {
-            Cancel: "Cancel",
-            Name: "Name",
-            Note: "Note",
-            Office_address: "Office_address",
-            Postal_code: "Postal_code",
-            Update: "Update",
-            Update_company: "Update_company",
-          },
-          EditGigModal: {
-            MoneySection: {
-              Tax: "Tax",
-              Cost_Condition: "Cost Condition",
-              Select_Cost_Condition: "Select Cost Condition",
-              Service_Fee_Before_Tax: "Service_Fee_Before_Tax",
-              Service_Fee_Including_Tax: "Service_Fee_Including_Tax",
-              Talent_Fee_Before_Tax: "Talent_Fee_Before_Tax",
-              Talent_Fee_Including_Tax: "Talent_Fee_Including_Tax",
-              Billable_Cost: "Billable_Cost",
-              Money_Note: "Money_Note",
-              Total: "Total",
-            },
-          },
-          ClientInvoiceModal: { Print: "Print" },
+          /**
+           * Screens
+           */
           SettingsScreen: {
             Old_password: "Old_password",
             New_password: "New_password",
@@ -105,26 +72,7 @@ i18n
             Status: "Status",
             Memo: "Memo",
           },
-          NewUserModal: {
-            Add_user: "Add_user",
-            Employee_ID: "Employee_ID",
-            Username: "Username",
-            EMail: "E-mail",
-            Phone: "Phone",
-            Add: "Add",
-            Cancel: "Cancel",
-          },
-          Sidebar: {
-            All_Gigs: "All Gigs",
-            Clients: "Clients",
-            Dashboard: "Dashboard",
-            Manage_Users: "Manage Users",
-            New_Gig: "New Gig",
-            Settings: "Settings",
-            ToDo: "ToDo",
-            Profile: "Profile",
-            Log_out: "Log out",
-          },
+
           NewGigScreen: {
             Add: "Add",
             Address: "Address",
@@ -171,6 +119,61 @@ i18n
             Title: "Title",
             What_To_Bring: "What To Bring",
           },
+          /**
+           * Modals
+           */
+          NewUserModal: {
+            Add_user: "Add_user",
+            Employee_ID: "Employee_ID",
+            Username: "Username",
+            EMail: "E-mail",
+            Phone: "Phone",
+            Add: "Add",
+            Cancel: "Cancel",
+          },
+          EditClientModal: {
+            Cancel: "Cancel",
+            Email: "Email",
+            Name: "Name",
+            Note: "Note",
+            Phone: "Phone",
+            Team: "Team",
+            Title: "Title",
+            Update: "Update",
+            Update_client: "Update_client",
+          },
+          EditCompanyModal: {
+            Cancel: "Cancel",
+            Name: "Name",
+            Note: "Note",
+            Office_address: "Office_address",
+            Postal_code: "Postal_code",
+            Update: "Update",
+            Update_company: "Update_company",
+          },
+          EditGigModal: {
+            Update_Gig: "Update Gig",
+            Fetch_Error:
+              "There was an error in fetching client or talent details",
+            Fetch_Error_Desc: " Check your internet connection",
+
+            MoneySection: {
+              Tax: "Tax",
+              Cost_Condition: "Cost Condition",
+              Select_Cost_Condition: "Select Cost Condition",
+              Service_Fee_Before_Tax: "Service_Fee_Before_Tax",
+              Service_Fee_Including_Tax: "Service_Fee_Including_Tax",
+              Talent_Fee_Before_Tax: "Talent_Fee_Before_Tax",
+              Talent_Fee_Including_Tax: "Talent_Fee_Including_Tax",
+              Billable_Cost: "Billable_Cost",
+              Money_Note: "Money_Note",
+              Total: "Total",
+            },
+          },
+          ClientInvoiceModal: {
+            Print: "Print",
+            Client_Invoice: "Client Invoice",
+          },
           NewClientModal: {
             Add: "Add",
             Add_New_Client: "Add_New_Client",
@@ -198,6 +201,20 @@ i18n
             Price: "Price",
             Method: "Payment Method",
             Total: "Total",
+          },
+          /**
+           * Globals
+           */
+          Sidebar: {
+            All_Gigs: "All Gigs",
+            Clients: "Clients",
+            Dashboard: "Dashboard",
+            Manage_Users: "Manage Users",
+            New_Gig: "New Gig",
+            Settings: "Settings",
+            ToDo: "ToDo",
+            Profile: "Profile",
+            Log_out: "Log out",
           },
         },
       },

@@ -1,8 +1,11 @@
 import { useTranslation } from "react-i18next";
+import { IconButton, useBoolean } from "@chakra-ui/react";
+import { MdGTranslate } from "react-icons/md";
 
 function Translator() {
-  // ↓ looks like a custom hook
-  const { t, i18n } = useTranslation();
+  /**hooks */
+  const { i18n } = useTranslation();
+  const [flag, setFlag] = useBoolean();
 
   const lngs = {
     en: { nativeName: "English" },
@@ -12,18 +15,20 @@ function Translator() {
   return (
     <>
       {Object.keys(lngs).map((lng) => (
-        <button
+        <IconButton
+          pos="absolute"
+          bottom={10}
+          right={10}
           key={lng}
-          style={{
-            fontWeight: i18n.resolvedLanguage === lng ? "bold" : "normal",
-          }}
           type="submit"
-          onClick={() => i18n.changeLanguage(lng)}
-        >
-          {lngs[lng].nativeName}
-        </button>
+          onClick={() => {
+            setFlag.toggle();
+            i18n.changeLanguage(flag ? "en" : "ja");
+          }}
+          size="sm"
+          icon={<MdGTranslate />}
+        />
       ))}
-      <p>{t("now_in_english")}</p>
     </>
   );
 }

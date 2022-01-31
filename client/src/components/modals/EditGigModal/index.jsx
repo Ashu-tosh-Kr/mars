@@ -33,6 +33,7 @@ import SummarySection from "./SummarySection";
 import DetailSection from "./DetailSection";
 import MoreDetailsSection from "./MoreDetailsSection";
 import MoneySection from "./MoneySection";
+import { useTranslation } from "react-i18next";
 
 //helpers
 const validationSchema = Yup.object({
@@ -122,6 +123,8 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     assignee: "",
   };
 
+  /**hooks */
+  const { t } = useTranslation();
   //fetched data
   const { clients, clientsLoading, clientsError } = useGetAllClients();
   const { users, usersLoading, usersError } = useGetAllUsers();
@@ -136,6 +139,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
   const onSubmit = (values) => {
     mutateEditGig(values);
   };
+  const T = (val) => t(`EditGigModal.${val}`);
 
   //jsx
   if (clientsLoading || usersLoading) {
@@ -143,7 +147,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
       <Modal size="4xl" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update Client</ModalHeader>
+          <ModalHeader>{T("Update_Gig")}</ModalHeader>
           <Loader />{" "}
         </ModalContent>
       </Modal>
@@ -154,17 +158,13 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
       <Modal size="4xl" isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader>Update Client</ModalHeader>
+          <ModalHeader>{T("Update_Gig")}</ModalHeader>
           <ModalCloseButton />
           <Center width="100%" h="100%">
             <Alert status="error">
               <AlertIcon />
-              <AlertTitle mr={2}>
-                There was an error in fetching client or talent details
-              </AlertTitle>
-              <AlertDescription>
-                Check your internet connection
-              </AlertDescription>
+              <AlertTitle mr={2}>{T("Fetch_Error_Msg")}</AlertTitle>
+              <AlertDescription>{T("Fetch_Error_Desc")}</AlertDescription>
             </Alert>
           </Center>
         </ModalContent>
@@ -176,7 +176,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
     <Modal size="4xl" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Update Client</ModalHeader>
+        <ModalHeader>{T("Update_Gig")}</ModalHeader>
         <ModalCloseButton />
 
         <Flex

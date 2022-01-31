@@ -31,7 +31,7 @@ export default function ClientInvoiceModal({ isOpen, onClose, gig }) {
     <Modal size="6xl" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Cost</ModalHeader>
+        <ModalHeader>{T("Client_Invoice")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <ClientInvoice ref={ref} gig={gig} />
