@@ -48,25 +48,6 @@ const validationSchema = Yup.object({
   paymentMethod: Yup.string().required("Required"),
 });
 
-// TODO ↓ Can I transalte the values of name withot breaking the integrity with DB?
-//ans: Yes, do it the way you did for costCondition
-const costCategories = [
-  { _id: "Transport Taxi", name: "Transport Taxi" },
-  { _id: "Transport Bus", name: "Transport Bus" },
-  { _id: "Transport Train", name: "Transport Train" },
-  { _id: "Hotel", name: "Hotel" },
-  { _id: "Food", name: "Food" },
-  { _id: "Cafe", name: "Cafe" },
-  { _id: "Other", name: "Other" },
-];
-
-const paymentMethods = [
-  { _id: "Company Card", name: "Company Credit Card" },
-  { _id: "Personal Card", name: "Personal Credit Card" },
-  { _id: "Company Cash", name: "Company Cash" },
-  { _id: "P ersonal Cash", name: "Personal Cash" },
-];
-
 export default function CostModal({ isOpen, onClose, gig }) {
   /** hooks */
   const { t } = useTranslation();
@@ -79,6 +60,26 @@ export default function CostModal({ isOpen, onClose, gig }) {
   const onSubmit = (values) => {
     mutate({ gigId: gig._id, values });
   };
+
+  //handlers
+  const T = (val) => t(`EditGigModal.CostModal.${val}`);
+
+  const costCategories = [
+    { _id: "Transport Taxi", name: T("Transport_Taxi") },
+    { _id: "Transport Bus", name: T("Transport_Bus") },
+    { _id: "Transport Train", name: T("Transport_Train") },
+    { _id: "Hotel", name: T("Hotel") },
+    { _id: "Food", name: T("Food") },
+    { _id: "Cafe", name: T("Cafe") },
+    { _id: "Other", name: T("Other") },
+  ];
+
+  const paymentMethods = [
+    { _id: "Company Card", name: T("Company_Credit_Card") },
+    { _id: "Personal Card", name: T("Personal_Credit_Card") },
+    { _id: "Company Cash", name: T("Company_Cash") },
+    { _id: "Personal Cash", name: T("Personal_Cash") },
+  ];
 
   //jsx
   return (
