@@ -206,10 +206,10 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
                         mt={3}
                       >
                         {gig.currentStatus.step === 1 || gig.currentStatus.step === 3
-                          ? "Send For Review"
+                          ? T("Send_For_Review")
                           : gig.currentStatus.step <= 5
-                          ? "Approve"
-                          : "Mark As Done"}
+                          ? T("Approve")
+                          : T("Mark_As_Done")}
                       </Button>
                       {gig.currentStatus.step !== 1 &&
                         gig.currentStatus.step !== 3 &&

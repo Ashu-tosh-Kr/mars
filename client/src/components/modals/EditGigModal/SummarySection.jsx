@@ -39,7 +39,7 @@ export default function SummarySection({ formik, user, clients, users }) {
               disabled={user.role === 0}
               label={T("Gig_ID")}
               placeholder={T("Auto_generated")}
-              name={T("galId")}
+              name={"galId"}
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 9]}>
