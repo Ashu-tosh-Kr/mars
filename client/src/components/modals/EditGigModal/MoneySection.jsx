@@ -13,46 +13,27 @@ import MenuField from "components/formComponents/MenuField";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-//helpers
-const costConditions = [
-  { _id: 1, name: "Actual cost is billable" },
-  { _id: 2, name: "Pre-defined amount is billable" },
-  { _id: 3, name: "Coupon/tickets are provided" },
-  { _id: 4, name: "Out of pocket" },
-  { _id: 5, name: "Cost included in Gig service fee" },
-];
-
 export default function MoneySection({ user, formik }) {
   /**hooks */
   const { t } = useTranslation();
+
   //autofills talentfee
   useEffect(() => {
-    const totalCostIncurred = formik.values.costs?.reduce(
-      (previousValue, currentValue) => {
-        return +previousValue + +currentValue.price;
-      },
-      0
-    );
+    const totalCostIncurred = formik.values.costs?.reduce((previousValue, currentValue) => {
+      return +previousValue + +currentValue.price;
+    }, 0);
     formik.setFieldValue(
       "money.talentFeeBeforeTax",
       +formik.values.money.costCondition === 5
-        ? Math.round(
-            (formik.values.money.serviceFeeBeforeTax - totalCostIncurred) * 0.8
-          )
+        ? Math.round((formik.values.money.serviceFeeBeforeTax - totalCostIncurred) * 0.8)
         : formik.values.money.serviceFeeBeforeTax * 0.8
     );
-  }, [
-    formik.values.money.serviceFeeBeforeTax,
-    formik.values.money.costCondition,
-  ]);
+  }, [formik.values.money.serviceFeeBeforeTax, formik.values.money.costCondition]);
   //autofills billable cost
   useEffect(() => {
-    const totalCostIncurred = formik.values.costs?.reduce(
-      (previousValue, currentValue) => {
-        return +previousValue + +currentValue.price;
-      },
-      0
-    );
+    const totalCostIncurred = formik.values.costs?.reduce((previousValue, currentValue) => {
+      return +previousValue + +currentValue.price;
+    }, 0);
     formik.setFieldValue(
       "money.billableCost",
       +formik.values.money.costCondition === 1 ? totalCostIncurred : 0
@@ -61,6 +42,15 @@ export default function MoneySection({ user, formik }) {
 
   //handlers
   const T = (val) => t(`EditGigModal.MoneySection.${val}`);
+
+  //helpers
+  const costConditions = [
+    { _id: 1, name: T("Actual_cost_is_billable") },
+    { _id: 2, name: T("Pre-defined_amount_is_billable") },
+    { _id: 3, name: T("Coupon-tickets_are_provided") },
+    { _id: 4, name: T("Out_of_pocket") },
+    { _id: 5, name: T("Cost_included_in_Gig_service_fee") },
+  ];
 
   //jsx
   return (
@@ -85,12 +75,7 @@ export default function MoneySection({ user, formik }) {
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <InputField
-              disabled
-              label={T("Tax")}
-              placeholder={T("Tax")}
-              name="money.tax"
-            />
+            <InputField disabled label={T("Tax")} placeholder={T("Tax")} name="money.tax" />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
             <InputField
@@ -169,8 +154,7 @@ export default function MoneySection({ user, formik }) {
               name="money.total"
               value={
                 (formik.values.money.total =
-                  formik.values.money.serviceFeeIncludingTax +
-                  +formik.values.money.billableCost)
+                  formik.values.money.serviceFeeIncludingTax + +formik.values.money.billableCost)
               }
             />
           </GridItem>
