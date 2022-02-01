@@ -14,15 +14,19 @@ import "react-datepicker/dist/react-datepicker.css";
 //non lib imports
 import InputField from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
+import { useTranslation } from "react-i18next";
 import { InputFieldSlow } from "components/formComponents/InputField";
 
 export default function SummarySection({ formik, user, clients, users }) {
+  const { t } = useTranslation();
+  const T = (val) => t(`EditGigModal.SummarySection.${val}`);
+
   return (
     <AccordionItem>
       <h2>
         <AccordionButton>
           <Box flex="1" textAlign="left">
-            Gig Summary
+            {T("Summary_Section")}
           </Box>
           <AccordionIcon />
         </AccordionButton>
@@ -33,17 +37,17 @@ export default function SummarySection({ formik, user, clients, users }) {
             <InputFieldSlow
               required={true}
               disabled={user.role === 0}
-              label="Id"
-              placeholder="Id"
-              name="galId"
+              label={T("Gig_ID")}
+              placeholder={T("Auto_generated")}
+              name={T("galId")}
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 9]}>
             <InputFieldSlow
               required={true}
               disabled={user.role === 0}
-              label="Title"
-              placeholder="Title"
+              label={T("Gig_Title")}
+              placeholder={T("Enter_Title")}
               name="gigTitle"
             />
           </GridItem>
@@ -51,8 +55,8 @@ export default function SummarySection({ formik, user, clients, users }) {
             <MenuField
               required={true}
               disabled={user.role === 0}
-              label="Client"
-              placeholder="Select Client"
+              label={T("Client")}
+              placeholder={T("Select_Client")}
               name="clientId"
               options={clients}
             />
@@ -61,8 +65,8 @@ export default function SummarySection({ formik, user, clients, users }) {
             <MenuField
               required={true}
               disabled={user.role === 0}
-              label="Talent"
-              placeholder="Select Talent"
+              label={T("Talent")}
+              placeholder={T("Select_Talent")}
               name="talentId"
               //filtering the list of all users to find only talents and then adding a key "name" for the sake of Menufield
               options={users
@@ -75,8 +79,8 @@ export default function SummarySection({ formik, user, clients, users }) {
           <GridItem colSpan={[12, 12, 12, 6]}>
             <InputField
               disabled={user.role === 0}
-              label="Gig type"
-              placeholder="Gig Type"
+              label={T("Gig_type")}
+              placeholder={T("Select_gig_type")}
               name="gigType"
             />
           </GridItem>
@@ -84,8 +88,8 @@ export default function SummarySection({ formik, user, clients, users }) {
             <MenuField
               disabled={user.role === 0}
               name="gigAssistantId"
-              label="Assistant"
-              placeholder="Select Assistant"
+              label={T("Assistant")}
+              placeholder={T("Select_assistant")}
               //filtering the list of all users to find only assistants and then adding a key "name" for the sake of Menufield
               options={users
                 .filter((user) => user.role === 1)
@@ -97,28 +101,28 @@ export default function SummarySection({ formik, user, clients, users }) {
           <GridItem colSpan={[12, 12, 12, 3]}>
             <InputField
               disabled={user.role === 0}
-              label="Location"
-              placeholder="Location"
+              label={T("Gig_Location")}
+              placeholder={T("Select_gig_location")}
               name="gigLocation"
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 2]}>
             <InputField
-              label="Postal Code"
-              placeholder="Postal Code"
+              label={T("Postal_Code")}
+              placeholder={T("Enter_Postal_Code")}
               name="gigPostalCode"
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 7]}>
             <InputField
               disabled={user.role === 0}
-              label="Address"
-              placeholder="Address"
+              label={T("Address")}
+              placeholder={T("Enter_address")}
               name="gigAddress"
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <FormLabel htmlFor={"gigStart"}>{"Gig Start"}</FormLabel>
+            <FormLabel htmlFor={"gigStart"}>{T("Gig_Start")}</FormLabel>
             <DatePicker
               disabled={user.role === 0}
               selected={formik.values.gigStart}
@@ -131,12 +135,12 @@ export default function SummarySection({ formik, user, clients, users }) {
               timeCaption="Time"
               dateFormat="Pp"
               timeFormat="p"
-              placeholderText="Start Date"
+              placeholderText={T("Select_gig_start_date")}
               customInput={<Input variant="filled" />}
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <FormLabel htmlFor="gigEnd">End Date</FormLabel>
+            <FormLabel htmlFor="gigEnd">{T("Gig_end")}</FormLabel>
             <DatePicker
               disabled={user.role === 0}
               selected={formik.values.gigEnd}
@@ -150,7 +154,7 @@ export default function SummarySection({ formik, user, clients, users }) {
               timeCaption="Time"
               dateFormat="Pp"
               timeFormat="p"
-              placeholderText="End Date"
+              placeholderText={T("Select_gig_end")}
               customInput={<Input variant="filled" />}
             />
           </GridItem>
