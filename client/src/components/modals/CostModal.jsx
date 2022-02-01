@@ -28,10 +28,10 @@ import { MdDelete } from "react-icons/md";
 
 //non lib imports
 import inboxEmpty from "assets/globals/inboxEmpty.svg";
-import InputField from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { useAddCostToGig, useDelCostFromGig } from "api/hooks";
 import { useTranslation } from "react-i18next";
+import { InputFieldSlow } from "components/formComponents/InputField";
 
 //helpers
 const initialValues = {
@@ -44,11 +44,12 @@ const initialValues = {
 const validationSchema = Yup.object({
   costCategory: Yup.string().required("Required"),
   costDetail: Yup.string().required("Required"),
-  price: Yup.number().required("Required"),
+  price: Yup.string().matches(/^\d+$/, "Invalid number").required("Required"),
   paymentMethod: Yup.string().required("Required"),
 });
 
 // TODO ↓ Can I transalte the values of name withot breaking the integrity with DB?
+//ans: Yes, do it the way you did for costCondition
 const costCategories = [
   { _id: "Transport Taxi", name: "Transport Taxi" },
   { _id: "Transport Bus", name: "Transport Bus" },
@@ -106,7 +107,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
                       />
                     </GridItem>
                     <GridItem colSpan={[12, 12, 6, 3]}>
-                      <InputField
+                      <InputFieldSlow
                         label={t("CostModal.Detail")}
                         required={true}
                         placeholder={t("CostModal.Detail")}
@@ -114,7 +115,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
                       />
                     </GridItem>
                     <GridItem colSpan={[12, 12, 6, 3]}>
-                      <InputField
+                      <InputFieldSlow
                         label={t("CostModal.Price")}
                         required={true}
                         placeholder={t("CostModal.Price")}

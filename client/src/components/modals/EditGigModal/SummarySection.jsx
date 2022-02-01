@@ -14,6 +14,7 @@ import "react-datepicker/dist/react-datepicker.css";
 //non lib imports
 import InputField from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
+import { InputFieldSlow } from "components/formComponents/InputField";
 
 export default function SummarySection({ formik, user, clients, users }) {
   return (
@@ -29,7 +30,7 @@ export default function SummarySection({ formik, user, clients, users }) {
       <AccordionPanel pb={4}>
         <Grid templateColumns="repeat(12, 1fr)" gap={4}>
           <GridItem colSpan={[12, 12, 12, 3]}>
-            <InputField
+            <InputFieldSlow
               required={true}
               disabled={user.role === 0}
               label="Id"
@@ -38,7 +39,7 @@ export default function SummarySection({ formik, user, clients, users }) {
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 9]}>
-            <InputField
+            <InputFieldSlow
               required={true}
               disabled={user.role === 0}
               label="Title"

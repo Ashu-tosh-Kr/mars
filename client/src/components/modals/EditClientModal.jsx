@@ -8,12 +8,13 @@ import {
   ModalOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useUpdateClient } from "api/hooks";
-import InputField from "components/formComponents/InputField";
-import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
+//non lib imports
+import { InputFieldSlow } from "components/formComponents/InputField";
+import MenuField from "components/formComponents/MenuField";
+import { useUpdateClient } from "api/hooks";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
@@ -58,33 +59,33 @@ const EditClientModal = ({ isOpen, onClose, companies, client }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditClientModal.Name")}
                 name="name"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditClientModal.Title")}
                 name="title"
               />
               <MenuField mb={3} name="companyId" options={companies} />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditClientModal.Team")}
                 name="clientTeam"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditClientModal.Email")}
                 name="email"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditClientModal.Phone")}
                 name="phone"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditClientModal.Note")}
                 name="note"

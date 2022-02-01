@@ -195,7 +195,7 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
               return (
                 <Form>
                   <ModalBody pb={6}>
-                    <Accordion defaultIndex={[0]} minW="50vw" allowMultiple>
+                    <Accordion defaultIndex={[0]} allowMultiple>
                       <SummarySection
                         user={user}
                         formik={formik}

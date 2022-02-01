@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useAddNewClient } from "api/hooks";
-import InputField from "components/formComponents/InputField";
+import { InputFieldSlow } from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -57,12 +57,12 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewClientModal.Name")}
                 name="name"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewClientModal.Title")}
                 name="title"
@@ -73,22 +73,22 @@ const NewClientModal = ({ isOpen, onClose, companies }) => {
                 name="companyId"
                 options={companies}
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewClientModal.Phone")}
                 name="phone"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewClientModal.Team")}
                 name="clientTeam"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewClientModal.Email")}
                 name="email"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewClientModal.Note")}
                 name="note"

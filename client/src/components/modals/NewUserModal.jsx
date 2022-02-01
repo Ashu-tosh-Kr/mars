@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useAddNewUser } from "api/hooks";
-import InputField from "components/formComponents/InputField";
+import { InputFieldSlow } from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -60,22 +60,22 @@ const NewUserModal = ({ isOpen, onClose }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewUserModal.Employee_ID")}
                 name="employeeId"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewUserModal.Username")}
                 name="username"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewUserModal.EMail")}
                 name="email"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewUserModal.Phone")}
                 name="phone"

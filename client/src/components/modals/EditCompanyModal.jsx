@@ -8,12 +8,12 @@ import {
   ModalOverlay,
   Button,
 } from "@chakra-ui/react";
-import { useUpdateCompany } from "api/hooks";
-import InputField from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
-
 import { useTranslation } from "react-i18next";
+//non lib imports
+import { useUpdateCompany } from "api/hooks";
+import { InputFieldSlow } from "components/formComponents/InputField";
 
 const validationSchema = Yup.object({
   name: Yup.string().required("Required"),
@@ -51,22 +51,22 @@ const EditCompanyModal = ({ isOpen, onClose, company }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditCompanyModal.Name")}
                 name="name"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditCompanyModal.Postal_code")}
                 name="postCode"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditCompanyModal.Office_address")}
                 name="officeAddress"
               />
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("EditCompanyModal.Note")}
                 name="note"

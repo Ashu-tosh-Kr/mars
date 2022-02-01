@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useAddNewCompany } from "api/hooks";
-import InputField from "components/formComponents/InputField";
+import { InputFieldSlow } from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
@@ -51,18 +51,35 @@ const NewCompanyModal = ({ isOpen, onClose }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField mb={3} placeholder={t("NewCompanyModal.Name")} name="name" />
-              <InputField mb={3} placeholder={t("NewCompanyModal.Postal_code")} name="postCode" />
-              <InputField
+              <InputFieldSlow
+                mb={3}
+                placeholder={t("NewCompanyModal.Name")}
+                name="name"
+              />
+              <InputFieldSlow
+                mb={3}
+                placeholder={t("NewCompanyModal.Postal_code")}
+                name="postCode"
+              />
+              <InputFieldSlow
                 mb={3}
                 placeholder={t("NewCompanyModal.Office_address")}
                 name="officeAddress"
               />
-              <InputField mb={3} placeholder={t("NewCompanyModal.Note")} name="note" />
+              <InputFieldSlow
+                mb={3}
+                placeholder={t("NewCompanyModal.Note")}
+                name="note"
+              />
             </ModalBody>
 
             <ModalFooter>
-              <Button type="submit" isLoading={isLoading} colorScheme="blue" mr={3}>
+              <Button
+                type="submit"
+                isLoading={isLoading}
+                colorScheme="blue"
+                mr={3}
+              >
                 {t("NewCompanyModal.Add")}
               </Button>
               <Button onClick={onClose}>{t("NewCompanyModal.Cancel")}</Button>

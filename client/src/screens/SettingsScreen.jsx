@@ -7,7 +7,7 @@ import {
   Tabs,
 } from "@chakra-ui/react";
 import { useChangePass } from "api/hooks";
-import InputField from "components/formComponents/InputField";
+import { InputFieldSlow } from "components/formComponents/InputField";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 import { useTranslation } from "react-i18next";
@@ -47,17 +47,17 @@ const SettingsScreen = () => {
               validationSchema={validationSchema}
             >
               <Form>
-                <InputField
+                <InputFieldSlow
                   mb={3}
                   placeholder={t("SettingsScreen.Old_password")}
                   name="oldPass"
                 />
-                <InputField
+                <InputFieldSlow
                   mb={3}
                   placeholder={t("SettingsScreen.New_password")}
                   name="newPass"
                 />
-                <InputField
+                <InputFieldSlow
                   mb={3}
                   placeholder={t("SettingsScreen.Confirm_password")}
                   name="confirmPass"
