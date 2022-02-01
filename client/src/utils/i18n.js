@@ -152,6 +152,9 @@ i18n
             Update_Gig: "Update Gig",
             Fetch_Error: "There was an error in fetching client or talent details",
             Fetch_Error_Desc: " Check your internet connection",
+            Save: "Save",
+            Reject: "Reject",
+            Close_Gig: "Close_Gig",
 
             MoneySection: {
               Actual_cost_is_billable: "Actual_cost_is_billable",
