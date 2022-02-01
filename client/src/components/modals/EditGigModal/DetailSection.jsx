@@ -15,14 +15,18 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputField from "components/formComponents/InputField";
 import RichTextEditor from "components/formComponents/RichTextEditor";
 import TextAreaField from "components/formComponents/TextAreaField";
+import { useTranslation } from "react-i18next";
 
 export default function DetailSection({ user, formik }) {
+  const { t } = useTranslation();
+  const T = (val) => t(`EditGigModal.DetailSection.${val}`);
+
   return (
     <AccordionItem>
       <h2>
         <AccordionButton>
           <Box flex="1" textAlign="left">
-            Details
+            {T("Details_Section")}
           </Box>
           <AccordionIcon />
         </AccordionButton>
@@ -36,7 +40,7 @@ export default function DetailSection({ user, formik }) {
     placeholder="Details"
     name="gigDetails"
   /> */}
-            <FormLabel htmlFor={"gigDetails"}>{"Details"}</FormLabel>
+            <FormLabel htmlFor={"gigDetails"}>{T("Gig_Details")}</FormLabel>
             <RichTextEditor
               value={formik.values.gigDetails}
               onChange={(date) => formik.setFieldValue("gigDetails", date)}
@@ -44,7 +48,7 @@ export default function DetailSection({ user, formik }) {
           </GridItem>
 
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <FormLabel htmlFor="gigArrive">Arrival Time</FormLabel>
+            <FormLabel htmlFor="gigArrive">{T("Arrival_Time")}</FormLabel>
             <DatePicker
               disabled={user.role === 0}
               selected={formik.values.gigArrive}
@@ -54,12 +58,12 @@ export default function DetailSection({ user, formik }) {
               timeCaption="Time"
               dateFormat="Pp"
               timeFormat="p"
-              placeholderText="Arrival Time"
+              placeholderText={T("Select_Arrival_Time")}
               customInput={<Input variant="filled" />}
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <FormLabel htmlFor="gigGoHome">Departure Time</FormLabel>
+            <FormLabel htmlFor="gigGoHome">{T("Departure_Time")}</FormLabel>
             <DatePicker
               disabled={user.role === 0}
               selected={formik.values.gigGoHome}
@@ -69,12 +73,12 @@ export default function DetailSection({ user, formik }) {
               timeCaption="Time"
               dateFormat="Pp"
               timeFormat="p"
-              placeholderText="Departure Time"
+              placeholderText={T("Select_Departure_Time")}
               customInput={<Input variant="filled" />}
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <FormLabel htmlFor="embargo">Embargo</FormLabel>
+            <FormLabel htmlFor="embargo">{T("Embargo")}</FormLabel>
             <DatePicker
               disabled={user.role === 0}
               selected={formik.values.embargo}
@@ -84,31 +88,31 @@ export default function DetailSection({ user, formik }) {
               timeCaption="Time"
               dateFormat="Pp"
               timeFormat="p"
-              placeholderText="Embargo"
+              placeholderText={T("Select_Embargo")}
               customInput={<Input variant="filled" />}
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
             <InputField
               disabled={user.role === 0}
-              label="Host"
-              placeholder="Host"
+              label={T("Host")}
+              placeholder={T("Enter_Host")}
               name="gigHost"
             />
           </GridItem>
           <GridItem colSpan={12}>
             <TextAreaField
               disabled={user.role === 0}
-              label="Schedule Details"
-              placeholder="Schedule Details"
+              label={T("Schedule_Details")}
+              placeholder={T("Enter_Schedule_Details")}
               name="gigScheduleDetail"
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
             <InputField
               disabled={user.role === 0}
-              label="Caution"
-              placeholder="Caution"
+              label={T("Caution")}
+              placeholder={T("Enter_Caution")}
               name="caution"
             />
           </GridItem>

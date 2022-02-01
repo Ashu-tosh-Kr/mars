@@ -156,6 +156,23 @@ i18n
             Reject: "Reject",
             Close_Gig: "Close_Gig",
 
+            DetailSection: {
+              Arrival_Time: "Arrival_Time",
+              Caution: "Caution",
+              Departure_Time: "Departure_Time",
+              Details_Section: "Details_Section",
+              Embargo: "Embargo",
+              Enter_Caution: "Enter_Caution",
+              Enter_Host: "Enter_Host",
+              Enter_Schedule_Details: "Enter_Schedule_Details",
+              Gig_Details: "Gig_Details",
+              Host: "Host",
+              Schedule_Details: "Schedule_Details",
+              Select_Arrival_Time: "Select_Arrival_Time",
+              Select_Departure_Time: "Select_Departure_Time",
+              Select_Embargo: "Select_Embargo",
+            },
+
             MoneySection: {
               Actual_cost_is_billable: "Actual_cost_is_billable",
               Pre_defined_amount_is_billable: "Pre-defined_amount_is_billable",
@@ -354,6 +371,26 @@ i18n
             Update_Gig: "案件の情報を編集",
             Fetch_Error: "依頼元やタレントの情報を取得するのに問題が発生しました。",
             Fetch_Error_Desc: " 接続が不安定です",
+            Save: "保存",
+            Reject: "差し戻し",
+            Close_Gig: "案件を中止",
+
+            DetailSection: {
+              Arrival_Time: "入り時間",
+              Caution: "注意事項",
+              Departure_Time: "終了時間",
+              Details_Section: "詳細な情報",
+              Embargo: "情報解禁日",
+              Enter_Caution: "注意事項を入力してね",
+              Enter_Host: "主催者の名前を入力してね",
+              Enter_Schedule_Details: "スケジュールの詳細を入力してね",
+              Gig_Details: "実施内容",
+              Host: "主催者",
+              Schedule_Details: "スケジュールの詳細",
+              Select_Arrival_Time: "入り時間を選んでね",
+              Select_Departure_Time: "終了時間を選んでね",
+              Select_Embargo: "Select_Embargo",
+            },
 
             MoneySection: {
               Actual_cost_is_billable: "実費請求",
