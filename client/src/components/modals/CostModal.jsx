@@ -62,7 +62,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
   };
 
   //handlers
-  const T = (val) => t(`EditGigModal.CostModal.${val}`);
+  const T = (val) => t(`CostModal.${val}`);
 
   const costCategories = [
     { _id: "Transport Taxi", name: T("Transport_Taxi") },
@@ -86,7 +86,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
     <Modal size="4xl" isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
       <ModalContent>
-        <ModalHeader>Cost</ModalHeader>
+        <ModalHeader>{T("Manage_Cost")}</ModalHeader>
         <ModalCloseButton />
         <ModalBody pb={6}>
           <VStack>
@@ -134,7 +134,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
                     </GridItem>
                   </Grid>
                   <Button type="submit" isLoading={isLoading} mr={3}>
-                    Add Expense
+                    {T("Add_Expense")}
                   </Button>
                 </VStack>
               </Form>
