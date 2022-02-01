@@ -74,10 +74,12 @@ const TodoScreen = () => {
           <Skeleton isLoaded={!userInfoLoading} height="50px" />
         </Stack>
       ) : userInfoError ? (
-        <Alert status="error">
-          <AlertIcon />
-          {t("TodoScreen.Oops_Todos_cannot_be_loaded")}
-        </Alert>
+        <Box w="full">
+          <Alert status="error">
+            <AlertIcon />
+            {t("TodoScreen.Oops_Todos_cannot_be_loaded")}
+          </Alert>
+        </Box>
       ) : (
         <Box w="full">
           {userInfo.todos.length > 0 ? (

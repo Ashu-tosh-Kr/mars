@@ -263,7 +263,7 @@ export const completeStepOne = async (req, res) => {
   );
   await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -317,7 +317,7 @@ export const completeStepTwo = async (req, res) => {
   );
   await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -363,7 +363,7 @@ export const completeStepThree = async (req, res) => {
   );
   await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -417,7 +417,7 @@ export const completeStepFour = async (req, res) => {
   );
   await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -472,10 +472,10 @@ export const completeStepFive = async (req, res) => {
   );
   await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
-  talent.todos.push(gig);
+  talent.todos.push(gig._id);
   await talent.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -529,7 +529,7 @@ export const completeStepSixThroughNine = async (req, res) => {
   );
   await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");

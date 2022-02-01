@@ -36,11 +36,13 @@ const AllGigsScreen = () => {
           <Skeleton isLoaded={!gigsLoading} height="50px" />
         </Stack>
       ) : gigsError ? (
-        <Alert status="error">
-          <AlertIcon />
-          {/* TODO ↓ Should be "Gigs cannot be loaded"?} */}
-          {t("Oops_Todos_cannot_be_loaded")}
-        </Alert>
+        <Box w="full">
+          <Alert status="error">
+            <AlertIcon />
+            {/* TODO ↓ Should be "Gigs cannot be loaded"?} */}
+            {t("Oops_Todos_cannot_be_loaded")}
+          </Alert>
+        </Box>
       ) : (
         <Box w="full">
           {gigs.length > 0 ? (
