@@ -152,8 +152,16 @@ i18n
             Update_Gig: "Update Gig",
             Fetch_Error: "There was an error in fetching client or talent details",
             Fetch_Error_Desc: " Check your internet connection",
+            Save: "Save",
+            Reject: "Reject",
+            Close_Gig: "Close_Gig",
 
             MoneySection: {
+              Actual_cost_is_billable: "Actual_cost_is_billable",
+              Pre_defined_amount_is_billable: "Pre-defined_amount_is_billable",
+              Coupon_tickets_are_provided: "Coupon-tickets_are_provided",
+              Out_of_pocket: "Out_of_pocket",
+              Cost_included_in_Gig_service_fee: "Cost_included_in_Gig_service_fee:",
               Tax: "Tax",
               Cost_Condition: "Cost Condition",
               Select_Cost_Condition: "Select Cost Condition",
@@ -348,6 +356,11 @@ i18n
             Fetch_Error_Desc: " 接続が不安定です",
 
             MoneySection: {
+              Actual_cost_is_billable: "実費請求",
+              Pre_defined_amount_is_billable: "規定額請求",
+              Coupon_tickets_are_provided: "客先チケット支給",
+              Out_of_pocket: "請求不可",
+              Cost_included_in_Gig_service_fee: "交通費込み",
               Tax: "税率",
               Cost_Condition: "経費の条件",
               Select_Cost_Condition: "条件を選択してね",
