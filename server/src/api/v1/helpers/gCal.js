@@ -23,11 +23,11 @@ export const addCalEvent = async (gig, talent) => {
     colorId: 5,
     start: {
       dateTime: gigStart,
-      timeZone: "Asia/Kolkata",
+      timeZone: "Asia/Tokyo",
     },
     end: {
       dateTime: gigEnd,
-      timeZone: "Asia/Kolkata",
+      timeZone: "Asia/Tokyo",
     },
     attendees: [{ displayName: talent.username, email: talent.email }],
   };
@@ -58,11 +58,11 @@ export const updateCalEvent = async (gig) => {
     colorId: gig.currentStatus.step,
     start: {
       dateTime: gigStart,
-      timeZone: "Asia/Kolkata",
+      timeZone: "Asia/Tokyo",
     },
     end: {
       dateTime: gigEnd,
-      timeZone: "Asia/Kolkata",
+      timeZone: "Asia/Tokyo",
     },
   };
   calendar.events.patch(
@@ -88,11 +88,11 @@ export const cencelCalEvent = async (gig) => {
     status: "cancelled",
     start: {
       dateTime: gigStart,
-      timeZone: "Asia/Kolkata",
+      timeZone: "Asia/Tokyo",
     },
     end: {
       dateTime: gigEnd,
-      timeZone: "Asia/Kolkata",
+      timeZone: "Asia/Tokyo",
     },
   };
   calendar.events.patch(
