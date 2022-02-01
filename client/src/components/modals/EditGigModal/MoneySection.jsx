@@ -46,8 +46,8 @@ export default function MoneySection({ user, formik }) {
   //helpers
   const costConditions = [
     { _id: 1, name: T("Actual_cost_is_billable") },
-    { _id: 2, name: T("Pre-defined_amount_is_billable") },
-    { _id: 3, name: T("Coupon-tickets_are_provided") },
+    { _id: 2, name: T("Pre_defined_amount_is_billable") },
+    { _id: 3, name: T("Coupon_tickets_are_provided") },
     { _id: 4, name: T("Out_of_pocket") },
     { _id: 5, name: T("Cost_included_in_Gig_service_fee") },
   ];
