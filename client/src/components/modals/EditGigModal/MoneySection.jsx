@@ -58,7 +58,7 @@ export default function MoneySection({ user, formik }) {
       <h2>
         <AccordionButton>
           <Box flex="1" textAlign="left">
-            Money
+            {T("Money_Section")}
           </Box>
           <AccordionIcon />
         </AccordionButton>
