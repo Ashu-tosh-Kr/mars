@@ -15,7 +15,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import InputField from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { useTranslation } from "react-i18next";
-import { InputFieldSlow } from "components/formComponents/InputField";
 
 export default function SummarySection({ formik, user, clients, users }) {
   const { t } = useTranslation();
@@ -34,7 +33,7 @@ export default function SummarySection({ formik, user, clients, users }) {
       <AccordionPanel pb={4}>
         <Grid templateColumns="repeat(12, 1fr)" gap={4}>
           <GridItem colSpan={[12, 12, 12, 3]}>
-            <InputFieldSlow
+            <InputField
               required={true}
               disabled={user.role === 0}
               label={T("Gig_ID")}
@@ -43,7 +42,7 @@ export default function SummarySection({ formik, user, clients, users }) {
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 9]}>
-            <InputFieldSlow
+            <InputField
               required={true}
               disabled={user.role === 0}
               label={T("Gig_Title")}

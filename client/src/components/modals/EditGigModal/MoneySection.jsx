@@ -8,7 +8,6 @@ import {
   GridItem,
 } from "@chakra-ui/react";
 import InputField from "components/formComponents/InputField";
-import { InputFieldSlow } from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,21 +18,32 @@ export default function MoneySection({ user, formik }) {
 
   //autofills talentfee
   useEffect(() => {
-    const totalCostIncurred = formik.values.costs?.reduce((previousValue, currentValue) => {
-      return +previousValue + +currentValue.price;
-    }, 0);
+    const totalCostIncurred = formik.values.costs?.reduce(
+      (previousValue, currentValue) => {
+        return +previousValue + +currentValue.price;
+      },
+      0
+    );
     formik.setFieldValue(
       "money.talentFeeBeforeTax",
       +formik.values.money.costCondition === 5
-        ? Math.round((formik.values.money.serviceFeeBeforeTax - totalCostIncurred) * 0.8)
+        ? Math.round(
+            (formik.values.money.serviceFeeBeforeTax - totalCostIncurred) * 0.8
+          )
         : formik.values.money.serviceFeeBeforeTax * 0.8
     );
-  }, [formik.values.money.serviceFeeBeforeTax, formik.values.money.costCondition]);
+  }, [
+    formik.values.money.serviceFeeBeforeTax,
+    formik.values.money.costCondition,
+  ]);
   //autofills billable cost
   useEffect(() => {
-    const totalCostIncurred = formik.values.costs?.reduce((previousValue, currentValue) => {
-      return +previousValue + +currentValue.price;
-    }, 0);
+    const totalCostIncurred = formik.values.costs?.reduce(
+      (previousValue, currentValue) => {
+        return +previousValue + +currentValue.price;
+      },
+      0
+    );
     formik.setFieldValue(
       "money.billableCost",
       +formik.values.money.costCondition === 1 ? totalCostIncurred : 0
@@ -75,7 +85,12 @@ export default function MoneySection({ user, formik }) {
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <InputField disabled label={T("Tax")} placeholder={T("Tax")} name="money.tax" />
+            <InputField
+              disabled
+              label={T("Tax")}
+              placeholder={T("Tax")}
+              name="money.tax"
+            />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
             <InputField
@@ -106,15 +121,11 @@ export default function MoneySection({ user, formik }) {
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <InputFieldSlow
+            <InputField
               disabled={user.role === 0}
               label={T("Talent_Fee_Before_Tax")}
               placeholder={T("Talent_Fee_Before_Tax")}
               name="money.talentFeeBeforeTax"
-              // value={
-              //   (formik.values.money.talentFeeBeforeTax =
-              //     formik.values.money.serviceFeeBeforeTax * 0.8)
-              // }
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
@@ -139,7 +150,7 @@ export default function MoneySection({ user, formik }) {
             />
           </GridItem>
           <GridItem colSpan={[12, 12, 12, 6]}>
-            <InputFieldSlow
+            <InputField
               disabled={user.role === 0}
               label={T("Billable_Cost")}
               placeholder={T("Billable_Cost")}
@@ -154,7 +165,8 @@ export default function MoneySection({ user, formik }) {
               name="money.total"
               value={
                 (formik.values.money.total =
-                  formik.values.money.serviceFeeIncludingTax + +formik.values.money.billableCost)
+                  formik.values.money.serviceFeeIncludingTax +
+                  +formik.values.money.billableCost)
               }
             />
           </GridItem>

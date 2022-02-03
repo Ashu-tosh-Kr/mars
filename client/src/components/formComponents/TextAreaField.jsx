@@ -6,23 +6,25 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce/lib";
 
 export function useFastField(props) {
   const [field, meta] = useField(props);
   const [value, setValue] = useState(field.value);
-  const { onBlur, onChange } = field;
+  const { onChange } = field;
+  //why useDebounce?
+  //because we want to wait for the user to stop typing before we update the value to improve performance
+  const debounced = useDebouncedCallback((e) => {
+    onChange(e);
+  }, 100);
 
   field.value = value;
   field.onChange = (e) => {
     if (e && e.currentTarget) {
       setValue(e.currentTarget.value);
+      debounced(e);
     }
   };
-  field.onBlur = (e) => {
-    onChange(e);
-    onBlur(e);
-  };
-
   return [field, meta];
 }
 
