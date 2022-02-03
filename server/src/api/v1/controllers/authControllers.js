@@ -110,22 +110,34 @@ export const getAccessToken = async (req, res) => {
     throw new Error("Please Login!");
   }
   jwt.verify(refresh_token, vars.refreshToken, async (err, decodedToken) => {
-    if (err) {
-      res.status(401).json({ message: "please Login" });
-      return;
-    } else if (decodedToken.exp < new Date().getTime()) {
-      res.status(401).json({ message: "Token Expired" });
-      return;
-    } else {
-      const user = await User.findById(decodedToken.id).select("-password");
-      const token = createAccessToken({
-        userId: String(user._id),
-        iat: new Date().getTime(),
-        exp: new Date().getTime() + 15 * 60 * 1000, //15min
-      });
-      res.status(200).json({
-        message: "Success",
-        data: { access_token: token, refresh_token, user: user },
+    try {
+      if (err) {
+        res.status(401).json({ message: "Please Login" });
+        return;
+      } else if (decodedToken.exp < new Date().getTime()) {
+        res.status(401).json({ message: "Token Expired" });
+        return;
+      } else {
+        const user = await User.findById(decodedToken.id).select("-password");
+        if (!user) {
+          res.status(401).json({
+            message: "Please Re-Login",
+          });
+          return;
+        }
+        const token = createAccessToken({
+          userId: String(user._id),
+          iat: new Date().getTime(),
+          exp: new Date().getTime() + 15 * 60 * 1000, //15min
+        });
+        res.status(200).json({
+          message: "Success",
+          data: { access_token: token, refresh_token, user: user },
+        });
+      }
+    } catch (e) {
+      res.status(401).json({
+        message: "Please Re-Login",
       });
     }
   });
