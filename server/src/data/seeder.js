@@ -3,6 +3,7 @@ import dotenv from "dotenv";
 import colors from "colors";
 import dbConfig from "../config/dbConfig.js";
 import User from "../api/v1/models/userModel.js";
+import Gig from "../api/v1/models/gigModel.js";
 import Company from "../api/v1/models/companyModel.js";
 import Client from "../api/v1/models/clientModel.js";
 import users from "./users.js";
@@ -47,6 +48,9 @@ const importData = async () => {
 const destroytData = async () => {
   try {
     await User.deleteMany();
+    await Client.deleteMany();
+    await Company.deleteMany();
+    await Gig.deleteMany();
 
     console.log(`Data Destroyed`.green.inverse);
     process.exit();

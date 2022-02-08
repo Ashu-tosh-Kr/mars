@@ -2,13 +2,21 @@ import { ColorModeScript } from "@chakra-ui/react";
 import React, { StrictMode } from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
-import { ChakraProvider, theme } from "@chakra-ui/react";
+import { ChakraProvider } from "@chakra-ui/react";
+import theme from "theme";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
 import store from "./redux/store";
 
-const queryClient = new QueryClient();
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      retry: false,
+      refetchOnWindowFocus: false,
+    },
+  },
+});
 
 ReactDOM.render(
   <StrictMode>

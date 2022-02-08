@@ -9,7 +9,7 @@ import {
   Button,
 } from "@chakra-ui/react";
 import { useUpdateUser } from "api/hooks";
-import InputField from "components/formComponents/InputField";
+import { InputFieldSlow } from "components/formComponents/InputField";
 import MenuField from "components/formComponents/MenuField";
 import RadioField from "components/formComponents/RadioField";
 import { Form, Formik } from "formik";
@@ -59,15 +59,15 @@ const EditUserModal = ({ isOpen, onClose, user }) => {
         >
           <Form>
             <ModalBody pb={6}>
-              <InputField
+              <InputFieldSlow
                 mb={3}
                 disabled
                 placeholder="Employee ID"
                 name="employeeId"
               />
-              <InputField mb={3} placeholder="Username" name="username" />
-              <InputField mb={3} placeholder="E-mail" name="email" />
-              <InputField mb={3} placeholder="Phone" name="phone" />
+              <InputFieldSlow mb={3} placeholder="Username" name="username" />
+              <InputFieldSlow mb={3} placeholder="E-mail" name="email" />
+              <InputFieldSlow mb={3} placeholder="Phone" name="phone" />
               <MenuField mb={3} name="role" options={Roles} />
               <RadioField
                 mb={3}
@@ -80,12 +80,7 @@ const EditUserModal = ({ isOpen, onClose, user }) => {
             </ModalBody>
 
             <ModalFooter>
-              <Button
-                type="submit"
-                isLoading={isLoading}
-                colorScheme="blue"
-                mr={3}
-              >
+              <Button type="submit" isLoading={isLoading} mr={3}>
                 Update
               </Button>
               <Button onClick={onClose}>Cancel</Button>

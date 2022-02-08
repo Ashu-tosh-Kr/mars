@@ -13,6 +13,7 @@ import {
   VStack,
   PopoverArrow,
   PopoverCloseButton,
+  Badge,
 } from "@chakra-ui/react";
 import {
   FiHome,
@@ -30,6 +31,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useQueryClient } from "react-query";
 import { logout } from "redux/actions/userActions";
+import { useGetCurrUserInfo } from "api/hooks";
+import { useTranslation } from "react-i18next";
 
 export default function Sidebar() {
   const user = useSelector((store) => store.userLogin.userInfo.data.user);
@@ -42,6 +45,11 @@ export default function Sidebar() {
     dispatch(logout());
     navigate("/login", { replace: true });
   };
+
+  const { userInfo } = useGetCurrUserInfo();
+
+  // translator hook
+  const { t } = useTranslation();
 
   return (
     <Flex
@@ -63,23 +71,49 @@ export default function Sidebar() {
         as="nav"
       >
         <NavItem
-          to="/home"
+          to="/"
           icon={FiHome}
-          title="Dashboard"
+          title={t("Sidebar.Dashboard")}
           description="This is the description for the dashboard."
         />
-        <NavItem to="todo" icon={FiCalendar} title="ToDo" active />
-        <NavItem to="clients" icon={FiUser} title="Clients" />
-        <NavItem to="new-gig" icon={FiDollarSign} title="New Gig" />
-        <NavItem to="all-gigs" icon={FiBriefcase} title="All Gigs" />
+        <Flex pos="relative" align={"center"} w="full">
+          <NavItem
+            to="todo"
+            icon={FiCalendar}
+            title={t("Sidebar.ToDo")}
+            active
+          />
+          <Badge
+            pos="relative"
+            left={["-10%", "-20%", "-30%", "-40%"]}
+            colorScheme="purple"
+          >
+            {userInfo?.todos?.length}
+          </Badge>
+        </Flex>
+        <NavItem to="clients" icon={FiUser} title={t("Sidebar.Clients")} />
+        <NavItem
+          to="new-gig"
+          icon={FiDollarSign}
+          title={t("Sidebar.New_Gig")}
+        />
+        <NavItem
+          to="all-gigs"
+          icon={FiBriefcase}
+          title={t("Sidebar.All_Gigs")}
+        />
         {user.role === 4 && (
           <NavItem
             to="admin/manage"
             icon={AiOutlineUserAdd}
-            title="Manage Users"
+            title={t("Sidebar.Manage_Users")}
           />
         )}
-        <NavItem to="settings" icon={FiSettings} title="Settings" />
+        <NavItem
+          to="settings"
+          icon={FiSettings}
+          title={t("Sidebar.Settings")}
+        />
       </Flex>
 
       <Flex
@@ -116,19 +150,16 @@ export default function Sidebar() {
             {/* <PopoverHeader fontWeight='semibold'>Popover placement</PopoverHeader> */}
             <PopoverArrow bg="teal.50" />
             <PopoverCloseButton />
-            <PopoverBody colorScheme="teal">
+            <PopoverBody color="teal">
               <VStack>
-                <Button colorScheme="teal" variant="link">
-                  Profile
-                </Button>
+                <Button variant="link">{t("Sidebar.Profile")}</Button>
                 <Divider bg="teal" />
                 <Button
                   rightIcon={<FiLogOut />}
-                  colorScheme="teal"
                   variant="outline"
                   onClick={handleLogout}
                 >
-                  Logout
+                  {t("Sidebar.Log_out")}
                 </Button>
               </VStack>
             </PopoverBody>
