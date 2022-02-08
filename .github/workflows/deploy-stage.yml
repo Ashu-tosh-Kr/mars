@@ -14,11 +14,10 @@ jobs:
 
       - name: Create env file
         run: |
-          ls -a 
           cd server
-          ls -a
           touch .env
           echo PORT=5000 >> .env
+          echo MONGODB_URI=${{ secrets.STAGE_MONGODB_URI }} >> .env
           echo MONGODB_URI=${{ secrets.STAGE_MONGODB_URI }} >> .env
           echo ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} >> .env
           echo REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }} >> .env
@@ -30,7 +29,6 @@ jobs:
           echo GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.STAGE_GOOGLE_OAUTH_CLIENT_SECRET }} >> .env
           echo GOOGLE_OAUTH_REFRESH_TOKEN=${{ secrets.STAGE_GOOGLE_OAUTH_REFRESH_TOKEN }} >> .env
           cat .env
-          ls -a
 
       # Zip Dockerfile for upload
       - name: Generate Deployment Package
