@@ -10,21 +10,21 @@ jobs:
       - name: Checkout Latest Repo
         uses: actions/checkout@master
 
-     - name: Create env file
-        run: |
-          touch server/.env
-          echo PORT=5000 >> .env
-          echo MONGODB_URI=${{secrets.STAGE_MONGODB_URI}} >> .env
-          echo ACCESS_TOKEN_SECRET=${{secrets.ACCESS_TOKEN_SECRET}} >> .env
-          echo REFRESH_TOKEN_SECRET=${{secrets.REFRESH_TOKEN_SECRET}} >> .env
-          echo SENDINGBLUE_EMAIL=${{secrets.STAGE_SENDINGBLUE_EMAIL}} >> .env
-          echo SENDINGBLUE_PORT=587 >> .env
-          echo SENDINGBLUE_HOST=${{secrets.STAGE_SENDINGBLUE_HOST}} >> .env
-          echo SENDINGBLUE_PASS=${{secrets.STAGE_SENDINGBLUE_PASS}} >> .env
-          echo GOOGLE_OAUTH_CLIENT_ID=${{secrets.STAGE_GOOGLE_OAUTH_CLIENT_ID}} >> .env
-          echo GOOGLE_OAUTH_CLIENT_SECRET=${{secrets.STAGE_GOOGLE_OAUTH_CLIENT_SECRET}} >> .env
-          echo GOOGLE_OAUTH_REFRESH_TOKEN=${{secrets.STAGE_GOOGLE_OAUTH_REFRESH_TOKEN}} >> .env
-          cat server/.env
+      - name: Create env file
+          run: |
+            touch server/.env
+            echo PORT=5000 >> .env
+            echo MONGODB_URI=${{secrets.STAGE_MONGODB_URI}} >> .env
+            echo ACCESS_TOKEN_SECRET=${{secrets.ACCESS_TOKEN_SECRET}} >> .env
+            echo REFRESH_TOKEN_SECRET=${{secrets.REFRESH_TOKEN_SECRET}} >> .env
+            echo SENDINGBLUE_EMAIL=${{secrets.STAGE_SENDINGBLUE_EMAIL}} >> .env
+            echo SENDINGBLUE_PORT=587 >> .env
+            echo SENDINGBLUE_HOST=${{secrets.STAGE_SENDINGBLUE_HOST}} >> .env
+            echo SENDINGBLUE_PASS=${{secrets.STAGE_SENDINGBLUE_PASS}} >> .env
+            echo GOOGLE_OAUTH_CLIENT_ID=${{secrets.STAGE_GOOGLE_OAUTH_CLIENT_ID}} >> .env
+            echo GOOGLE_OAUTH_CLIENT_SECRET=${{secrets.STAGE_GOOGLE_OAUTH_CLIENT_SECRET}} >> .env
+            echo GOOGLE_OAUTH_REFRESH_TOKEN=${{secrets.STAGE_GOOGLE_OAUTH_REFRESH_TOKEN}} >> .env
+            cat server/.env
 
       # Zip Dockerfile for upload
       - name: Generate Deployment Package
