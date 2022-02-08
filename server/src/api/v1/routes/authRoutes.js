@@ -1,6 +1,7 @@
 import { Router } from "express";
 import expressAsyncHandler from "express-async-handler";
 import {
+  changePass,
   forgotPassword,
   getAccessToken,
   login,
@@ -34,7 +35,17 @@ authRouter
    * @route api/auth/refresh_token
    * @access Public
    */
-  .get("/refresh_token", expressAsyncHandler(getAccessToken))
+  .post("/refresh_token", expressAsyncHandler(getAccessToken))
+  /**
+   * @desc change password
+   * @route api/auth/change_pass
+   * @access Private
+   */
+  .post(
+    "/change_pass",
+    expressAsyncHandler(verifyToken),
+    expressAsyncHandler(changePass)
+  )
   /**
    * @desc forgot password
    * @router api/auth/forgot

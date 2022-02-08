@@ -1,11 +1,11 @@
 import { Flex, Heading, Button, AlertIcon, Alert } from "@chakra-ui/react";
-import InputField from "components/formComponents/InputField";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { login } from "redux/actions/userActions";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
+import { InputFieldSlow } from "components/formComponents/InputField";
 
 const initialValues = {
   email: "",
@@ -58,24 +58,19 @@ const LoginScreen = () => {
                 {error}
               </Alert>
             )}
-            <InputField
+            <InputFieldSlow
               name="email"
               type="email"
               placeholder="xyz@gmail.com"
               mb={3}
             />
-            <InputField
+            <InputFieldSlow
               placeholder="******"
               name="password"
               type="password"
               mb={6}
             />
-            <Button
-              isLoading={loading}
-              loadingText="Logging In"
-              type="submit"
-              colorScheme="teal"
-            >
+            <Button isLoading={loading} loadingText="Logging In" type="submit">
               Log In
             </Button>
           </Flex>

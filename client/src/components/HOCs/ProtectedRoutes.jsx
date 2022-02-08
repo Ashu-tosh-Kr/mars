@@ -3,10 +3,12 @@ import { useSelector } from "react-redux";
 import { Flex } from "@chakra-ui/layout";
 import Sidebar from "components/globals/Sidebar";
 import { useToast } from "@chakra-ui/react";
+import PageNotFound from "screens/errorPages/PageNotFound";
 
 export const RequireAuth = () => {
   const user = useSelector((store) => store.userLogin.userInfo?.data?.user);
-  let location = useLocation();
+  const location = useLocation();
+
   if (!user) {
     // Redirect them to the /login page, but save the current location they were
     // trying to go to when they were redirected. This allows us to send them
@@ -14,10 +16,38 @@ export const RequireAuth = () => {
     // than dropping them off on the home page.
     return <Navigate to="/login" state={{ from: location }} />;
   }
+
+  //Checking if error is of 404 category and routing user to that page
+  if (location.state?.errorStatusCode === 404 && location.state?.redirect) {
+    return <PageNotFound />;
+  }
+
   return (
     <Flex justify="space-around">
       <Sidebar />
-      <Flex w="85%" m="2rem" p="2rem">
+      <Flex
+        //adding custom scollbar using the css prop
+        css={{
+          "&::-webkit-scrollbar": {
+            width: "4px",
+          },
+          "&::-webkit-scrollbar-track": {
+            width: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            background: "teal",
+            borderRadius: "24px",
+          },
+          ".ck-editor__editable_inline": {
+            minHeight: "200px",
+          },
+        }}
+        overflow={"scroll"}
+        w="85%"
+        m="2rem"
+        p="2rem"
+        h="90vh"
+      >
         <Outlet />
       </Flex>
     </Flex>

@@ -4,9 +4,10 @@ import Client from "../models/clientModel.js";
 import GigStatus from "../models/gigStatusModel.js";
 import User from "../models/userModel.js";
 import { sendMail } from "../helpers/sendMail.js";
+import { addCalEvent, updateCalEvent } from "../helpers/gCal.js";
 
 export const getAllGigs = async (req, res) => {
-  const gigs = await Gig.find().populate("Client");
+  const gigs = await Gig.find().populate(["client", "talent", "currentStatus"]);
   res.json({ message: "Successful", data: gigs });
 };
 
@@ -22,10 +23,11 @@ export const addGig = async (req, res) => {
     embargo,
     gigLocation,
     gigAddress,
+    gigPostalCode,
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant,
+    gigAssistantId,
     gigDetails,
     gigHost,
     caution,
@@ -41,6 +43,7 @@ export const addGig = async (req, res) => {
     autograph,
     food,
     other,
+    memo,
   } = req.body;
   const client = await Client.findById(clientId);
   const talent = await User.findOne({ _id: talentId, role: 0 });
@@ -62,7 +65,7 @@ export const addGig = async (req, res) => {
   const validation = Joi.object({
     galId: Joi.string()
       .required()
-      .regex(/(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(\d{2}[1-9]))/),
+      .regex(/(\d{2}(0[1-9]|1[0-2])(\d{2}[1-9]))/),
   }).validate(req.body, { abortEarly: false, allowUnknown: true });
   if (validation.error) {
     res.status(400);
@@ -84,16 +87,16 @@ export const addGig = async (req, res) => {
     embargo,
     gigLocation,
     gigAddress,
+    gigPostalCode,
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant,
     gigDetails,
     gigHost,
     caution,
     dressCode,
     whatToBring,
-    gigPeopleCount,
+    gigPeopleCount: +gigPeopleCount,
     gigPeopleName,
     promotion,
     carParking,
@@ -103,7 +106,11 @@ export const addGig = async (req, res) => {
     autograph,
     food,
     other,
+    memo,
   });
+  if (gigAssistantId) {
+    newGig.gigAssistant = gigAssistantId;
+  }
   await newGig.save();
 
   const currUser = await User.findById(req.user._id);
@@ -128,10 +135,11 @@ export const editGig = async (req, res) => {
     embargo,
     gigLocation,
     gigAddress,
+    gigPostalCode,
     gigArrive,
     gigGoHome,
     gigScheduleDetail,
-    gigAssistant,
+    gigAssistantId,
     gigDetails,
     gigHost,
     caution,
@@ -147,8 +155,10 @@ export const editGig = async (req, res) => {
     autograph,
     food,
     other,
+    memo,
+    money,
   } = req.body;
-  const gig = await Gig.findById(req.params.gigId);
+  const gig = await Gig.findById(req.params.gigId).populate("currentStatus");
   const client = await Client.findById(clientId);
   const talent = await User.findOne({ _id: talentId, role: 0 });
 
@@ -166,9 +176,7 @@ export const editGig = async (req, res) => {
     throw new Error("Talent Doesn't Exist");
   }
   const validation = Joi.object({
-    galId: Joi.string().regex(
-      /(\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\d|3[01])(\d{2}[1-9]))/
-    ),
+    galId: Joi.string().regex(/(\d{2}(0[1-9]|1[0-2])(\d{2}[1-9]))/),
   }).validate(req.body, { abortEarly: false, allowUnknown: true });
   if (validation.error) {
     res.status(400);
@@ -185,16 +193,17 @@ export const editGig = async (req, res) => {
   gig.embargo = embargo || gig.embargo;
   gig.gigLocation = gigLocation || gig.gigLocation;
   gig.gigAddress = gigAddress || gig.gigAddress;
+  gig.gigPostalCode = gigPostalCode || gigPostalCode;
   gig.gigArrive = gigArrive || gig.gigArrive;
   gig.gigGoHome = gigGoHome || gig.gigGoHome;
   gig.gigScheduleDetail = gigScheduleDetail || gig.gigScheduleDetail;
-  gig.gigAssistant = gigAssistant || gig.gigAssistant;
+  gig.gigAssistant = gigAssistantId || gig.gigAssistant;
   gig.gigDetails = gigDetails || gig.gigDetails;
   gig.gigHost = gigHost || gig.gigHost;
   gig.caution = caution || gig.caution;
   gig.dressCode = dressCode || gig.dressCode;
   gig.whatToBring = whatToBring || gig.whatToBring;
-  gig.gigPeopleCount = gigPeopleCount || gig.gigPeopleCount;
+  gig.gigPeopleCount = +gigPeopleCount || gig.gigPeopleCount;
   gig.gigPeopleName = gigPeopleName || gig.gigPeopleName;
   gig.promotion = promotion || gig.promotion;
   gig.carParking = carParking || gig.carParking;
@@ -204,12 +213,21 @@ export const editGig = async (req, res) => {
   gig.autograph = autograph || gig.autograph;
   gig.food = food || gig.food;
   gig.other = other || gig.other;
+  gig.memo = memo || gig.memo;
+  gig.money = money || gig.money;
 
   await gig.save();
+
+  if (gig.gCalEventId) {
+    updateCalEvent(gig);
+  }
 
   res.json({ message: "Successful", data: gig });
 };
 
+/**
+ * GIG Lifecycle controllers: Step 0 through Step 11
+ */
 export const completeStepOne = async (req, res) => {
   const { newAssigneeId } = req.body;
   const gig = await Gig.findById(req.params.gigId);
@@ -240,10 +258,12 @@ export const completeStepOne = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -261,6 +281,10 @@ export const completeStepTwo = async (req, res) => {
   const newAssignee = await User.findById(newAssigneeId);
 
   //validations
+  if (req.user._id.toString() !== gig.currentAssignee._id.toString()) {
+    res.status(401);
+    throw new Error("Access denied, Gig not assigned to the current user");
+  }
   if (!gig) {
     res.status(404);
     throw new Error("Gig doesn't Exist");
@@ -288,10 +312,12 @@ export const completeStepTwo = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
@@ -332,13 +358,217 @@ export const completeStepThree = async (req, res) => {
   gig.currentAssignee = newAssignee;
   await gig.save();
 
-  currUser.todos = currUser.todos.filter((todo) => todo._id === gig._id);
-  currUser.save();
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
-  newAssignee.todos.push(gig);
+  newAssignee.todos.push(gig._id);
   await newAssignee.save();
 
   sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepFour = async (req, res) => {
+  const { newAssigneeId, isApproved } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  if (req.user._id.toString() !== gig.currentAssignee._id.toString()) {
+    res.status(401);
+    throw new Error("Access denied, Gig not assigned to the current user");
+  }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("CEO to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  let nextGigStatus;
+  if (isApproved) {
+    nextGigStatus = await GigStatus.findOne({ step: 5 });
+  } else {
+    nextGigStatus = await GigStatus.findOne({ step: 3 });
+  }
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
+
+  newAssignee.todos.push(gig._id);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepFive = async (req, res) => {
+  const { newAssigneeId, isApproved } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+  const talent = await User.findOne({ _id: gig.talent._id, role: 0 });
+  //validations
+  // if (req.user._id !== gig.currentAssignee._id) {
+  //   res.status(401);
+  //   throw new Error("Access denied, Gig not assigned to the current user");
+  // }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("CEO to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  let nextGigStatus;
+  if (isApproved) {
+    nextGigStatus = await GigStatus.findOne({ step: 6 });
+    addCalEvent(gig, talent);
+  } else {
+    nextGigStatus = await GigStatus.findOne({ step: 4 });
+  }
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
+
+  newAssignee.todos.push(gig._id);
+  await newAssignee.save();
+
+  talent.todos.push(gig._id);
+  await talent.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+  sendMail(talent.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepSixThroughNine = async (req, res) => {
+  const { newAssigneeId } = req.body;
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+  const newAssignee = await User.findById(newAssigneeId);
+
+  //validations
+  // if (req.user._id !== gig.currentAssignee._id) {
+  //   res.status(401);
+  //   throw new Error("Access denied, Gig not assigned to the current user");
+  // }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  if (!newAssigneeId) {
+    res.status(403);
+    throw new Error("User to be assigned not specified");
+  }
+  if (!newAssignee) {
+    res.status(404);
+    throw new Error("User doesn't exist");
+  }
+  const currGigStatus = await GigStatus.findById(gig.currentStatus);
+  const nextGigStatus = await GigStatus.findOne({
+    step: currGigStatus.step + 1,
+  });
+
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  gig.currentAssignee = newAssignee;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
+
+  newAssignee.todos.push(gig._id);
+  await newAssignee.save();
+
+  sendMail(newAssignee.email, "https://mars.com/todos", "New Todo");
+
+  res.json({
+    message: "Success",
+    data: gig,
+  });
+};
+
+export const completeStepTen = async (req, res) => {
+  const gig = await Gig.findById(req.params.gigId);
+  const currUser = await User.findById(req.user._id);
+
+  //validations
+  // if (req.user._id !== gig.currentAssignee._id) {
+  //   res.status(401);
+  //   throw new Error("Access denied, Gig not assigned to the current user");
+  // }
+  if (!gig) {
+    res.status(404);
+    throw new Error("Gig doesn't Exist");
+  }
+  const nextGigStatus = await GigStatus.findOne({
+    step: 11,
+  });
+
+  gig.statusLifecycle.push({
+    status: gig.currentStatus,
+    personInCharge: req.user._id,
+    completionDate: Date.now(),
+  });
+  gig.currentStatus = nextGigStatus;
+  await gig.save();
+
+  currUser.todos = currUser.todos.filter(
+    (todo) => todo.toString() !== gig._id.toString()
+  );
+  await currUser.save();
 
   res.json({
     message: "Success",

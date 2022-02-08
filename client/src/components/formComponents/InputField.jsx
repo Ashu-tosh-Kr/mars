@@ -1,7 +1,58 @@
 import { useField } from "formik";
-import { Input, FormErrorMessage, FormControl } from "@chakra-ui/react";
+import {
+  Input,
+  FormErrorMessage,
+  FormControl,
+  FormLabel,
+} from "@chakra-ui/react";
+import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce/lib";
 
-const InputField = ({ name, mb, ...rest }) => {
+export function useFastField(props) {
+  const [field, meta] = useField(props);
+  const [value, setValue] = useState(field.value);
+  const { onChange } = field;
+  //why useDebounce?
+  //because we want to wait for the user to stop typing before we update the value to improve performance
+  const debounced = useDebouncedCallback((e) => {
+    onChange(e);
+  }, 100);
+
+  field.value = value;
+  field.onChange = (e) => {
+    if (e && e.currentTarget) {
+      setValue(e.currentTarget.value);
+      debounced(e);
+    }
+  };
+  return [field, meta];
+}
+
+const InputField = ({ name, mb, label, required, ...rest }) => {
+  const [field, meta] = useFastField(name);
+  const configTextField = {
+    name,
+    variant: "filled",
+    ...field,
+    ...rest,
+  };
+  return (
+    <>
+      <FormControl
+        isRequired={required}
+        isInvalid={meta.error && meta.touched}
+        mb={mb}
+      >
+        <FormLabel htmlFor={name}>{label}</FormLabel>
+        <Input {...configTextField} isInvalid={meta.touched && !!meta.error} />
+        <FormErrorMessage>{meta.error}</FormErrorMessage>
+      </FormControl>
+    </>
+  );
+};
+export default InputField;
+
+export const InputFieldSlow = ({ name, mb, label, required, ...rest }) => {
   const [field, meta] = useField(name);
   const configTextField = {
     name,
@@ -11,11 +62,15 @@ const InputField = ({ name, mb, ...rest }) => {
   };
   return (
     <>
-      <FormControl isInvalid={meta.error && meta.touched} mb={mb}>
+      <FormControl
+        isRequired={required}
+        isInvalid={meta.error && meta.touched}
+        mb={mb}
+      >
+        <FormLabel htmlFor={name}>{label}</FormLabel>
         <Input {...configTextField} isInvalid={meta.touched && !!meta.error} />
         <FormErrorMessage>{meta.error}</FormErrorMessage>
       </FormControl>
     </>
   );
 };
-export default InputField;

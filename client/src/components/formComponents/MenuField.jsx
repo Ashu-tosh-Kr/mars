@@ -1,7 +1,12 @@
 import { useField } from "formik";
-import { FormErrorMessage, FormControl, Select } from "@chakra-ui/react";
+import {
+  FormErrorMessage,
+  FormControl,
+  Select,
+  FormLabel,
+} from "@chakra-ui/react";
 
-const MenuField = ({ name, mb, options, ...rest }) => {
+const MenuField = ({ name, mb, options, label, required, ...rest }) => {
   const [field, meta] = useField(name);
   const configTextField = {
     name,
@@ -11,11 +16,16 @@ const MenuField = ({ name, mb, options, ...rest }) => {
   };
   return (
     <>
-      <FormControl isInvalid={meta.error && meta.touched} mb={mb}>
+      <FormControl
+        isRequired={required}
+        isInvalid={meta.error && meta.touched}
+        mb={mb}
+      >
+        <FormLabel htmlFor={name}>{label}</FormLabel>
         <Select
+          placeholder="Select Option"
           {...configTextField}
           isInvalid={meta.touched && !!meta.error}
-          placeholder="Select option"
         >
           {options.map((opt, i) => (
             <option key={i} value={opt._id}>
