@@ -2,7 +2,7 @@ import { Alert, AlertIcon } from "@chakra-ui/alert";
 import { Button, IconButton } from "@chakra-ui/button";
 import { useDisclosure } from "@chakra-ui/hooks";
 import { Stack } from "@chakra-ui/layout";
-import { Image, Center, Flex, Text, Box } from "@chakra-ui/react";
+import { Image, Center, useMediaQuery } from "@chakra-ui/react";
 import { Skeleton } from "@chakra-ui/skeleton";
 import { Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/table";
 import { Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/tabs";
@@ -46,6 +46,7 @@ const ClientCompanyScreen = () => {
     onOpen: onOpenEditCompany,
     onClose: onCloseEditCompany,
   } = useDisclosure();
+  const [isLarge] = useMediaQuery("(min-width: 768px)");
 
   //queries
   const { clients, clientsLoading, clientsError } = useGetAllClients();
@@ -130,87 +131,46 @@ const ClientCompanyScreen = () => {
             ) : (
               <>
                 {clients.length > 0 ? (
-                  <>
-                    {/**
-                     * Two blocks displaying the same data has been created, one for desktop and one for mobile/tablet
-                     * Reason: adding d={["none", "none", "block"]} to make it appear and dissapear based on screen size doensn't work.
-                     * Refactor if better solution is found
-                     */}
-                    <Box d={["none", "none", "block"]}>
-                      <Table variant="striped">
-                        <Thead>
-                          <Tr>
-                            <Th>{t("ClientCompanyScreen.Name")}</Th>
-                            <Th>{t("ClientCompanyScreen.Title")}</Th>
-                            <Th>{t("ClientCompanyScreen.Company")}</Th>
-                            <Th>{t("ClientCompanyScreen.Team")}</Th>
-                            <Th>{t("ClientCompanyScreen.Email")}</Th>
-                            <Th>{t("ClientCompanyScreen.Phone")}</Th>
-                            <Th>{t("ClientCompanyScreen.Note")}</Th>
-                            <Th>{t("ClientCompanyScreen.Edit")}</Th>
-                          </Tr>
-                        </Thead>
+                  <Table variant="striped">
+                    <Thead>
+                      <Tr>
+                        <Th>{t("ClientCompanyScreen.Name")}</Th>
+                        <Th>{t("ClientCompanyScreen.Title")}</Th>
+                        {isLarge && <Th>{t("ClientCompanyScreen.Company")}</Th>}
+                        {isLarge && <Th>{t("ClientCompanyScreen.Team")}</Th>}
+                        {isLarge && <Th>{t("ClientCompanyScreen.Email")}</Th>}
+                        {isLarge && <Th>{t("ClientCompanyScreen.Phone")}</Th>}
+                        {isLarge && <Th>{t("ClientCompanyScreen.Note")}</Th>}
+                        {isLarge && <Th>{t("ClientCompanyScreen.Edit")}</Th>}
+                      </Tr>
+                    </Thead>
 
-                        <Tbody>
-                          {clients.map((client, i) => (
-                            <Tr key={i}>
-                              <Td>{client.name}</Td>
-                              <Td>{client.title}</Td>
-                              <Td>{client.company.name}</Td>
-                              <Td>{client.clientTeam}</Td>
-                              <Td>{client.email}</Td>
-                              <Td>{client.phone}</Td>
-                              <Td>{client.note}</Td>
+                    <Tbody>
+                      {clients.map((client, i) => (
+                        <Tr key={i}>
+                          <Td>{client.name}</Td>
+                          <Td>{client.title}</Td>
+                          {isLarge && <Td>{client.company.name}</Td>}
+                          {isLarge && <Td>{client.clientTeam}</Td>}
+                          {isLarge && <Td>{client.email}</Td>}
+                          {isLarge && <Td>{client.phone}</Td>}
+                          {isLarge && <Td>{client.note}</Td>}
 
-                              <Td>
-                                <IconButton
-                                  onClick={() => {
-                                    setToBeEditedClient(client);
-                                    onOpenEditClient();
-                                  }}
-                                  // onClick={onOpenEditClient}
-                                  size="sm"
-                                  icon={<RiEditBoxLine />}
-                                />
-                              </Td>
-                            </Tr>
-                          ))}
-                        </Tbody>
-                      </Table>
-                    </Box>
-                    <Box d={["block", "block", "none"]}>
-                      <Table variant="striped">
-                        <Tbody>
-                          {clients.map((client, i) => (
-                            <Tr key={i}>
-                              <Td>
-                                <Flex flexDir={"column"}>
-                                  <Text>{client.name}</Text>
-                                  <Text>{client.title}</Text>
-                                  <Text>{client.company.name}</Text>
-                                  <Text>{client.clientTeam}</Text>
-                                  <Text>{client.email}</Text>
-                                  <Text>{client.phone}</Text>
-                                  <Text>{client.note}</Text>
-                                </Flex>
-                              </Td>
-                              <Td>
-                                <IconButton
-                                  onClick={() => {
-                                    setToBeEditedClient(client);
-                                    onOpenEditClient();
-                                  }}
-                                  // onClick={onOpenEditClient}
-                                  size="sm"
-                                  icon={<RiEditBoxLine />}
-                                />
-                              </Td>
-                            </Tr>
-                          ))}
-                        </Tbody>
-                      </Table>
-                    </Box>
-                  </>
+                          <Td>
+                            <IconButton
+                              onClick={() => {
+                                setToBeEditedClient(client);
+                                onOpenEditClient();
+                              }}
+                              // onClick={onOpenEditClient}
+                              size="sm"
+                              icon={<RiEditBoxLine />}
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
                 ) : (
                   <Center>
                     <Image boxSize={"25%"} src={inboxEmpty} alt="emty inbox" />
@@ -237,68 +197,40 @@ const ClientCompanyScreen = () => {
             ) : (
               <>
                 {companies.length > 0 ? (
-                  <>
-                    <Box d={["none", "none", "block"]}>
-                      <Table variant="striped">
-                        <Thead>
-                          <Tr>
-                            <Th>{t("ClientCompanyScreen.Name")}</Th>
-                            <Th>{t("ClientCompanyScreen.Postal_code")}</Th>
-                            <Th>{t("ClientCompanyScreen.Office_address")}</Th>
-                            <Th>{t("ClientCompanyScreen.Note")}</Th>
-                          </Tr>
-                        </Thead>
-                        <Tbody>
-                          {companies.map((company, i) => (
-                            <Tr key={i}>
-                              <Td>{company.name}</Td>
-                              <Td>{company.postCode}</Td>
-                              <Td>{company.officeAddress}</Td>
-                              <Td>{company.note}</Td>
-                              <Td>
-                                <IconButton
-                                  onClick={() => {
-                                    setToBeEditedCompany(company);
-                                    onOpenEditCompany();
-                                  }}
-                                  size="sm"
-                                  icon={<RiEditBoxLine />}
-                                />
-                              </Td>
-                            </Tr>
-                          ))}
-                        </Tbody>
-                      </Table>
-                    </Box>
-                    <Box d={["block", "block", "none"]}>
-                      <Table variant="striped">
-                        <Tbody>
-                          {companies.map((company, i) => (
-                            <Tr key={i}>
-                              <Td>
-                                <Flex flexDir={"column"}>
-                                  <Text>{company.name}</Text>
-                                  <Text>{company.postCode}</Text>
-                                  <Text>{company.officeAddress}</Text>
-                                  <Text>{company.note}</Text>
-                                </Flex>
-                              </Td>
-                              <Td>
-                                <IconButton
-                                  onClick={() => {
-                                    setToBeEditedCompany(company);
-                                    onOpenEditCompany();
-                                  }}
-                                  size="sm"
-                                  icon={<RiEditBoxLine />}
-                                />
-                              </Td>
-                            </Tr>
-                          ))}
-                        </Tbody>
-                      </Table>
-                    </Box>
-                  </>
+                  <Table variant="striped">
+                    <Thead>
+                      <Tr>
+                        <Th>{t("ClientCompanyScreen.Name")}</Th>
+                        {isLarge && (
+                          <Th>{t("ClientCompanyScreen.Postal_code")}</Th>
+                        )}
+                        {isLarge && (
+                          <Th>{t("ClientCompanyScreen.Office_address")}</Th>
+                        )}
+                        {isLarge && <Th>{t("ClientCompanyScreen.Note")}</Th>}
+                      </Tr>
+                    </Thead>
+                    <Tbody>
+                      {companies.map((company, i) => (
+                        <Tr key={i}>
+                          <Td>{company.name}</Td>
+                          {isLarge && <Td>{company.postCode}</Td>}
+                          {isLarge && <Td>{company.officeAddress}</Td>}
+                          {isLarge && <Td>{company.note}</Td>}
+                          <Td>
+                            <IconButton
+                              onClick={() => {
+                                setToBeEditedCompany(company);
+                                onOpenEditCompany();
+                              }}
+                              size="sm"
+                              icon={<RiEditBoxLine />}
+                            />
+                          </Td>
+                        </Tr>
+                      ))}
+                    </Tbody>
+                  </Table>
                 ) : (
                   <Center>
                     <Image boxSize={"25%"} src={inboxEmpty} alt="emty inbox" />

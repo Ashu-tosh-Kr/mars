@@ -13,6 +13,8 @@ import {
   Thead,
   Tr,
   useDisclosure,
+  useMediaQuery,
+  VStack,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiEditBoxLine } from "react-icons/ri";
@@ -42,6 +44,7 @@ const TodoScreen = () => {
     onOpen: onOpenInvoice,
     onClose: onCloseInvoice,
   } = useDisclosure();
+  const [isLarge] = useMediaQuery("(min-width: 768px)");
   //states
   const [toBeEditedGig, setToBeEditedGig] = useState({});
   //queries
@@ -89,8 +92,8 @@ const TodoScreen = () => {
                   <Th>{t("TodoScreen.Name")}</Th>
                   <Th>{t("TodoScreen.Client")}</Th>
                   <Th>{t("TodoScreen.Talent")}</Th>
-                  <Th>{t("TodoScreen.Status")}</Th>
-                  <Th>{t("TodoScreen.Memo")}</Th>
+                  {isLarge && <Th>{t("TodoScreen.Status")}</Th>}
+                  {isLarge && <Th>{t("TodoScreen.Memo")}</Th>}
                 </Tr>
               </Thead>
               <Tbody>
@@ -99,42 +102,41 @@ const TodoScreen = () => {
                     <Td>{todo.gigTitle}</Td>
                     <Td>{todo.client.name}</Td>
                     <Td>{todo.talent.username}</Td>
-                    <Td>{todo.currentStatus.name}</Td>
-                    <Td>{todo.memo}</Td>
+                    {isLarge && <Td>{todo.currentStatus.name}</Td>}
+                    {isLarge && <Td>{todo.memo}</Td>}
 
                     <Td>
-                      <IconButton
-                        onClick={() => {
-                          setToBeEditedGig(todo);
-                          onOpenCost();
-                        }}
-                        size="sm"
-                        icon={<FaRegMoneyBillAlt />}
-                      />
-                    </Td>
-
-                    <Td>
-                      <IconButton
-                        onClick={() => {
-                          setToBeEditedGig(todo);
-                          onOpenEditGig();
-                        }}
-                        size="sm"
-                        icon={<RiEditBoxLine />}
-                      />
-                    </Td>
-                    {todo.currentStatus.step > 5 && (
-                      <Td>
+                      <VStack>
                         <IconButton
                           onClick={() => {
                             setToBeEditedGig(todo);
-                            onOpenInvoice();
+                            onOpenCost();
                           }}
                           size="sm"
-                          icon={<FaFilePdf />}
+                          icon={<FaRegMoneyBillAlt />}
                         />
-                      </Td>
-                    )}
+
+                        <IconButton
+                          onClick={() => {
+                            setToBeEditedGig(todo);
+                            onOpenEditGig();
+                          }}
+                          size="sm"
+                          icon={<RiEditBoxLine />}
+                        />
+
+                        {todo.currentStatus.step > 5 && (
+                          <IconButton
+                            onClick={() => {
+                              setToBeEditedGig(todo);
+                              onOpenInvoice();
+                            }}
+                            size="sm"
+                            icon={<FaFilePdf />}
+                          />
+                        )}
+                      </VStack>
+                    </Td>
                   </Tr>
                 ))}
               </Tbody>
