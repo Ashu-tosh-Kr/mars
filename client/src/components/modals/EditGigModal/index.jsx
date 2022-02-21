@@ -13,7 +13,6 @@ import {
   AlertIcon,
   AlertTitle,
   AlertDescription,
-  HStack,
   Accordion,
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -22,7 +21,12 @@ import * as Yup from "yup";
 import { useSelector } from "react-redux";
 
 //non library imports
-import { useEditGig, useGetAllClients, useGetAllUsers, useUpdateGigStatus } from "api/hooks";
+import {
+  useEditGig,
+  useGetAllClients,
+  useGetAllUsers,
+  useUpdateGigStatus,
+} from "api/hooks";
 import Loader from "components/globals/Loader";
 import SummarySection from "./SummarySection";
 import DetailSection from "./DetailSection";
@@ -126,7 +130,9 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
   const user = useSelector((state) => state.userLogin.userInfo.data.user);
   //mutation
   const { mutate: mutateEditGig, isLoading } = useEditGig(gig._id);
-  const { mutateStatusUpdate, isLoadingStatusUpdate } = useUpdateGigStatus(gig._id);
+  const { mutateStatusUpdate, isLoadingStatusUpdate } = useUpdateGigStatus(
+    gig._id
+  );
 
   //handlers
   const onSubmit = (values) => {
@@ -172,7 +178,13 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
         <ModalHeader>{T("Update_Gig")}</ModalHeader>
         <ModalCloseButton />
 
-        <Flex align="flex-start" justify={"center"} width="100%" minHeight="100%" px={20}>
+        <Flex
+          align="flex-start"
+          justify={"center"}
+          width="100%"
+          minHeight="100%"
+          px={[0, 5, 10, 20]}
+        >
           <Formik
             initialValues={initialValues}
             onSubmit={onSubmit}
@@ -181,55 +193,63 @@ const EditGigModal = ({ isOpen, onClose, gig }) => {
             {(formik) => {
               return (
                 <Form>
-                  <ModalBody pb={6}>
+                  <ModalBody minWidth={[0, 0, "45rem", "50rem"]} pb={4}>
                     <Accordion defaultIndex={[0]} allowMultiple>
-                      <SummarySection user={user} formik={formik} clients={clients} users={users} />
+                      <SummarySection
+                        user={user}
+                        formik={formik}
+                        clients={clients}
+                        users={users}
+                      />
                       <DetailSection user={user} formik={formik} />
-                      <MoreDetailsSection user={user} formik={formik} users={users} />
+                      <MoreDetailsSection
+                        user={user}
+                        formik={formik}
+                        users={users}
+                      />
                       <MoneySection user={user} formik={formik} users={users} />
                     </Accordion>
                   </ModalBody>
-                  <ModalFooter>
-                    <HStack d={user?.role === 0 && "none"}>
-                      <Button type="submit" isLoading={isLoading}>
-                        {T("Save")}
-                      </Button>
-                      <Button
-                        isLoading={isLoadingStatusUpdate}
-                        onClick={() =>
-                          mutateStatusUpdate({
-                            step: calcStep(gig?.currentStatus?.step),
-                            isApproved: true,
-                            newAssigneeId: formik.values.assignee,
-                          })
-                        }
-                        mt={3}
-                      >
-                        {gig.currentStatus.step === 1 || gig.currentStatus.step === 3
-                          ? T("Send_For_Review")
-                          : gig.currentStatus.step <= 5
-                          ? T("Approve")
-                          : T("Mark_As_Done")}
-                      </Button>
-                      {gig.currentStatus.step !== 1 &&
-                        gig.currentStatus.step !== 3 &&
-                        gig.currentStatus.step <= 5 && (
-                          <Button
-                            isLoading={isLoadingStatusUpdate}
-                            onClick={() =>
-                              mutateStatusUpdate({
-                                step: calcStep(gig?.currentStatus?.step),
-                                isApproved: false,
-                                newAssigneeId: formik.values.assignee,
-                              })
-                            }
-                            mt={3}
-                          >
-                            {T("Reject")}
-                          </Button>
-                        )}
-                      <Button>{T("Close_Gig")}</Button>
-                    </HStack>
+                  <ModalFooter d={user?.role === 0 && "none"}>
+                    <Button m={2} type="submit" isLoading={isLoading}>
+                      {T("Save")}
+                    </Button>
+                    <Button
+                      m={2}
+                      isLoading={isLoadingStatusUpdate}
+                      onClick={() =>
+                        mutateStatusUpdate({
+                          step: calcStep(gig?.currentStatus?.step),
+                          isApproved: true,
+                          newAssigneeId: formik.values.assignee,
+                        })
+                      }
+                    >
+                      {gig.currentStatus.step === 1 ||
+                      gig.currentStatus.step === 3
+                        ? T("Send_For_Review")
+                        : gig.currentStatus.step <= 5
+                        ? T("Approve")
+                        : T("Mark_As_Done")}
+                    </Button>
+                    {gig.currentStatus.step !== 1 &&
+                      gig.currentStatus.step !== 3 &&
+                      gig.currentStatus.step <= 5 && (
+                        <Button
+                          m={2}
+                          isLoading={isLoadingStatusUpdate}
+                          onClick={() =>
+                            mutateStatusUpdate({
+                              step: calcStep(gig?.currentStatus?.step),
+                              isApproved: false,
+                              newAssigneeId: formik.values.assignee,
+                            })
+                          }
+                        >
+                          {T("Reject")}
+                        </Button>
+                      )}
+                    <Button m={2}>{T("Close_Gig")}</Button>
                   </ModalFooter>
                 </Form>
               );

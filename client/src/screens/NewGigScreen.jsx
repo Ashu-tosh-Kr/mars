@@ -111,7 +111,7 @@ const NewGigScreen = () => {
         justify={"center"}
         width="100%"
         minHeight="100%"
-        px={20}
+        px={[4, 7, 10, 20]}
       >
         <Formik
           initialValues={initialValues}

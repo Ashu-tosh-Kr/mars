@@ -12,6 +12,7 @@ import {
   Th,
   Thead,
   Tr,
+  useMediaQuery,
 } from "@chakra-ui/react";
 
 //non lib imports
@@ -23,7 +24,7 @@ import { useTranslation } from "react-i18next";
 const AllGigsScreen = () => {
   //queries
   const { gigs, gigsLoading, gigsError } = useGetAllGigs();
-
+  const [isLarge] = useMediaQuery("(min-width: 768px)");
   const { t } = useTranslation();
 
   //jsx
@@ -51,9 +52,9 @@ const AllGigsScreen = () => {
                 <Tr>
                   <Th>{t("AllGigScreen.Name")}</Th>
                   <Th>{t("AllGigScreen.Client")}</Th>
-                  <Th>{t("AllGigScreen.Talent")}</Th>
-                  <Th>{t("AllGigScreen.Status")}</Th>
-                  <Th>{t("AllGigScreen.Memo")}</Th>
+                  {isLarge && <Th>{t("AllGigScreen.Talent")}</Th>}
+                  {isLarge && <Th>{t("AllGigScreen.Status")}</Th>}
+                  {isLarge && <Th>{t("AllGigScreen.Memo")}</Th>}
                 </Tr>
               </Thead>
               <Tbody>
@@ -61,9 +62,9 @@ const AllGigsScreen = () => {
                   <Tr key={i}>
                     <Td>{gig.gigTitle}</Td>
                     <Td>{gig.client.name}</Td>
-                    <Td>{gig.talent.username}</Td>
-                    <Td>{gig.currentStatus.name}</Td>
-                    <Td>{gig.memo}</Td>
+                    {isLarge && <Td>{gig.talent.username}</Td>}
+                    {isLarge && <Td>{gig.currentStatus.name}</Td>}
+                    {isLarge && <Td>{gig.memo}</Td>}
 
                     {/* <Td>
                     <IconButton

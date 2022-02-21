@@ -12,6 +12,7 @@ import { useState } from "react";
 import NewUserModal from "components/modals/NewUserModal";
 import EditUserModal from "components/modals/EditUserModal";
 import { useTranslation } from "react-i18next";
+import { useMediaQuery } from "@chakra-ui/react";
 
 const ManageUsersScreen = () => {
   const { users, usersLoading, usersError } = useGetAllUsers();
@@ -29,6 +30,7 @@ const ManageUsersScreen = () => {
     onOpen: onOpenEditUser,
     onClose: onCloseEditUser,
   } = useDisclosure();
+  const [isLarge] = useMediaQuery("(min-width: 768px)");
 
   const { t } = useTranslation();
 
@@ -40,10 +42,38 @@ const ManageUsersScreen = () => {
         onClose={onCloseEditUser}
         user={toBeEditedUser}
       />
-      <Tabs w="100%" isFitted variant="soft-rounded">
-        <TabList mb="1em">
-          <Tab>{t("ManageUsersScreen.Active_users")}</Tab>
-          <Tab>{t("ManageUsersScreen.Inactive_users")}</Tab>
+      <Tabs isFitted colorScheme={"teal"} variant={"enclosed"} w="100%">
+        <TabList
+          w={["full", "full", "initial"]}
+          h={["40px", "40px", "49px"]}
+          top={["calc(100% - 40px)", "calc(100% - 40px)", 0]}
+          pos={["fixed", "fixed", "initial"]}
+          zIndex={2}
+          mb="1em"
+          bg={["teal.300", "teal.300", "transparent"]}
+        >
+          <Tab
+            _selected={{
+              bg: ["", "", "teal.100"],
+              borderTop: ["3px solid", "3px solid", "none"],
+              borderTopColor: ["teal.800", "teal.800", "gray.50"],
+              borderTopRadius: ["none", "none", 10],
+              opacity: 1,
+            }}
+          >
+            {t("ManageUsersScreen.Active_users")}
+          </Tab>
+          <Tab
+            _selected={{
+              bg: ["", "", "teal.100"],
+              borderTop: ["3px solid", "3px solid", "none"],
+              borderTopColor: ["teal.800", "teal.800", "gray.50"],
+              borderTopRadius: ["none", "none", 10],
+              opacity: 1,
+            }}
+          >
+            {t("ManageUsersScreen.Inactive_users")}
+          </Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -68,9 +98,9 @@ const ManageUsersScreen = () => {
                   <Tr>
                     <Th>{t("ManageUsersScreen.Name")}</Th>
                     <Th>{t("ManageUsersScreen.Employee_Id")}</Th>
-                    <Th>{t("ManageUsersScreen.Email")}</Th>
-                    <Th>{t("ManageUsersScreen.Role")}</Th>
-                    <Th>{t("ManageUsersScreen.Phone")}</Th>
+                    {isLarge && <Th>{t("ManageUsersScreen.Email")}</Th>}
+                    {isLarge && <Th>{t("ManageUsersScreen.Role")}</Th>}
+                    {isLarge && <Th>{t("ManageUsersScreen.Phone")}</Th>}
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -80,26 +110,27 @@ const ManageUsersScreen = () => {
                       <Tr key={i}>
                         <Td>{user.username}</Td>
                         <Td>{user.employeeId}</Td>
-                        <Td>{user.email}</Td>
-                        <Td>
-                          {user.role === 0
-                            ? "Talent"
-                            : user.role === 1
-                            ? "Assistant"
-                            : user.role === 2
-                            ? "Supervisor"
-                            : user.role === 3
-                            ? "CEO"
-                            : "Admin"}
-                        </Td>
-                        <Td>{user.phone}</Td>
+                        {isLarge && <Td>{user.email}</Td>}
+                        {isLarge && (
+                          <Td>
+                            {user.role === 0
+                              ? "Talent"
+                              : user.role === 1
+                              ? "Assistant"
+                              : user.role === 2
+                              ? "Supervisor"
+                              : user.role === 3
+                              ? "CEO"
+                              : "Admin"}
+                          </Td>
+                        )}
+                        {isLarge && <Td>{user.phone}</Td>}
                         <Td>
                           <IconButton
                             onClick={() => {
                               setToBeEditedUser(user);
                               onOpenEditUser();
                             }}
-                            // onClick={onOpenEditClient}
                             size="sm"
                             icon={<RiEditBoxLine />}
                           />
@@ -128,9 +159,9 @@ const ManageUsersScreen = () => {
                   <Tr>
                     <Th>{t("ManageUsersScreen.Name")}</Th>
                     <Th>{t("ManageUsersScreen.Employee_Id")}</Th>
-                    <Th>{t("ManageUsersScreen.Email")}</Th>
-                    <Th>{t("ManageUsersScreen.Role")}</Th>
-                    <Th>{t("ManageUsersScreen.Phone")}</Th>
+                    {isLarge && <Th>{t("ManageUsersScreen.Email")}</Th>}
+                    {isLarge && <Th>{t("ManageUsersScreen.Role")}</Th>}
+                    {isLarge && <Th>{t("ManageUsersScreen.Phone")}</Th>}
                   </Tr>
                 </Thead>
                 <Tbody>
@@ -140,26 +171,27 @@ const ManageUsersScreen = () => {
                       <Tr key={i}>
                         <Td>{user.username}</Td>
                         <Td>{user.employeeId}</Td>
-                        <Td>{user.email}</Td>
-                        <Td>
-                          {user.role === 0
-                            ? "Talent"
-                            : user.role === 1
-                            ? "Assistant"
-                            : user.role === 2
-                            ? "Supervisor"
-                            : user.role === 3
-                            ? "CEO"
-                            : "Admin"}
-                        </Td>
-                        <Td>{user.phone}</Td>
+                        {isLarge && <Td>{user.email}</Td>}
+                        {isLarge && (
+                          <Td>
+                            {user.role === 0
+                              ? "Talent"
+                              : user.role === 1
+                              ? "Assistant"
+                              : user.role === 2
+                              ? "Supervisor"
+                              : user.role === 3
+                              ? "CEO"
+                              : "Admin"}
+                          </Td>
+                        )}
+                        {isLarge && <Td>{user.phone}</Td>}
                         <Td>
                           <IconButton
                             onClick={() => {
                               setToBeEditedUser(user);
                               onOpenEditUser();
                             }}
-                            // onClick={onOpenEditClient}
                             size="sm"
                             icon={<RiEditBoxLine />}
                           />
