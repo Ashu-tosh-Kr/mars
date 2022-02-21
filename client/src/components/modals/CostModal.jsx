@@ -21,6 +21,7 @@ import {
   Center,
   ModalFooter,
   Heading,
+  useMediaQuery,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 import { Form, Formik } from "formik";
@@ -51,6 +52,7 @@ const validationSchema = Yup.object({
 export default function CostModal({ isOpen, onClose, gig }) {
   /** hooks */
   const { t } = useTranslation();
+  const [isLarge] = useMediaQuery("(min-width: 768px)");
 
   //queries
   const { mutate, isLoading } = useAddCostToGig();
@@ -60,8 +62,6 @@ export default function CostModal({ isOpen, onClose, gig }) {
   const onSubmit = (values) => {
     mutate({ gigId: gig._id, values });
   };
-
-  //handlers
   const T = (val) => t(`CostModal.${val}`);
 
   const costCategories = [
@@ -145,18 +145,18 @@ export default function CostModal({ isOpen, onClose, gig }) {
                   <Thead>
                     <Tr>
                       <Th>{t("CostModal.Category")}</Th>
-                      <Th>{t("CostModal.Detail")}</Th>
+                      {isLarge && <Th>{t("CostModal.Detail")}</Th>}
                       <Th>{t("CostModal.Price")}</Th>
-                      <Th>{t("CostModal.Method")}</Th>
+                      {isLarge && <Th>{t("CostModal.Method")}</Th>}
                     </Tr>
                   </Thead>
                   <Tbody>
                     {gig.costs.map((cost, i) => (
                       <Tr key={i}>
                         <Td>{cost.costCategory}</Td>
-                        <Td>{cost.costDetail}</Td>
+                        {isLarge && <Td>{cost.costDetail}</Td>}
                         <Td>{cost.price}</Td>
-                        <Td>{cost.paymentMethod}</Td>
+                        {isLarge && <Td>{cost.paymentMethod}</Td>}
 
                         <Td>
                           <IconButton

@@ -23,33 +23,33 @@ export const RequireAuth = () => {
   }
 
   return (
-    <Flex justify="space-around">
-      <Sidebar />
-      <Flex
-        //adding custom scollbar using the css prop
-        css={{
-          "&::-webkit-scrollbar": {
-            width: "4px",
-          },
-          "&::-webkit-scrollbar-track": {
-            width: "6px",
-          },
-          "&::-webkit-scrollbar-thumb": {
-            background: "teal",
-            borderRadius: "24px",
-          },
-          ".ck-editor__editable_inline": {
-            minHeight: "200px",
-          },
-        }}
-        overflow={"scroll"}
-        w="85%"
-        m="2rem"
-        p="2rem"
-        h="90vh"
-      >
-        <Outlet />
-      </Flex>
+    <Flex //adding custom scollbar using the css prop
+      css={{
+        "&::-webkit-scrollbar": {
+          width: "4px",
+          height: "4px",
+        },
+        "&::-webkit-scrollbar-track": {
+          width: "6px",
+        },
+        "&::-webkit-scrollbar-thumb": {
+          background: "teal",
+          borderRadius: "24px",
+        },
+        "&.ck-editor__editable_inline": {
+          minHeight: "200px",
+        },
+      }}
+      overflow={"scroll"}
+      mx={[0, 0, "0.5rem"]}
+      flexDir={"column"}
+      justify="space-around"
+    >
+      <Sidebar>
+        <Flex>
+          <Outlet />
+        </Flex>
+      </Sidebar>
     </Flex>
   );
 };

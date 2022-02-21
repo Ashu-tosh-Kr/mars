@@ -1,10 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { Flex, Text, Icon, Link, Menu, MenuButton } from "@chakra-ui/react";
-// import NavHoverBox from '../components/NavHoverBox'
 
 export default function NavItem({ icon, title, to }) {
-  // const [active, setActive] = useState(false);
+  //jsx
   return (
     <Flex
       mt={30}
@@ -17,27 +16,22 @@ export default function NavItem({ icon, title, to }) {
           as={NavLink}
           to={to}
           style={({ isActive }) => {
-            // setActive(isActive);
-            return { backgroundColor: isActive && "#AEC8CA" };
+            return { backgroundColor: isActive && "#B2F5EA" };
           }}
-          // backgroundColor={active && "#AEC8CA"}
           p={3}
           borderRadius={8}
-          _hover={{ textDecor: "none", backgroundColor: "#AEC8CA" }}
+          _hover={{ textDecor: "none", backgroundColor: "teal.100" }}
           w={"100%"}
         >
           <MenuButton w="100%">
-            <Flex justify={["center", "flex-start"]}>
-              <Icon as={icon} fontSize="xl" color={"#82AAAD"} />
-              <Text ml={5} display={["none", "flex"]}>
+            <Flex justify={"flex-start"}>
+              <Icon as={icon} fontSize="xl" colorScheme={"teal"} />
+              <Text ml={5} display={"flex"}>
                 {title}
               </Text>
             </Flex>
           </MenuButton>
         </Link>
-        {/* <MenuList py={0} border="none" w={200} h={200} ml={5}>
-          <NavHoverBox title={title} icon={icon} description={description} />
-        </MenuList> */}
       </Menu>
     </Flex>
   );

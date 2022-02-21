@@ -1,19 +1,38 @@
 name: Deploy To Staging
 on:
+  workflow_dispatch:
   push:
     branches:
       - dev
 jobs:
-  test-and-deploy:
+  deploy-staging:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Latest Repo
         uses: actions/checkout@master
+        with:
+          -ref: dev
+
+      - name: Create env file
+        run: |
+          cd server
+          touch .env
+          echo PORT=5000 >> .env
+          echo ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} >> .env
+          echo REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }} >> .env
+          echo SENDINGBLUE_EMAIL=${{ secrets.STAGE_SENDINGBLUE_EMAIL }} >> .env
+          echo SENDINGBLUE_PORT=587 >> .env
+          echo SENDINGBLUE_HOST=${{ secrets.STAGE_SENDINGBLUE_HOST }} >> .env
+          echo SENDINGBLUE_PASS=${{ secrets.STAGE_SENDINGBLUE_PASS }} >> .env
+          echo GOOGLE_OAUTH_CLIENT_ID=${{ secrets.STAGE_GOOGLE_OAUTH_CLIENT_ID }} >> .env
+          echo GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.STAGE_GOOGLE_OAUTH_CLIENT_SECRET }} >> .env
+          echo GOOGLE_OAUTH_REFRESH_TOKEN=${{ secrets.STAGE_GOOGLE_OAUTH_REFRESH_TOKEN }} >> .env
+          echo MONGODB_URI=${{ secrets.STAGE_MONGODB_URI }} >> .env
+          cat .env
 
       # Zip Dockerfile for upload
       - name: Generate Deployment Package
         run: zip -r deploy-stage.zip * -x "**node_modules**"
-        
       - name: Get timestamp
         uses: gerred/actions/current-time@master
         id: current-time
@@ -23,8 +42,8 @@ jobs:
         with:
           pattern: '[:\.]+'
           string: "${{ steps.current-time.outputs.time }}"
-          replace-with: '-'
-          flags: 'g'
+          replace-with: "-"
+          flags: "g"
 
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v14

@@ -40,7 +40,7 @@ const SettingsScreen = () => {
           <Tab>{t("SettingsScreen.Change_password")}</Tab>
         </TabList>
         <TabPanels>
-          <TabPanel w="50%">
+          <TabPanel w={["100%", "100%", "50%"]}>
             <Formik
               initialValues={initialValues}
               onSubmit={onSubmit}
