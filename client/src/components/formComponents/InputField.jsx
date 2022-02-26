@@ -6,7 +6,7 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce/lib";
+import { useDebouncedCallback } from "use-debounce";
 
 export function useFastField(props) {
   const [field, meta] = useField(props);
