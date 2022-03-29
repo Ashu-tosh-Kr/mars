@@ -9,7 +9,7 @@ const startServer = async () => {
   await config(app);
 
   //default route
-  app.get("/", (req, res) => res.send("Hello World"));
+  app.get("/", (req, res) => res.status(200).send("Hello World"));
 
   //rest api routes
   app.use(vars.api.prefix, routes());
