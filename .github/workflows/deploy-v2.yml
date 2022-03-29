@@ -1,9 +1,13 @@
 name: Deploy V2
 on:
-  workflow_dispatch: 
+  workflow_dispatch:
   push:
-    branches:
+     branches:
       - master
+#   workflow_dispatch: 
+#   push:
+#     branches:
+#       - master
 jobs:
   deploy-staging:
     runs-on: ubuntu-latest
