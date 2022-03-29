@@ -34,7 +34,7 @@ jobs:
       - name: Deploy to S3
         run: |
           cd client
-          aws s3 sync ./build s3://mars-talent-management
+          aws s3 sync ./build s3://mars-talent-management --delete
 
       # - name: Create env file
       #   run: |
