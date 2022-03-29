@@ -1,9 +1,10 @@
-name: Deploy To Staging
+name: Deploy V1
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - dev
+    
+  # push:
+  #   branches:
+  #     - dev
 jobs:
   deploy-staging:
     runs-on: ubuntu-latest

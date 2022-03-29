@@ -1,0 +1,81 @@
+name: Deploy V2
+on:
+  workflow_dispatch:
+    
+  push:
+    branches:
+      - master
+jobs:
+  deploy-staging:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Latest Repo
+        uses: actions/checkout@master
+        with:
+          -ref: master
+
+      - name: Setup node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      
+      - name: Build
+        run: |
+          cd client
+          npm i
+          npm run build:prod
+      
+      - name: Connect to S3
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-2
+
+      - name: Deploy to S3
+        run: |
+          cd client
+          aws s3 sync ./build s3://mars-talent-management
+
+      # - name: Create env file
+      #   run: |
+      #     cd server
+      #     touch .env
+      #     echo PORT=5000 >> .env
+      #     echo ACCESS_TOKEN_SECRET=${{ secrets.ACCESS_TOKEN_SECRET }} >> .env
+      #     echo REFRESH_TOKEN_SECRET=${{ secrets.REFRESH_TOKEN_SECRET }} >> .env
+      #     echo SENDINGBLUE_EMAIL=${{ secrets.STAGE_SENDINGBLUE_EMAIL }} >> .env
+      #     echo SENDINGBLUE_PORT=587 >> .env
+      #     echo SENDINGBLUE_HOST=${{ secrets.STAGE_SENDINGBLUE_HOST }} >> .env
+      #     echo SENDINGBLUE_PASS=${{ secrets.STAGE_SENDINGBLUE_PASS }} >> .env
+      #     echo GOOGLE_OAUTH_CLIENT_ID=${{ secrets.STAGE_GOOGLE_OAUTH_CLIENT_ID }} >> .env
+      #     echo GOOGLE_OAUTH_CLIENT_SECRET=${{ secrets.STAGE_GOOGLE_OAUTH_CLIENT_SECRET }} >> .env
+      #     echo GOOGLE_OAUTH_REFRESH_TOKEN=${{ secrets.STAGE_GOOGLE_OAUTH_REFRESH_TOKEN }} >> .env
+      #     echo MONGODB_URI=${{ secrets.STAGE_MONGODB_URI }} >> .env
+      #     cat .env
+
+      # # Zip Dockerfile for upload
+      # - name: Generate Deployment Package
+      #   run: zip -r deploy-stage.zip * -x "**node_modules**"
+      # - name: Get timestamp
+      #   uses: gerred/actions/current-time@master
+      #   id: current-time
+      # - name: Run string replace
+      #   uses: frabert/replace-string-action@master
+      #   id: format-time
+      #   with:
+      #     pattern: '[:\.]+'
+      #     string: "${{ steps.current-time.outputs.time }}"
+      #     replace-with: "-"
+      #     flags: "g"
+
+      # - name: Deploy to EB
+      #   uses: einaregilsson/beanstalk-deploy@v14
+      #   with:
+      #     aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      #     aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      #     application_name: mars-stage
+      #     environment_name: Marsstage-env-1
+      #     version_label: "stage-deployment-${{ steps.format-time.outputs.replaced }}"
+      #     region: us-east-2
+      #     deployment_package: deploy-stage.zip
