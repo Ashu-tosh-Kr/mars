@@ -8,10 +8,10 @@ services:
       - api
       - client
     restart: always
-  client: 
-    build: ./client
-    # volumes: 
-    #   - /usr/app/node_modules
-    #   - ./client:/usr/app
+  # client: 
+  #   build: ./client
+  #   volumes: 
+  #     - /usr/app/node_modules
+  #     - ./client:/usr/app
   api:
     build: ./server
