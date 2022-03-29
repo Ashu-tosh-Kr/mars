@@ -13,6 +13,9 @@ const startServer = async () => {
   app.use(notFound);
   app.use(errorHandler);
 
+  //default api route
+  app.get("/", (req, res) => res.status(200).send("Hello World"));
+
   //start server
   app.listen(vars.port, () =>
     console.log(`Listening on port ${vars.port}`.yellow.bold)
