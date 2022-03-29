@@ -1,4 +1,4 @@
-# s3 for frontend and ebs for backend architecture
+# only ebs architecture
 version: '3'
 services:
   nginx: 
@@ -7,6 +7,9 @@ services:
       - "80:80"
     depends_on:
       - api
+      - client
     restart: always
+  client: 
+    build: ./client
   api:
     build: ./server
