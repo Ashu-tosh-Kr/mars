@@ -10,7 +10,7 @@ import { RiEditBoxLine } from "react-icons/ri";
 import { useState } from "react";
 
 //non lib imports
-import inboxEmpty from "assets/globals/inboxEmpty.svg";
+import inboxEmpty from "assets/globals/box.png";
 import { useGetAllClients, useGetAllCompanies } from "api/hooks";
 import NewClientModal from "components/modals/NewClientModal";
 import NewCompanyModal from "components/modals/NewCompanyModal";
@@ -173,7 +173,7 @@ const ClientCompanyScreen = () => {
                   </Table>
                 ) : (
                   <Center>
-                    <Image boxSize={"25%"} src={inboxEmpty} alt="emty inbox" />
+                    <Image width="20vw" src={inboxEmpty} alt="emty inbox" />
                   </Center>
                 )}
               </>
@@ -233,7 +233,7 @@ const ClientCompanyScreen = () => {
                   </Table>
                 ) : (
                   <Center>
-                    <Image boxSize={"25%"} src={inboxEmpty} alt="emty inbox" />
+                    <Image width="20vw" src={inboxEmpty} alt="emty inbox" />
                   </Center>
                 )}
               </>

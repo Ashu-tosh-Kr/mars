@@ -28,7 +28,7 @@ import { Form, Formik } from "formik";
 import { MdDelete } from "react-icons/md";
 
 //non lib imports
-import inboxEmpty from "assets/globals/inboxEmpty.svg";
+import inboxEmpty from "assets/globals/box.png";
 import MenuField from "components/formComponents/MenuField";
 import { useAddCostToGig, useDelCostFromGig } from "api/hooks";
 import { useTranslation } from "react-i18next";
@@ -174,7 +174,7 @@ export default function CostModal({ isOpen, onClose, gig }) {
                 </Table>
               ) : (
                 <Center>
-                  <Image boxSize={"30%"} src={inboxEmpty} alt="emty inbox" />
+                  <Image width="20vw" src={inboxEmpty} alt="emty inbox" />
                 </Center>
               )}
             </Box>

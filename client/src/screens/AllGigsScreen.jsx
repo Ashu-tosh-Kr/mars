@@ -2,6 +2,7 @@ import {
   Alert,
   AlertIcon,
   Box,
+  Center,
   Image,
   // IconButton,
   Skeleton,
@@ -16,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 
 //non lib imports
-import inboxEmpty from "assets/globals/inboxEmpty.svg";
+import inboxEmpty from "assets/globals/box.png";
 import { useGetAllGigs } from "api/hooks";
 
 import { useTranslation } from "react-i18next";
@@ -82,7 +83,9 @@ const AllGigsScreen = () => {
               </Tbody>
             </Table>
           ) : (
-            <Image boxSize={"100%"} src={inboxEmpty} alt="emty inbox" />
+            <Center h="90vh">
+              <Image width="20vw" src={inboxEmpty} alt="emty inbox" />
+            </Center>
           )}
         </Box>
       )}

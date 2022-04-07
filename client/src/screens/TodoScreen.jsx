@@ -15,12 +15,13 @@ import {
   useDisclosure,
   useMediaQuery,
   VStack,
+  Center,
 } from "@chakra-ui/react";
 import { useState } from "react";
 import { RiEditBoxLine } from "react-icons/ri";
 import { FaRegMoneyBillAlt, FaFilePdf } from "react-icons/fa";
 //non lib imports
-import inboxEmpty from "assets/globals/inboxEmpty.svg";
+import inboxEmpty from "assets/globals/box.png";
 import { useGetCurrUserInfo } from "api/hooks";
 import EditGigModal from "components/modals/EditGigModal";
 import CostModal from "components/modals/CostModal";
@@ -142,7 +143,9 @@ const TodoScreen = () => {
               </Tbody>
             </Table>
           ) : (
-            <Image boxSize={"100%"} src={inboxEmpty} alt="emty inbox" />
+            <Center h="90vh">
+              <Image width="20vw" src={inboxEmpty} alt="emty inbox" />
+            </Center>
           )}
         </Box>
       )}
